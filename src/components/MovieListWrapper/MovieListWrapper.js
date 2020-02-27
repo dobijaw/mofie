@@ -6,6 +6,10 @@ const MovieListWrapper = () => (
   <ul className={styles.wrapper}>
     <MovieItem />
     <MovieItem />
+    <MovieItem />
+    <MovieItem />
+    <MovieItem />
+    <MovieItem />
   </ul>
 );
 
