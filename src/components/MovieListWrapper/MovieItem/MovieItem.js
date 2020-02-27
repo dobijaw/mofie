@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MovieItem.module.scss';
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 
 const MovieItem = () => (
   <div className={styles.movieItem}>

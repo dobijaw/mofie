@@ -1,20 +1,9 @@
 import React from 'react';
-import MovieItem from './MovieItem';
+import MovieItem from './MovieItem/MovieItem';
+import styles from './MovieListWrapper.module.scss';
 
 const MovieListWrapper = () => (
-  <ul>
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
-    <MovieItem />
+  <ul className={styles.wrapper}>
     <MovieItem />
     <MovieItem />
   </ul>
