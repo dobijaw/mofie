@@ -1,0 +1,71 @@
+@import '../../assets/styles/colors';
+@import '../../assets/styles/mixins';
+
+.movieItem {
+  width: 100%;
+  padding: 0;
+
+  @media (min-width: 600px) {
+    padding: 40px 40px 0;
+  }
+
+  @media (min-width: 960px) {
+    width: 50%;
+    padding: 40px 12px 0;
+  }
+
+  &ImgContainer {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  &Img {
+    display: block;
+    width: 100%;
+  }
+
+  &Data {
+    padding: 25px 25px 55px;
+  }
+
+  &Info {
+    margin: 0;
+  }
+
+  &Year {
+    display: block;
+    padding: 0;
+    margin: 0;
+    @include fontStyle($gray, 13px, 300, 1.4, 0.05em);
+  }
+
+  &Title {
+    padding: 0;
+    margin: 10px 0;
+
+    @include fontStyle($white, 18px, 500, 1.3, 0.05em);
+
+    @media (min-width: 960px) {
+      font-size: 22px;
+    }
+  }
+
+  &Type {
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    @include fontStyle($white, 12px, 300, 1.4, 0.05em);
+  }
+
+  &Btns {
+    margin: 40px 0 0;
+
+    @media (min-width: 600px) {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../assets/styles/colors';
+@import '../../assets/styles/mixins';
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid $white;
+  margin: 10px 0 0;
+  background: none;
+
+  @include fontStyle($white, 14px, 300, 1, 0.2em);
+
+  @media (min-width: 600px) {
+    width: auto;
+  }
+}
