@@ -1,5 +1,7 @@
 import React from 'react';
 
-const MovieView = () => <h1>Movie View</h1>;
+import MovieListWrapper from '../../components/MovieListWrapper/MovieListWrapper';
+
+const MovieView = () => <MovieListWrapper />;
 
 export default MovieView;

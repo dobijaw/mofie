@@ -1,12 +1,12 @@
 {
   "extends": ["airbnb", "prettier", "prettier/react"],
+  "parser": "babel-eslint",
   "env": {
     "jest": true
   },
   "globals": {
-    "document": true,
     "window": true,
-    "navigator": true
+    "document": true
   },
   "rules": {
     "react/destructuring-assignment": 0,
@@ -21,5 +21,13 @@
         "extensions": [".js"]
       }
     ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["./src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 }
