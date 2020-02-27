@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,500,600&display=swap');
+@import './assets/styles/normalize.scss';
+@import './assets/styles/colors';
 
 *,
 *::after,
@@ -7,5 +9,6 @@
 }
 
 body {
+  background: $black;
   font-family: 'Montserrat', sans-serif;
 }
