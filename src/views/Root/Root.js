@@ -11,12 +11,14 @@ const Root = () => (
   <BrowserRouter>
     <div className={styles.root}>
       <Navigation />
-      <Switch>
-        <Route exact path="/" component={NewsView} />
-        <Route path="/my-collection" component={CollectionView} />
-        <Route path="/find-show" component={ShowView} />
-        <Route path="/find-movie" component={MovieView} />
-      </Switch>
+      <main className={styles.main}>
+        <Switch>
+          <Route exact path="/" component={NewsView} />
+          <Route path="/my-collection" component={CollectionView} />
+          <Route path="/find-show" component={ShowView} />
+          <Route path="/find-movie" component={MovieView} />
+        </Switch>
+      </main>
     </div>
   </BrowserRouter>
 );

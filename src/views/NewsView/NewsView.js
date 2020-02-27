@@ -1,5 +1,6 @@
 import React from 'react';
+import Title from '../../components/Title/Title';
 
-const NewsView = () => <h1>News View Home</h1>;
+const NewsView = () => <Title headline="Now playing" />;
 
 export default NewsView;
