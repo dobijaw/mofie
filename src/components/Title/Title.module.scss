@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/colors';
+@import '../../theme/mixins';
+@import '../../theme/colors';
 
 .title {
   @include fontStyle($white, 32px, 400, 1.5, 0.08em);

@@ -1,0 +1,14 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.group {
+  width: 50%;
+  margin-top: 60px;
+
+  &Title {
+    padding: 0;
+    margin: 0;
+    @include fontStyle($white, 18px, 300, 1.4, 0.2em);
+    text-transform: uppercase;
+  }
+}
