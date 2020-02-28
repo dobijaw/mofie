@@ -1,0 +1,19 @@
+@import '../../../../theme/colors';
+@import '../../../../theme/mixins';
+
+.movieGenresItem {
+  display: block;
+  padding: 0;
+  margin: 0;
+
+  @include fontStyle($white, 12px, 300, 1.4, 0.05em);
+  text-transform: capitalize;
+
+  &:not(:first-of-type) {
+    &::before {
+      content: '|';
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
+}

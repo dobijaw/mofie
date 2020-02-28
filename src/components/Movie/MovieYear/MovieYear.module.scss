@@ -1,0 +1,9 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.movieYear {
+  display: block;
+  padding: 0;
+  margin: 0;
+  @include fontStyle($gray, 13px, 300, 1.4, 0.05em);
+}

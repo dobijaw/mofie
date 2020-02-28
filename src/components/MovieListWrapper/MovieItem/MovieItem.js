@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './MovieItem.module.scss';
 import Button from '../../Button/Button';
+import MovieYear from '../../Movie/MovieYear/MovieYear';
+import MovieTitle from '../../Movie/MovieTitle/MovieTitle';
+import MovieGenres from '../../Movie/MovieGenres/MovieGenres';
 
 const MovieItem = () => {
   return (
@@ -15,11 +18,9 @@ const MovieItem = () => {
 
       <div className={styles.movieItemData}>
         <div className={styles.movieItemInfo}>
-          <span className={styles.movieItemYear}>2019</span>
-          <h3 className={styles.movieItemTitle}>
-            Star Wars: Skywalker Odrodzenie
-          </h3>
-          <span className={styles.movieItemType}>SciFi | Fantasy</span>
+          <MovieYear year="2019" />
+          <MovieTitle title="Star Wars: The Rise of Skywalker." />
+          <MovieGenres genres={['sci fi', 'fantasy']} />
         </div>
         <div className={styles.movieItemBtns}>
           <Button text="more" />

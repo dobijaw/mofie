@@ -1,0 +1,13 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.movieTitle {
+  padding: 0;
+  margin: 10px 0;
+
+  @include fontStyle($white, 18px, 500, 1.3, 0.05em);
+
+  @media (min-width: 960px) {
+    font-size: 22px;
+  }
+}
