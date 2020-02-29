@@ -1,46 +1,25 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import logo from '../../assets/img/mofie.svg';
+import React, { useState } from 'react';
+
 import styles from './Navigation.module.scss';
+import Burger from './Burger/Burger';
+import Logo from './Logo/Logo';
+import NavList from './NavList/NavList';
 
 const Navigation = () => {
+  const [isOpen, changeOpen] = useState(false);
+
+  if (isOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'scrollY';
+  }
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <div className="navLogo">
-          <NavLink className={styles.navLogoLink} to="/">
-            <img src={logo} alt="Mofie" className="navLogoImg" />
-          </NavLink>
-        </div>
-        <ul className={styles.navList}>
-          <li className={styles.navItem}>
-            <NavLink
-              activeClassName={styles.navItemLinkActive}
-              className={styles.navItemLink}
-              to="/my-collection"
-            >
-              Collection
-            </NavLink>
-          </li>
-          <li className={styles.navItem}>
-            <NavLink
-              activeClassName={styles.navItemLinkActive}
-              className={styles.navItemLink}
-              to="/find-show"
-            >
-              Find Show
-            </NavLink>
-          </li>
-          <li className={styles.navItem}>
-            <NavLink
-              activeClassName={styles.navItemLinkActive}
-              className={styles.navItemLink}
-              to="/find-movie"
-            >
-              Find Movie
-            </NavLink>
-          </li>
-        </ul>
+        <Logo />
+        <Burger openMenuFn={() => changeOpen(!isOpen)} />
+        <NavList isOpen={isOpen} />
       </nav>
     </header>
   );

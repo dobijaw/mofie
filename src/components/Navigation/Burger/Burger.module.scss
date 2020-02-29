@@ -1,0 +1,51 @@
+@import '../../../theme/colors';
+
+.burger {
+  position: relative;
+  z-index: 3;
+  display: block;
+  padding: 10px 0 10px 5px;
+  border: 0;
+  margin: 0;
+  background: none;
+  cursor: pointer;
+  transition: all 0.5s;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &Active {
+    @extend .burger;
+
+    .burgerItem {
+      &:first-child {
+        transform: translateY(1px) rotate(45deg);
+      }
+
+      &:last-child {
+        transform: translateY(-1px) rotate(-45deg);
+      }
+    }
+  }
+
+  &Item {
+    display: block;
+    height: 2px;
+    width: 30px;
+    background: $white;
+    transition: transform 0.35s;
+
+    &:first-child {
+      transform: translateY(-2px) rotate(0);
+    }
+
+    &:last-child {
+      transform: translateY(2px) rotate(0);
+    }
+  }
+}
