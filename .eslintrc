@@ -10,6 +10,7 @@
   },
   "rules": {
     "react/destructuring-assignment": 0,
+    "react/state-in-constructor": 0,
     "no-underscore-dangle": 0,
     "react/prop-types": 0,
     "import/prefer-default-export": 0,

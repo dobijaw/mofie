@@ -1,9 +1,14 @@
 @import '../../../theme/colors';
-@import '../../../theme/mixins';
 
 .movieGenres {
   display: flex;
   margin: 0;
   padding: 0;
   list-style: none;
+  color: $white;
+
+  &Light {
+    @extend .movieGenres;
+    color: $black;
+  }
 }

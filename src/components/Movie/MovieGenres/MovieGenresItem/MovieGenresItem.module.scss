@@ -6,7 +6,7 @@
   padding: 0;
   margin: 0;
 
-  @include fontStyle($white, 12px, 300, 1.4, 0.05em);
+  @include fontStyle(inherit, 12px, 300, 1.4, 0.05em);
   text-transform: capitalize;
 
   &:not(:first-of-type) {

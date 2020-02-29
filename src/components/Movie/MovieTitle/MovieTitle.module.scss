@@ -10,4 +10,9 @@
   @media (min-width: 960px) {
     font-size: 22px;
   }
+
+  &Light {
+    @extend .movieTitle;
+    color: $black;
+  }
 }

@@ -4,7 +4,7 @@ import FormItem from './FormItem/FormItem';
 
 const Form = () => (
   <form className={styles.formWrapper}>
-    <FormItem />
+    <FormItem id="year" label="Year" />
   </form>
 );
 

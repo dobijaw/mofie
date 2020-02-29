@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './MovieGenres.module.scss';
 import MovieGenresItem from './MovieGenresItem/MovieGenresItem';
 
-const MovieGenres = ({ genres }) => (
-  <ul className={styles.movieGenres}>
+const MovieGenres = ({ light, genres }) => (
+  <ul className={light ? styles.movieGenresLight : styles.movieGenres}>
     {genres.map(item => (
       <MovieGenresItem key={item} genre={item} />
     ))}

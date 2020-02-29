@@ -8,10 +8,23 @@
   border: 1px solid $white;
   margin: 10px 0 0;
   background: none;
+  transition: all 0.35s;
+  cursor: pointer;
 
   @include fontStyle($white, 14px, 300, 1, 0.2em);
 
   @media (min-width: 600px) {
     width: auto;
+  }
+
+  &Light {
+    @extend .btn;
+    color: $black;
+    border-color: $black;
+
+    &:hover {
+      background: $black;
+      color: $white;
+    }
   }
 }
