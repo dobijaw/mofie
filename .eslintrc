@@ -6,16 +6,21 @@
   },
   "globals": {
     "window": true,
-    "document": true
+    "document": true,
+    "fetch": false
   },
   "rules": {
     "react/destructuring-assignment": 0,
     "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0,
     "no-underscore-dangle": 0,
     "react/prop-types": 0,
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 1,
+    "no-plusplus": "off",
+    "array-callback-return": "off",
+    "consistent-return": "off",
     "react/jsx-filename-extension": [
       1,
       {
