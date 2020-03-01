@@ -2,12 +2,11 @@
 @import '../../theme/mixins';
 
 .group {
-  width: 50%;
-  margin-top: 60px;
+  margin-top: 30px;
 
   &Title {
     padding: 0;
-    margin: 0;
+    margin: 0 0 20px;
     @include fontStyle($white, 18px, 300, 1.4, 0.2em);
     text-transform: uppercase;
   }

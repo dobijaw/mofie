@@ -15,21 +15,25 @@ body {
 }
 
 /* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
+// ::-webkit-scrollbar {
+//   width: 3px;
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: $dark-white;
-}
+//   @media (min-width: 768px) {
+//     width: 10px;
+//   }
+// }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: $light-black;
-}
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: $dark-white;
+// }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: $primary;
-}
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: $light-black;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: $primary;
+// }

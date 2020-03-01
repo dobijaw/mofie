@@ -8,12 +8,6 @@ import NavList from './NavList/NavList';
 const Navigation = () => {
   const [isOpen, changeOpen] = useState(false);
 
-  if (isOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'scrollY';
-  }
-
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
