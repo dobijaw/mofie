@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Modal.module.scss';
-import MovieYear from '../Movie/MovieYear/MovieYear';
-import MovieTitle from '../Movie/MovieTitle/MovieTitle';
-import MovieGenres from '../Movie/MovieGenres/MovieGenres';
-import MovieDescription from '../Movie/MovieDescription/MovieDescription';
+import MovieYear from '../SingleMovie/MovieYear/MovieYear';
+import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
+import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
+import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
 
 const Modal = () => (

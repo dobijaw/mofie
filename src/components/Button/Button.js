@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-const Button = ({ light, text, handleClickFn }) => (
+const Button = ({ light, text, handleClick }) => (
   <button
     type="button"
     className={light ? styles.btnLight : styles.btn}
-    onClick={handleClickFn}
+    onClick={handleClick}
   >
     {text}
   </button>

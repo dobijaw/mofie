@@ -174,6 +174,120 @@ const collection = [
       comment: 'Really cool movie',
     },
   },
+  {
+    movie: {
+      id: 4,
+      year: '2019',
+      title: 'Avengers: Endgame',
+      genres: ['Action', 'Adventure', 'Drama'],
+      description:
+        "After the devastating events of Avengers: Infinite War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",
+      director: ['Anthony Russo', 'Joe Russo'],
+      screenplay: ['Christopher Markus', 'Stephen McFeely'],
+      img:
+        'https://images.wallpapersden.com/image/download/8k-avengers-endgame_63994_2560x1600.jpg',
+      cast: [
+        {
+          actor: 'Carrie Fisher',
+          character: 'Leia Organa',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMjM4ODU5MDY4MV5BMl5BanBnXkFtZTgwODY1MjQ5MDI@._V1_UX214_CR0,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Mark Hamill',
+          character: 'Luke Skywalker',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BOGY2MjI5MDQtOThmMC00ZGIwLWFmYjgtYWU4MzcxOGEwMGVkXkEyXkFqcGdeQXVyMzM4MjM0Nzg@._V1_UY317_CR175,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Adam Driver',
+          character: 'Kylo Ren',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BOWViYjUzOWMtMzRkZi00MjNkLTk4M2ItMTVkMDg5MzE2ZDYyXkEyXkFqcGdeQXVyODQwNjM3NDA@._V1_UY317_CR44,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Daisy Ridley',
+          character: 'Rey',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMTgzMDk3MjI4OF5BMl5BanBnXkFtZTgwMzQxMDY5NjE@._V1_UY317_CR20,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'John Boyega',
+          character: 'Fin',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMDg4NWZjNmEtZWVmNC00MzdhLTlhOTEtZmViYjdmMzhjMTAyXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_UY317_CR20,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Oscar Isaac',
+          character: 'Poe Dameron',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMTQ2ODE2NDQ5OF5BMl5BanBnXkFtZTcwOTU3OTM1OQ@@._V1_UY317_CR5,0,214,317_AL_.jpg',
+        },
+      ],
+    },
+    opiinon: {
+      category: 'love',
+      rates: 10,
+      comment: 'Really cool movie',
+    },
+  },
+  {
+    movie: {
+      id: 5,
+      year: '2018',
+      title: 'Avengers: Infinity War',
+      genres: ['Action', 'Adventure', 'SciFi'],
+      description:
+        'The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.',
+      director: ['Anthony Russo', 'Joe Russo'],
+      screenplay: ['Christopher Markus', 'Stephen McFeely'],
+      img:
+        'https://pickywallpapers.com/img/2018/1/avengers-infinity-war-4k-desktop-background-918-937-hd-wallpapers.jpg',
+      cast: [
+        {
+          actor: 'Carrie Fisher',
+          character: 'Leia Organa',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMjM4ODU5MDY4MV5BMl5BanBnXkFtZTgwODY1MjQ5MDI@._V1_UX214_CR0,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Mark Hamill',
+          character: 'Luke Skywalker',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BOGY2MjI5MDQtOThmMC00ZGIwLWFmYjgtYWU4MzcxOGEwMGVkXkEyXkFqcGdeQXVyMzM4MjM0Nzg@._V1_UY317_CR175,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Adam Driver',
+          character: 'Kylo Ren',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BOWViYjUzOWMtMzRkZi00MjNkLTk4M2ItMTVkMDg5MzE2ZDYyXkEyXkFqcGdeQXVyODQwNjM3NDA@._V1_UY317_CR44,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Daisy Ridley',
+          character: 'Rey',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMTgzMDk3MjI4OF5BMl5BanBnXkFtZTgwMzQxMDY5NjE@._V1_UY317_CR20,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'John Boyega',
+          character: 'Fin',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMDg4NWZjNmEtZWVmNC00MzdhLTlhOTEtZmViYjdmMzhjMTAyXkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_UY317_CR20,0,214,317_AL_.jpg',
+        },
+        {
+          actor: 'Oscar Isaac',
+          character: 'Poe Dameron',
+          img:
+            'https://m.media-amazon.com/images/M/MV5BMTQ2ODE2NDQ5OF5BMl5BanBnXkFtZTcwOTU3OTM1OQ@@._V1_UY317_CR5,0,214,317_AL_.jpg',
+        },
+      ],
+    },
+    opiinon: {
+      category: 'love',
+      rates: 10,
+      comment: 'Really cool movie',
+    },
+  },
 ];
 
 export default collection;
