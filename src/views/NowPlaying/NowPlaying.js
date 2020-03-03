@@ -6,11 +6,11 @@ import collection from '../../assets/demo/collection';
 
 const newCollection = collection.map(single => {
   return {
-    id: single.movie.id,
-    img: single.movie.img,
-    year: single.movie.year,
-    title: single.movie.title,
-    genres: single.movie.genres,
+    id: single.id,
+    img: single.img,
+    year: single.year,
+    title: single.title,
+    genres: single.genres,
   };
 });
 

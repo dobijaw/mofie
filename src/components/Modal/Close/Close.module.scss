@@ -1,0 +1,36 @@
+@import '../../../theme/colors';
+
+.btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  background: none;
+  outline: 0;
+  transition: all 0.35s;
+  cursor: pointer;
+
+  &:hover {
+    .btnItem {
+      background: $light-gray;
+    }
+  }
+
+  &Item {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: $primary;
+    transition: all 0.35s;
+
+    &:first-child {
+      transform: translateY(1px) rotate(45deg);
+    }
+
+    &:last-child {
+      transform: translateY(-1px) rotate(-45deg);
+    }
+  }
+}

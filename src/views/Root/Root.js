@@ -22,11 +22,19 @@ class Root extends React.Component {
     });
   };
 
+  handleCloseModal = () => {
+    this.setState(state => {
+      return { isOpen: !state.isOpen };
+    });
+  };
+
   render() {
     const contextElements = {
       ...this.state,
       handleOpenModal: this.handleOpenModal,
+      handleCloseModal: this.handleCloseModal,
     };
+
     return (
       <BrowserRouter>
         <AppContext.Provider value={contextElements}>
@@ -41,7 +49,7 @@ class Root extends React.Component {
               </Switch>
             </main>
           </div>
-          {this.state.isOpen && <Modal />}
+          {this.state.isOpen && <Modal id="2" />}
         </AppContext.Provider>
       </BrowserRouter>
     );
