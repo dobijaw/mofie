@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import styles from './MovieItem.module.scss';
 import Button from '../../Button/Button';
 import MoviePoster from '../../SingleMovie/MoviePoster/MoviePoster';
@@ -22,7 +21,7 @@ const MovieItem = ({ img, title, year, genres, id }) => {
           </div>
 
           <div className={styles.movieItemBtns}>
-            <Button id={id} text="more" />
+            <Button to={`movies/${id}`} id={id} text="more" />
             <Button
               id={id}
               text="+ add to collection"

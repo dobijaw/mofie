@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from './Form.module.scss';
-import FormItem from './FormItem/FormItem';
+import InputItem from './InputItem/InputItem';
+// import Button from '../Button/Button';
 
 const Form = () => (
   <form className={styles.formWrapper}>
-    <FormItem id="year" label="Year" />
+    <InputItem id="inOneWord" label="In one word" />
+    <InputItem id="inNumScale" label="In number scale" />
+    <InputItem id="inComment" label="Your Comment" />
   </form>
 );
 

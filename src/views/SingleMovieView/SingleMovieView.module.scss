@@ -1,0 +1,16 @@
+.movieWrapper {
+  display: flex;
+  align-items: center;
+
+  &Item {
+    width: 50%;
+
+    &:first-child {
+      padding: 0 40px 0 20px;
+    }
+
+    &:last-child {
+      padding: 0 20px 0 40px;
+    }
+  }
+}

@@ -13,6 +13,8 @@ const collection = [
       'Derek Connolly',
       'Colin Trevorrow',
     ],
+    poster:
+      'https://static.posters.cz/image/750/plakaty/star-wars-skywalker-odrodzenie-galactic-encounter-i81806.jpg',
     img:
       'https://thebrag.com/wp-content/uploads/2019/08/69513438_2615523778499510_9183039777094500352_n-768x420.jpg',
     cast: [

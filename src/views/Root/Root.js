@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import AppContext from '../../context';
-// import API_KEY from '../../config/config';
 import styles from './Root.module.scss';
 import ShowView from '../ShowView/ShowView';
 import NowPlaying from '../NowPlaying/NowPlaying';
@@ -9,11 +8,13 @@ import MovieView from '../MovieView/MovieView';
 import CollectionView from '../CollectionView/CollectionView';
 import Navigation from '../../components/Navigation/Navigation';
 import Modal from '../../components/Modal/Modal';
+import SingleMovieView from '../SingleMovieView/SingleMovieView';
 
 class Root extends React.Component {
   state = {
     isOpen: false,
     currentMovieId: 4,
+    movieCollection: [],
   };
 
   handleOpenModal = e => {
@@ -41,7 +42,13 @@ class Root extends React.Component {
             <Navigation />
             <main className={styles.main}>
               <Switch>
-                <Route exact path="/" component={NowPlaying} />
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to="/movies" />}
+                />
+                <Route exact path="/movies" component={NowPlaying} />
+                <Route path="/movies/:id" component={SingleMovieView} />
                 <Route path="/my-collection" component={CollectionView} />
                 <Route path="/find-show" component={ShowView} />
                 <Route path="/find-movie" component={MovieView} />
