@@ -13,13 +13,12 @@ import Modal from '../../components/Modal/Modal';
 class Root extends React.Component {
   state = {
     isOpen: false,
-    currentMovieId: 1,
+    currentMovieId: 4,
   };
 
-  handleOpenModal = () => {
-    this.setState(state => {
-      return { isOpen: !state.isOpen };
-    });
+  handleOpenModal = e => {
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+    this.setState({ currentMovieId: e.target.getAttribute('data-id') });
   };
 
   handleCloseModal = () => {
@@ -49,7 +48,7 @@ class Root extends React.Component {
               </Switch>
             </main>
           </div>
-          {this.state.isOpen && <Modal id="2" />}
+          {this.state.isOpen && <Modal id={this.state.currentMovieId} />}
         </AppContext.Provider>
       </BrowserRouter>
     );

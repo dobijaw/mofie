@@ -24,6 +24,7 @@ const MovieItem = ({ img, title, year, genres, id }) => {
           <div className={styles.movieItemBtns}>
             <Button id={id} text="more" />
             <Button
+              id={id}
               text="+ add to collection"
               handleClick={context.handleOpenModal}
             />
