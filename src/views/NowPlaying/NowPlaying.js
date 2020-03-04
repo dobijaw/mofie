@@ -2,39 +2,75 @@ import React, { useState, useEffect } from 'react';
 import Title from '../../components/Title/Title';
 import styles from './NowPlaying.module.scss';
 import MovieList from '../../components/MovieList/MovieList';
-import collection from '../../assets/demo/collection';
-import showCollection from '../../assets/demo/showCollection';
-
-const newCollection = collection.map(single => {
-  return {
-    id: single.id,
-    img: single.img,
-    year: single.year,
-    title: single.title,
-    genres: single.genres,
-  };
-});
-
-const newCollectionShow = showCollection.map(single => {
-  return {
-    id: single.id,
-    img: single.img,
-    year: single.year,
-    title: single.title,
-    genres: single.genres,
-  };
-});
+import API_KEY from '../../config/config';
 
 const NowPlaying = () => {
   const [movies, getMovies] = useState([]);
-  const [show, getShow] = useState([]);
+  const [shows, getShows] = useState([]);
+
+  const fetchDataMovies = async (link, signal, updateState) => {
+    const response = await fetch(link, { signal });
+
+    await response
+      .json()
+      .then(resp => resp.results)
+      .then(resp =>
+        resp.map(el => {
+          return {
+            id: el.id,
+            img: `http://image.tmdb.org/t/p/w500/${el.backdrop_path}`,
+            year: el.release_date,
+            title: el.original_title,
+            genres: el.genre_ids,
+          };
+        }),
+      )
+      .then(resp => {
+        updateState(resp);
+      });
+  };
+
+  const fetchDataShows = async (link, signal, updateState) => {
+    const response = await fetch(link, { signal });
+
+    await response
+      .json()
+      .then(resp => resp.results)
+      .then(resp =>
+        resp.map(el => {
+          return {
+            id: el.id,
+            img: `http://image.tmdb.org/t/p/w500/${el.backdrop_path}`,
+            year: el.first_air_date,
+            title: el.original_name,
+            genres: el.genre_ids,
+          };
+        }),
+      )
+      .then(resp => {
+        updateState(resp);
+      });
+  };
 
   useEffect(() => {
-    getMovies(newCollection);
-  }, []);
+    const abortController = new window.AbortController();
+    const { signal } = abortController;
 
-  useEffect(() => {
-    getShow(newCollectionShow);
+    fetchDataMovies(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
+      signal,
+      getMovies,
+    );
+
+    fetchDataShows(
+      `https://api.themoviedb.org/3/tv/airing_today?api_key=${API_KEY}&language=en-US&page=1`,
+      signal,
+      getShows,
+    );
+
+    return function cleanup() {
+      abortController.abort();
+    };
   }, []);
 
   return (
@@ -43,7 +79,7 @@ const NowPlaying = () => {
 
       <div className={styles.nowPlayingMovies}>
         <MovieList movies={movies} />
-        <MovieList movies={show} />
+        <MovieList movies={shows} />
       </div>
     </div>
   );
