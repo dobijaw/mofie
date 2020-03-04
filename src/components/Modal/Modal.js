@@ -3,18 +3,27 @@ import styles from './Modal.module.scss';
 import API_KEY from '../../config/config';
 import MovieYear from '../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
-// import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
+import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
+// import MovieGenresItem from '../SingleMovie/MovieGenres/MovieGenres';
 import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
 import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
   const [movieDetails, getMovieDetails] = useState({});
+  const [mygen, semygen] = useState([]);
 
   const fetchDatMovieDetails = async (link, signal) => {
     const response = await fetch(link, { signal });
-
-    await response.json().then(resp => getMovieDetails(resp));
+    await response
+      .json()
+      .then(resp => {
+        getMovieDetails(resp);
+        return resp.genres;
+      })
+      .then(genres => {
+        semygen(genres.map(el => el.name));
+      });
   };
 
   useEffect(() => {
@@ -54,7 +63,10 @@ const Modal = ({ selected }) => {
           selected.type === 'movie' ? movieDetails.title : movieDetails.name
         }
       />
-      {/* <MovieGenres light genres={movieDetails.genres} /> */}
+      <MovieGenres light genres={mygen} />
+      {/* {mygen.map(el => (
+        <span key={el}>{el}</span>
+      ))} */}
       <MovieDescription light description={movieDetails.overview} />
       <Button light text="+ add to collection" />
     </div>

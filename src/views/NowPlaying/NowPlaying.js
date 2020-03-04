@@ -44,7 +44,7 @@ const NowPlaying = () => {
             id: el.id,
             img: `http://image.tmdb.org/t/p/w500/${el.backdrop_path}`,
             year: el.first_air_date,
-            title: el.original_name,
+            title: el.name,
             genres: el.genre_ids,
             type: 'shows',
           };
