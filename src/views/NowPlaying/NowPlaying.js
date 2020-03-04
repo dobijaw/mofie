@@ -20,7 +20,7 @@ const NowPlaying = () => {
             id: el.id,
             img: `http://image.tmdb.org/t/p/w500/${el.backdrop_path}`,
             year: el.release_date,
-            title: el.original_title,
+            title: el.title,
             genres: el.genre_ids,
           };
         }),
