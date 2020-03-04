@@ -1,27 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Modal.module.scss';
+import API_KEY from '../../config/config';
 import MovieYear from '../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
-import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
+// import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
 import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
-import collection from '../../assets/demo/collection';
-import showCollection from '../../assets/demo/showCollection';
 import Close from './Close/Close';
 
-const Modal = ({ id }) => {
-  const [movie] = useState(collection.find(item => +item.id === +id));
-  const [show] = useState(showCollection.find(item => +item.id === +id));
+const Modal = ({ selected }) => {
+  const [movieDetails, getMovieDetails] = useState({});
 
-  const element = movie || show;
+  const fetchDatMovieDetails = async (link, signal) => {
+    const response = await fetch(link, { signal });
+
+    await response.json().then(resp => getMovieDetails(resp));
+  };
+
+  useEffect(() => {
+    const abortController = new window.AbortController();
+    const { signal } = abortController;
+
+    if (selected.type === 'movie') {
+      fetchDatMovieDetails(
+        `https://api.themoviedb.org/3/movie/${selected.id}?api_key=${API_KEY}&language=en-US`,
+        signal,
+      );
+    } else {
+      fetchDatMovieDetails(
+        `https://api.themoviedb.org/3/tv/${selected.id}?api_key=${API_KEY}&language=en-US`,
+        signal,
+      );
+    }
+
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, [selected]);
 
   return (
     <div className={styles.modal}>
       <Close />
-      <MovieYear year={element.year} />
-      <MovieTitle light title={element.title} />
-      <MovieGenres light genres={element.genres} />
-      <MovieDescription light description={element.description} />
+      <MovieYear
+        year={
+          selected.type === 'movie'
+            ? movieDetails.release_date
+            : movieDetails.first_air_date
+        }
+      />
+      <MovieTitle
+        light
+        title={
+          selected.type === 'movie' ? movieDetails.title : movieDetails.name
+        }
+      />
+      {/* <MovieGenres light genres={movieDetails.genres} /> */}
+      <MovieDescription light description={movieDetails.overview} />
       <Button light text="+ add to collection" />
     </div>
   );

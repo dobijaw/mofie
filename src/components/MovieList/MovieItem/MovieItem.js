@@ -7,7 +7,7 @@ import MovieTitle from '../../SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../../SingleMovie/MovieGenres/MovieGenres';
 import AppContext from '../../../context';
 
-const MovieItem = ({ img, title, year, genres, id }) => {
+const MovieItem = ({ img, title, year, genres, id, type }) => {
   return (
     <AppContext.Consumer>
       {context => (
@@ -26,6 +26,7 @@ const MovieItem = ({ img, title, year, genres, id }) => {
               id={id}
               text="+ add to collection"
               handleClick={context.handleOpenModal}
+              type={type}
             />
           </div>
         </li>

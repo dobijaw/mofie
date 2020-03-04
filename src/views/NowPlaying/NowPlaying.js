@@ -23,6 +23,7 @@ const NowPlaying = () => {
             year: el.release_date,
             title: el.title,
             genres: el.genre_ids,
+            type: 'movie',
           };
         }),
       )
@@ -45,6 +46,7 @@ const NowPlaying = () => {
             year: el.first_air_date,
             title: el.original_name,
             genres: el.genre_ids,
+            type: 'shows',
           };
         }),
       )
