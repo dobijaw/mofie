@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Title from '../../components/Title/Title';
 import styles from './NowPlaying.module.scss';
-import MovieList from '../../components/MovieList/MovieList';
 import API_KEY from '../../config/config';
+import Title from '../../components/Title/Title';
+import Headline from '../../components/Headline/Headline';
+import MovieList from '../../components/MovieList/MovieList';
 
 const NowPlaying = () => {
   const [movies, getMovies] = useState([]);
@@ -78,8 +79,14 @@ const NowPlaying = () => {
       <Title headline="Now playing" isHidden />
 
       <div className={styles.nowPlayingMovies}>
-        <MovieList movies={movies} />
-        <MovieList movies={shows} />
+        <section className={styles.nowPlayingSection}>
+          <Headline tag="h2" headline="Now playing mvoies" />
+          <MovieList movies={movies} />
+        </section>
+        <section className={styles.nowPlayingSection}>
+          <Headline tag="h2" headline="Airing today shows" />
+          <MovieList movies={shows} />
+        </section>
       </div>
     </div>
   );
