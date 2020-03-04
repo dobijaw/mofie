@@ -6,18 +6,22 @@ import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
 import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
 import collection from '../../assets/demo/collection';
+import showCollection from '../../assets/demo/showCollection';
 import Close from './Close/Close';
 
 const Modal = ({ id }) => {
   const [movie] = useState(collection.find(item => +item.id === +id));
+  const [show] = useState(showCollection.find(item => +item.id === +id));
+
+  const element = movie || show;
 
   return (
     <div className={styles.modal}>
       <Close />
-      <MovieYear year={movie.year} />
-      <MovieTitle light title={movie.title} />
-      <MovieGenres light genres={movie.genres} />
-      <MovieDescription light description={movie.description} />
+      <MovieYear year={element.year} />
+      <MovieTitle light title={element.title} />
+      <MovieGenres light genres={element.genres} />
+      <MovieDescription light description={element.description} />
       <Button light text="+ add to collection" />
     </div>
   );

@@ -3,6 +3,7 @@ import Title from '../../components/Title/Title';
 import styles from './NowPlaying.module.scss';
 import MovieList from '../../components/MovieList/MovieList';
 import collection from '../../assets/demo/collection';
+import showCollection from '../../assets/demo/showCollection';
 
 const newCollection = collection.map(single => {
   return {
@@ -14,11 +15,26 @@ const newCollection = collection.map(single => {
   };
 });
 
+const newCollectionShow = showCollection.map(single => {
+  return {
+    id: single.id,
+    img: single.img,
+    year: single.year,
+    title: single.title,
+    genres: single.genres,
+  };
+});
+
 const NowPlaying = () => {
   const [movies, getMovies] = useState([]);
+  const [show, getShow] = useState([]);
 
   useEffect(() => {
     getMovies(newCollection);
+  }, []);
+
+  useEffect(() => {
+    getShow(newCollectionShow);
   }, []);
 
   return (
@@ -27,6 +43,7 @@ const NowPlaying = () => {
 
       <div className={styles.nowPlayingMovies}>
         <MovieList movies={movies} />
+        <MovieList movies={show} />
       </div>
     </div>
   );
