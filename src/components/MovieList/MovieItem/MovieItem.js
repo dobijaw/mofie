@@ -10,7 +10,7 @@ import AppContext from '../../../context';
 const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
   return (
     <AppContext.Consumer>
-      {context => (
+      {(context) => (
         <li className={styles.movieItem}>
           <MoviePoster img={img} />
 

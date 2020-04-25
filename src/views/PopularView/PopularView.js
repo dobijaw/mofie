@@ -15,9 +15,9 @@ const NowPlaying = () => {
 
     await response
       .json()
-      .then(resp => resp.results)
-      .then(resp =>
-        resp.map(el => {
+      .then((resp) => resp.results)
+      .then((resp) =>
+        resp.map((el) => {
           return {
             id: el.id,
             img:
@@ -30,7 +30,7 @@ const NowPlaying = () => {
           };
         }),
       )
-      .then(resp => {
+      .then((resp) => {
         updateState(resp);
       });
   };
@@ -40,9 +40,9 @@ const NowPlaying = () => {
 
     await response
       .json()
-      .then(resp => resp.results)
-      .then(resp =>
-        resp.map(el => {
+      .then((resp) => resp.results)
+      .then((resp) =>
+        resp.map((el) => {
           return {
             id: el.id,
             img:
@@ -55,7 +55,7 @@ const NowPlaying = () => {
           };
         }),
       )
-      .then(resp => {
+      .then((resp) => {
         updateState(resp);
       });
   };

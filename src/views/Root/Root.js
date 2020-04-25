@@ -1,97 +1,67 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AppContext from '../../context';
+import SingleMovieView from 'views/SingleProductionView/SingleProductionView';
+import Navigation from 'components/Navigation/Navigation';
+import Modal from 'components/Modal/Modal';
+import AppContext from 'context';
+import API_KEY from 'config/config';
+import ShowView from 'views/ShowView/ShowView';
+import PopularView from 'views/PopularView/PopularView';
+import MovieView from 'views/MovieView/MovieView';
+import CollectionView from 'views/CollectionView/CollectionView';
+import { useFetch } from 'hooks';
 import styles from './Root.module.scss';
-import API_KEY from '../../config/config';
-import ShowView from '../ShowView/ShowView';
-import PopularView from '../PopularView/PopularView';
-import MovieView from '../MovieView/MovieView';
-import CollectionView from '../CollectionView/CollectionView';
-import Navigation from '../../components/Navigation/Navigation';
-import Modal from '../../components/Modal/Modal';
-import SingleMovieView from '../SingleMovieView/SingleMovieView';
 
-class Root extends Component {
-  state = {
-    isModalOpen: false,
-    selected: {
-      id: 0,
-      type: '',
-    },
-    movieCollection: [],
-    genres: {
-      movies: [],
-      shows: [],
-    },
-  };
+const Root = () => {
+  const [isModalVisible, setModalVisibility] = useState(false);
+  const [selectedProduction, setSelectedProduction] = useState({});
 
-  abortController = new window.AbortController();
+  const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
+  const showGenresURL = `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=en-US`;
 
-  componentDidMount() {
-    fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`,
-      { signal: this.abortController.signal },
-    )
-      .then(resp => resp.json())
-      .then(resp => resp.genres)
-      .then(data => this.setState({ genres: { movies: data } }));
+  const [movieGenres, movieGenresErrors] = useFetch(movieGenresURL);
+  const [showGenres, showGenresErrors] = useFetch(showGenresURL);
 
-    fetch(
-      `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=en-US`,
-      { signal: this.abortController.signal },
-    )
-      .then(resp => resp.json())
-      .then(resp => resp.genres)
-      .then(data => this.setState({ genres: { shows: data } }));
-  }
-
-  componentWillUnmount() {
-    this.abortController.abort();
-  }
-
-  handleOpenModal = e => {
-    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
-    this.setState({
-      selected: {
-        id: e.target.getAttribute('data-id'),
-        type: e.target.getAttribute('data-type'),
-      },
+  const handleOpenModal = ({ target }) => {
+    setModalVisibility(true);
+    setSelectedProduction({
+      id: target.getAttribute('data-id'),
+      type: target.getAttribute('data-type'),
     });
   };
 
-  handleCloseModal = () => {
-    this.setState(state => {
-      return { isModalOpen: !state.isModalOpen };
-    });
+  const handleCloseModal = () => {
+    setModalVisibility(false);
   };
 
-  render() {
-    const contextElements = {
-      ...this.state,
-      handleOpenModal: this.handleOpenModal,
-      handleCloseModal: this.handleCloseModal,
-    };
+  const contextElements = {
+    handleOpenModal,
+    handleCloseModal,
+    movieGenres,
+    showGenres,
+    movieGenresErrors,
+    showGenresErrors,
+  };
 
-    return (
-      <BrowserRouter>
-        <AppContext.Provider value={contextElements}>
-          <div className={styles.root}>
-            <Navigation />
-            <main className={styles.main}>
-              <Switch>
-                <Route exact path="/" component={PopularView} />
-                <Route path="/:type/:id" component={SingleMovieView} />
-                <Route path="/my-collection" component={CollectionView} />
-                <Route path="/find-show" component={ShowView} />
-                <Route path="/find-movie" component={MovieView} />
-              </Switch>
-            </main>
-          </div>
-          {this.state.isModalOpen && <Modal selected={this.state.selected} />}
-        </AppContext.Provider>
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <AppContext.Provider value={contextElements}>
+        <div className={styles.root}>
+          <Navigation />
+          <main className={styles.main}>
+            <Switch>
+              <Route exact path="/" component={PopularView} />
+              <Route path="/:type/:id" component={SingleMovieView} />
+              <Route path="/my-collection" component={CollectionView} />
+              <Route path="/find-show" component={ShowView} />
+              <Route path="/find-movie" component={MovieView} />
+            </Switch>
+          </main>
+        </div>
+        {isModalVisible && <Modal selected={selectedProduction} />}
+      </AppContext.Provider>
+    </BrowserRouter>
+  );
+};
 
 export default Root;
