@@ -7,7 +7,7 @@ import MovieTitle from '../../SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../../SingleMovie/MovieGenres/MovieGenres';
 import AppContext from '../../../context';
 
-const MovieItem = ({ img, title, year, genres, id, type }) => {
+const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
   return (
     <AppContext.Consumer>
       {context => (
@@ -21,7 +21,7 @@ const MovieItem = ({ img, title, year, genres, id, type }) => {
           </div>
 
           <div className={styles.movieItemBtns}>
-            <Button to={`movies/${id}`} id={id} text="more" />
+            <Button to={`${productionType}/${id}`} id={id} text="more" />
             <Button
               id={id}
               text="+ add to collection"

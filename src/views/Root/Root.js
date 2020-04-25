@@ -1,19 +1,19 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AppContext from '../../context';
 import styles from './Root.module.scss';
 import API_KEY from '../../config/config';
 import ShowView from '../ShowView/ShowView';
-import NowPlaying from '../NowPlaying/NowPlaying';
+import PopularView from '../PopularView/PopularView';
 import MovieView from '../MovieView/MovieView';
 import CollectionView from '../CollectionView/CollectionView';
 import Navigation from '../../components/Navigation/Navigation';
 import Modal from '../../components/Modal/Modal';
 import SingleMovieView from '../SingleMovieView/SingleMovieView';
 
-class Root extends React.Component {
+class Root extends Component {
   state = {
-    isOpen: false,
+    isModalOpen: false,
     selected: {
       id: 0,
       type: '',
@@ -50,7 +50,7 @@ class Root extends React.Component {
   }
 
   handleOpenModal = e => {
-    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
     this.setState({
       selected: {
         id: e.target.getAttribute('data-id'),
@@ -61,7 +61,7 @@ class Root extends React.Component {
 
   handleCloseModal = () => {
     this.setState(state => {
-      return { isOpen: !state.isOpen };
+      return { isModalOpen: !state.isModalOpen };
     });
   };
 
@@ -79,20 +79,15 @@ class Root extends React.Component {
             <Navigation />
             <main className={styles.main}>
               <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={() => <Redirect to="/movies" />}
-                />
-                <Route exact path="/movies" component={NowPlaying} />
-                <Route path="/movies/:id" component={SingleMovieView} />
+                <Route exact path="/" component={PopularView} />
+                <Route path="/:type/:id" component={SingleMovieView} />
                 <Route path="/my-collection" component={CollectionView} />
                 <Route path="/find-show" component={ShowView} />
                 <Route path="/find-movie" component={MovieView} />
               </Switch>
             </main>
           </div>
-          {this.state.isOpen && <Modal selected={this.state.selected} />}
+          {this.state.isModalOpen && <Modal selected={this.state.selected} />}
         </AppContext.Provider>
       </BrowserRouter>
     );
