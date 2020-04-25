@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import API_KEY from 'config';
 import styles from './Modal.module.scss';
-import API_KEY from '../../config/config';
 import MovieYear from '../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
@@ -17,12 +17,12 @@ const Modal = ({ selected }) => {
     const response = await fetch(link, { signal });
     await response
       .json()
-      .then(resp => {
+      .then((resp) => {
         getMovieDetails(resp);
         return resp.genres;
       })
-      .then(genres => {
-        semygen(genres.map(el => el.name));
+      .then((genres) => {
+        semygen(genres.map((el) => el.name));
       });
   };
 

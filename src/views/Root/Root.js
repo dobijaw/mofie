@@ -4,7 +4,7 @@ import SingleMovieView from 'views/SingleProductionView/SingleProductionView';
 import Navigation from 'components/Navigation/Navigation';
 import Modal from 'components/Modal/Modal';
 import AppContext from 'context';
-import API_KEY from 'config/config';
+import API_KEY from 'config';
 import ShowView from 'views/ShowView/ShowView';
 import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';

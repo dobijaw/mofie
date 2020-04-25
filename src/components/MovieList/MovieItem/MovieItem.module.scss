@@ -6,6 +6,11 @@
   padding: 0;
   margin: 0 0 60px;
 
+  &Link {
+    text-decoration: none;
+    display: block;
+  }
+
   &Details {
     margin-top: 20px;
   }
