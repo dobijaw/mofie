@@ -10,6 +10,7 @@ import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';
 import CollectionView from 'views/CollectionView/CollectionView';
 import { useFetch } from 'hooks';
+import { routes } from 'routes';
 import styles from './Root.module.scss';
 
 const Root = () => {
@@ -50,11 +51,11 @@ const Root = () => {
           <Navigation />
           <main className={styles.main}>
             <Switch>
-              <Route exact path="/" component={PopularView} />
+              <Route exact path={routes.home} component={PopularView} />
               <Route path="/:type/:id" component={SingleMovieView} />
-              <Route path="/my-collection" component={CollectionView} />
-              <Route path="/find-show" component={ShowView} />
-              <Route path="/find-movie" component={MovieView} />
+              <Route path={routes.movies} component={MovieView} />
+              <Route path={routes.shows} component={ShowView} />
+              <Route path={routes.collection} component={CollectionView} />
             </Switch>
           </main>
         </div>

@@ -11,21 +11,12 @@ const NowPlaying = () => {
   const context = useContext(AppContext);
   const [movies, getMovies] = useState([]);
   const [shows, getShows] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
 
-  const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
-  const popularShowsURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
+  const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+  const popularShowsURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
 
   const [moviesRes] = useFetch(popularMoviesURL);
   const [showsRes] = useFetch(popularShowsURL);
-
-  useEffect(() => {
-    if (moviesRes !== null && showsRes !== null) {
-      const total = Math.min(++moviesRes.total_pages, ++showsRes.total_pages);
-      setTotalPages(total);
-    }
-  }, [moviesRes, showsRes]);
 
   useEffect(() => {
     if (moviesRes !== null && context.movieGenres !== null) {
@@ -66,11 +57,11 @@ const NowPlaying = () => {
   }, [showsRes, context]);
 
   return (
-    <div className={styles.nowPlayingWrapper}>
-      <Title headline="Popular" isHidden />
+    <div className={styles.wrapper}>
+      <Title isHidden>Popular</Title>
 
-      <div className={styles.nowPlayingMovies}>
-        <section className={styles.nowPlayingSection}>
+      <div className={styles.innerWrapper}>
+        <section className={styles.section}>
           <Headline tag="h2" additionalClass={styles.popularHeadline}>
             Popular movies
           </Headline>
@@ -80,7 +71,7 @@ const NowPlaying = () => {
             additionalClass={styles.popularList}
           />
         </section>
-        <section className={styles.nowPlayingSection}>
+        <section className={styles.section}>
           <Headline tag="h2" additionalClass={styles.popularHeadline}>
             Popular TV shows
           </Headline>
@@ -91,20 +82,6 @@ const NowPlaying = () => {
           />
         </section>
       </div>
-      <button
-        onClick={() => setCurrentPage(currentPage - 1)}
-        type="button"
-        disabled={currentPage <= 1}
-      >
-        prev
-      </button>
-      <button
-        onClick={() => setCurrentPage(currentPage + 1)}
-        type="button"
-        disabled={currentPage >= totalPages}
-      >
-        next
-      </button>
     </div>
   );
 };

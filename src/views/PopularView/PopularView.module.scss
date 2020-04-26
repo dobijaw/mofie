@@ -1,21 +1,27 @@
-.nowPlayingWrapper {
+.wrapper {
   padding: 0 20px;
 }
 
-.nowPlayingMovies {
+.innerWrapper {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+
+  @media (min-width: 960px) {
+    flex-direction: row;
+  }
 }
 
-.nowPlayingSection {
-  width: 50%;
+.section {
+  @media (min-width: 960px) {
+    width: 50%;
 
-  &:first-child {
-    margin-right: 40px;
-  }
+    &:first-child {
+      margin-right: 40px;
+    }
 
-  &:last-child {
-    margin-left: 40px;
+    &:last-child {
+      margin-left: 40px;
+    }
   }
 }
 
@@ -24,26 +30,24 @@
 }
 
 .popularList {
-  display: flex;
+  @media (min-width: 960px) {
+    display: flex;
 
-  > li {
-    &:first-child {
-      width: 100%;
-    }
-
-    &:nth-child(2) {
-      width: 100%;
-    }
-
-    &:not(:first-child):not(:nth-child(2)) {
-      width: calc(50% - 20px);
-
-      &:nth-child(even) {
-        margin-left: 10px;
+    > li {
+      &:first-child {
+        width: 100%;
       }
 
-      &:nth-child(odd) {
-        margin-right: 10px;
+      &:not(:first-child) {
+        width: calc(50% - 20px);
+
+        &:nth-child(even) {
+          margin-right: 10px;
+        }
+
+        &:nth-child(odd) {
+          margin-left: 10px;
+        }
       }
     }
   }

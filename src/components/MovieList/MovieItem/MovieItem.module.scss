@@ -10,6 +10,12 @@
   padding: 0;
   margin: 0 0 60px;
 
+  &:hover {
+    .movieItemBtn {
+      display: block;
+    }
+  }
+
   &Link {
     text-decoration: none;
     display: block;
@@ -21,8 +27,10 @@
 
   &Btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 0;
+    display: none;
+    padding: 15px;
   }
 
   &SingleBtn {
