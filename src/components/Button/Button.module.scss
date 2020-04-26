@@ -2,9 +2,11 @@
 @import '../../theme/mixins';
 
 .btn {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  padding: 10px 15px;
+  padding: 12px 24px;
   border: 1px solid $white;
   margin: 10px 0 0;
   background: none;

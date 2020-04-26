@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './MovieItem.module.scss';
 import Button from '../../Button/Button';
 import MoviePoster from '../../SingleMovie/MoviePoster/MoviePoster';
@@ -13,26 +13,24 @@ const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
     <AppContext.Consumer>
       {(context) => (
         <li className={styles.movieItem}>
-          <NavLink
-            className={styles.movieItemLink}
-            to={`${productionType}/${id}`}
-          >
-            <MoviePoster img={img} />
+          <Link className={styles.movieItemLink} to={`${productionType}/${id}`}>
+            <MoviePoster img={img} asBackground />
 
             <div className={styles.movieItemDetails}>
               <MovieYear year={year} />
               <MovieTitle title={title} />
               <MovieGenres genres={genres} />
             </div>
-          </NavLink>
-          <div className={styles.movieItemBtns}>
-            <Button to={`${productionType}/${id}`} id={id} text="more" />
+          </Link>
+          <div className={styles.movieItemBtn}>
             <Button
               id={id}
-              text="+ add to collection"
               handleClick={context.handleOpenModal}
               type={type}
-            />
+              additionalClass={styles.movieItemSingleBtn}
+            >
+              +
+            </Button>
           </div>
         </li>
       )}

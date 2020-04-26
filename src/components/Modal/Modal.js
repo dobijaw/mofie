@@ -68,7 +68,7 @@ const Modal = ({ selected }) => {
         <span key={el}>{el}</span>
       ))} */}
       <MovieDescription light description={movieDetails.overview} />
-      <Button light text="+ add to collection" />
+      <Button light>+ add to collection</Button>
     </div>
   );
 };

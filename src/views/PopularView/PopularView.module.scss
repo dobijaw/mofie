@@ -11,10 +11,40 @@
   width: 50%;
 
   &:first-child {
-    margin-right: 20px;
+    margin-right: 40px;
   }
 
   &:last-child {
-    margin-left: 20px;
+    margin-left: 40px;
+  }
+}
+
+.popularHeadline {
+  margin-bottom: 45px;
+}
+
+.popularList {
+  display: flex;
+
+  > li {
+    &:first-child {
+      width: 100%;
+    }
+
+    &:nth-child(2) {
+      width: 100%;
+    }
+
+    &:not(:first-child):not(:nth-child(2)) {
+      width: calc(50% - 20px);
+
+      &:nth-child(even) {
+        margin-left: 10px;
+      }
+
+      &:nth-child(odd) {
+        margin-right: 10px;
+      }
+    }
   }
 }
