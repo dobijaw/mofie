@@ -22,9 +22,10 @@ const NowPlaying = () => {
     if (moviesRes !== null && context.movieGenres !== null) {
       const data = moviesRes.results.map((movie) => ({
         id: movie.id,
-        img:
-          movie.backdrop_path &&
-          `http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`,
+        img: movie.backdrop_path
+          ? `http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+          : movie.poster_path &&
+            `http://image.tmdb.org/t/p/w500/${movie.poster_path}`,
         year: movie.release_date,
         title: movie.title,
         genres: context.movieGenres.genres
@@ -41,9 +42,10 @@ const NowPlaying = () => {
     if (showsRes !== null && context.showGenres !== null) {
       const data = showsRes.results.map((show) => ({
         id: show.id,
-        img:
-          show.backdrop_path &&
-          `http://image.tmdb.org/t/p/w500/${show.backdrop_path}`,
+        img: show.backdrop_path
+          ? `http://image.tmdb.org/t/p/w500/${show.backdrop_path}`
+          : show.poster_path &&
+            `http://image.tmdb.org/t/p/w500/${show.poster_path}`,
         year: show.first_air_date,
         title: show.name,
         genres: context.showGenres.genres

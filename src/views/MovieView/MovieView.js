@@ -4,6 +4,7 @@ import API_KEY from 'config';
 import AppContext from 'context';
 import Title from 'components/Title/Title';
 import MovieList from 'components/MovieList/MovieList';
+import styles from './MovieView.module.scss';
 
 const MovieView = () => {
   const context = useContext(AppContext);
@@ -32,8 +33,13 @@ const MovieView = () => {
   }, [moviesRes, context]);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <Title headline="Search movie" />
+      <form>
+        <input type="text" placeholder="your query" />
+        <input type="text" placeholder="year" />
+        <input type="text" placeholder="genres id" />
+      </form>
       <MovieList movies={movies} type="movies" />
       <button
         type="button"
@@ -52,7 +58,7 @@ const MovieView = () => {
       >
         next
       </button>
-    </>
+    </div>
   );
 };
 export default MovieView;

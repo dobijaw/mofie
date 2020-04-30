@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SingleProductionView.module.scss';
-// import collection from '../../assets/demo/collection';
 import MovieYear from '../../components/SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../../components/SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../../components/SingleMovie/MovieGenres/MovieGenres';
@@ -29,7 +28,7 @@ const SingleMovieView = (props) => {
           year: res.release_date,
         });
       });
-  }, []);
+  }, [id, movie, type]);
   return (
     <>
       <section className={styles.movieWrapper}>
@@ -38,7 +37,6 @@ const SingleMovieView = (props) => {
         </div>
         <div className={styles.movieWrapperItem}>
           <MovieYear year={movie.year} />
-          {/* <MovieTitle title={collection[0].title} /> */}
           <MovieTitle title={movie.title} />
           {movie.genres < 0 && <MovieGenres genres={movie.genres} />}
           <MovieDescription description={movie.description} />

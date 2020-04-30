@@ -1,74 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import AppContext from 'context';
 import API_KEY from 'config';
+import Input from 'components/Input/Input';
+import Select from 'components/Select/Select';
+import { useFetch } from 'hooks';
 import styles from './Modal.module.scss';
 import MovieYear from '../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
-// import MovieGenresItem from '../SingleMovie/MovieGenres/MovieGenres';
 import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
 import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
-  const [movieDetails, getMovieDetails] = useState({});
-  const [mygen, semygen] = useState([]);
-
-  const fetchDatMovieDetails = async (link, signal) => {
-    const response = await fetch(link, { signal });
-    await response
-      .json()
-      .then((resp) => {
-        getMovieDetails(resp);
-        return resp.genres;
-      })
-      .then((genres) => {
-        semygen(genres.map((el) => el.name));
-      });
-  };
-
-  useEffect(() => {
-    const abortController = new window.AbortController();
-    const { signal } = abortController;
-
-    if (selected.type === 'movie') {
-      fetchDatMovieDetails(
-        `https://api.themoviedb.org/3/movie/${selected.id}?api_key=${API_KEY}&language=en-US`,
-        signal,
-      );
-    } else {
-      fetchDatMovieDetails(
-        `https://api.themoviedb.org/3/tv/${selected.id}?api_key=${API_KEY}&language=en-US`,
-        signal,
-      );
-    }
-
-    return function cleanup() {
-      abortController.abort();
-    };
-  }, [selected]);
+  const context = useContext(AppContext);
+  const [productionData, productionResError, productionLoading] = useFetch(
+    `https://api.themoviedb.org/3/${
+      selected.type === 'movie' ? 'movie' : 'tv'
+    }/${selected.id}?api_key=${API_KEY}&language=en-US`,
+  );
 
   return (
     <div className={styles.modal}>
       <Close />
-      <MovieYear
-        year={
-          selected.type === 'movie'
-            ? movieDetails.release_date
-            : movieDetails.first_air_date
-        }
-      />
-      <MovieTitle
-        light
-        title={
-          selected.type === 'movie' ? movieDetails.title : movieDetails.name
-        }
-      />
-      <MovieGenres light genres={mygen} />
-      {/* {mygen.map(el => (
-        <span key={el}>{el}</span>
-      ))} */}
-      <MovieDescription light description={movieDetails.overview} />
-      <Button light>+ add to collection</Button>
+      {productionResError && 'Something went wrong! Sorry!'}
+      {productionLoading ? (
+        'is loading'
+      ) : (
+        <>
+          <MovieYear year="2019-09-17" />
+
+          <MovieTitle
+            light
+            title={
+              selected.type === 'movie'
+                ? productionData.title
+                : productionData.name
+            }
+          />
+          <MovieGenres
+            light
+            genres={productionData.genres.map((i) => i.name)}
+          />
+          <MovieDescription light description={productionData.overview} />
+          <Select
+            id="category"
+            name="category"
+            label="Your Category"
+            placeholder="Choose your category"
+            options={context.categoriesState}
+            withButton
+          />
+          <Select
+            id="rate"
+            name="rate"
+            label="Your Rate"
+            placeholder="Choose your rate"
+            options={[
+              { value: 1 },
+              { value: 2 },
+              { value: 3 },
+              { value: 4 },
+              { value: 5 },
+              { value: 6 },
+              { value: 7 },
+              { value: 8 },
+              { value: 9 },
+              { value: 10 },
+            ]}
+          />
+          <Input
+            type="textarea"
+            name="comment"
+            placeholder="Type here..."
+            id="comment"
+            label="Your comment"
+          />
+          <Button light>+ add to collection</Button>
+        </>
+      )}
     </div>
   );
 };

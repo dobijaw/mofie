@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SingleMovieView from 'views/SingleProductionView/SingleProductionView';
 import Navigation from 'components/Navigation/Navigation';
@@ -13,9 +13,36 @@ import { useFetch } from 'hooks';
 import { routes } from 'routes';
 import styles from './Root.module.scss';
 
+const initialCategoriesState = [
+  {
+    value: 'Love it!',
+  },
+  {
+    value: 'Hate it!',
+  },
+  {
+    value: 'Ok!',
+  },
+];
+
+const categoriesReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_CATEGORY':
+      return [...state, action.payload];
+    case 'DELETE_CATEGORY':
+      return [...state];
+    default:
+      throw new Error();
+  }
+};
+
 const Root = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
   const [selectedProduction, setSelectedProduction] = useState({});
+  const [categoriesState, dispatchCategories] = useReducer(
+    categoriesReducer,
+    initialCategoriesState,
+  );
 
   const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
   const showGenresURL = `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=en-US`;
@@ -42,6 +69,8 @@ const Root = () => {
     showGenres,
     movieGenresErrors,
     showGenresErrors,
+    categoriesState,
+    dispatchCategories,
   };
 
   return (

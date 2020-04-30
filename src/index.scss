@@ -15,25 +15,25 @@ body {
 }
 
 /* width */
-// ::-webkit-scrollbar {
-//   width: 3px;
+::-webkit-scrollbar {
+  width: 3px;
 
-//   @media (min-width: 768px) {
-//     width: 10px;
-//   }
-// }
+  @media (min-width: 768px) {
+    width: 20px;
+  }
+}
 
-// /* Track */
-// ::-webkit-scrollbar-track {
-//   background: $dark-white;
-// }
+/* Track */
+::-webkit-scrollbar-track {
+  background: $light-black;
+}
 
-// /* Handle */
-// ::-webkit-scrollbar-thumb {
-//   background: $light-black;
-// }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}
 
-// /* Handle on hover */
-// ::-webkit-scrollbar-thumb:hover {
-//   background: $primary;
-// }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $light-gray;
+}

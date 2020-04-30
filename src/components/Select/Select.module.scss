@@ -1,0 +1,73 @@
+@import '../../theme/colors';
+
+.select {
+  position: relative;
+
+  &List {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    display: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background: white;
+
+    &Visible {
+      display: block;
+    }
+  }
+
+  &Item {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid $dark-white;
+    transition: all 0.35s ease-in-out;
+
+    &:hover {
+      background: $dark-white;
+    }
+
+    &Add {
+      display: flex;
+      background: $primary;
+    }
+  }
+
+  &Button {
+    display: block;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &Option {
+      width: 100%;
+      padding: 10px 0;
+    }
+
+    &Add {
+      width: 40px;
+      height: 40px;
+      border: 1px solid $primary;
+      color: $white;
+    }
+  }
+
+  &Input {
+    width: 100%;
+    border: 1px solid $dark-white;
+    margin: -1px 0 0;
+
+    &:focus {
+      outline: 0;
+      border-color: $primary;
+    }
+  }
+}
