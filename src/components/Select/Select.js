@@ -24,7 +24,7 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
     context.dispatchCategories({
       type: 'ADD_CATEGORY',
       payload: {
-        value: newCategoryValue.replace(/\s/g, ''),
+        value: newCategoryValue.replace(/\s/g, '').toLowerCase(),
         name: newCategoryValue,
       },
     });

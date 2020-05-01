@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
@@ -23,7 +24,7 @@ const Button = ({
       </Link>
     ) : (
       <button
-        type="button"
+        type={type}
         className={`${light ? styles.btnLight : styles.btn} ${additionalClass}`}
         onClick={handleClick}
         data-id={id}
@@ -34,5 +35,13 @@ const Button = ({
     )}
   </>
 );
+
+Button.propTypes = {
+  type: PropTypes.string,
+};
+
+Button.defaultProps = {
+  type: 'button',
+};
 
 export default Button;
