@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import AppContext from 'context';
 import API_KEY from 'config';
 import Input from 'components/Input/Input';
 import Select from 'components/Select/Select';
 import { useFetch } from 'hooks';
+import Loading from 'components/Loading/Loading';
 import styles from './Modal.module.scss';
 import MovieYear from '../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
@@ -14,18 +15,30 @@ import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
   const context = useContext(AppContext);
+  const [loading, setLoding] = useState(true);
+  const productionURL = `https://api.themoviedb.org/3/${
+    selected.type === 'movie' ? 'movie' : 'tv'
+  }/${selected.id}?api_key=${API_KEY}&language=en-US`;
   const [productionData, productionResError, productionLoading] = useFetch(
-    `https://api.themoviedb.org/3/${
-      selected.type === 'movie' ? 'movie' : 'tv'
-    }/${selected.id}?api_key=${API_KEY}&language=en-US`,
+    productionURL,
   );
 
+  useEffect(() => {
+    if (!productionLoading) {
+      const id = setTimeout(() => {
+        setLoding(false);
+      }, 1000);
+
+      return () => clearTimeout(id);
+    }
+  });
+
   return (
-    <div className={styles.modal}>
+    <div className={`${styles.modal} ${loading && styles.modalLoading}`}>
       <Close />
       {productionResError && 'Something went wrong! Sorry!'}
-      {productionLoading ? (
-        'is loading'
+      {loading ? (
+        <Loading />
       ) : (
         <>
           <MovieYear year="2019-09-17" />

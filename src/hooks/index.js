@@ -6,11 +6,30 @@ export const useFetch = (url, options) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new window.AbortController();
+    const { signal } = controller;
+
     fetch(url, options)
       .then((res) => res.json())
-      .then((res) => setResponse(res))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
+      .then((res) => {
+        if (!signal.aborted) {
+          setResponse(res);
+        }
+      })
+      .catch((err) => {
+        if (!signal.aborted) {
+          setError(err);
+        }
+      })
+      .finally(() => {
+        if (!signal.aborted) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
   }, [url, options]);
 
   return [response, error, loading];

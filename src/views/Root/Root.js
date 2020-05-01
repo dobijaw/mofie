@@ -11,6 +11,7 @@ import MovieView from 'views/MovieView/MovieView';
 import CollectionView from 'views/CollectionView/CollectionView';
 import { useFetch } from 'hooks';
 import { routes } from 'routes';
+import { categoriesReducer } from 'reducers';
 import styles from './Root.module.scss';
 
 const initialCategoriesState = [
@@ -24,17 +25,6 @@ const initialCategoriesState = [
     value: 'Ok!',
   },
 ];
-
-const categoriesReducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD_CATEGORY':
-      return [...state, action.payload];
-    case 'DELETE_CATEGORY':
-      return [...state];
-    default:
-      throw new Error();
-  }
-};
 
 const Root = () => {
   const [isModalVisible, setModalVisibility] = useState(false);

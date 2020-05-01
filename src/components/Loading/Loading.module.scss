@@ -1,0 +1,43 @@
+@import '../../theme/colors';
+
+.loading {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba($light-gray, 0.3);
+  border-radius: 50%;
+
+  &Item {
+    @extend .loading;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-color: transparent;
+    transform: translate(-50%, -50%);
+    animation: anim 0.6s infinite linear;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: $primary;
+      transform: translate(-50%, -5px);
+    }
+  }
+}
+
+@keyframes anim {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

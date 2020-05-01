@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Loading from 'components/Loading/Loading';
 import Title from '../../components/Title/Title';
 // import MovieList from '../../components/MovieList/MovieList';
 
@@ -12,6 +13,7 @@ const CollectionView = () => {
     <>
       <Title headline="My collection" />
       {/* <MovieList movies={context.movieCollection} /> */}
+      <Loading />
     </>
   );
 };
