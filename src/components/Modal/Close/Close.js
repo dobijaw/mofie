@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './Close.module.scss';
-import AppContext from '../../../context';
+import { RootContext } from '../../../context';
 
 const Close = () => (
-  <AppContext.Consumer>
-    {context => (
+  <RootContext.Consumer>
+    {(context) => (
       <button
         type="button"
         className={styles.btn}
@@ -14,7 +14,7 @@ const Close = () => (
         <span className={styles.btnItem} />
       </button>
     )}
-  </AppContext.Consumer>
+  </RootContext.Consumer>
 );
 
 export default Close;

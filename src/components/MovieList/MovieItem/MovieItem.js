@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { RootContext } from 'context';
 import styles from './MovieItem.module.scss';
 import Button from '../../Button/Button';
 import MoviePoster from '../../SingleMovie/MoviePoster/MoviePoster';
 import MovieYear from '../../SingleMovie/MovieYear/MovieYear';
 import MovieTitle from '../../SingleMovie/MovieTitle/MovieTitle';
 import MovieGenres from '../../SingleMovie/MovieGenres/MovieGenres';
-import AppContext from '../../../context';
 
 const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
   return (
-    <AppContext.Consumer>
+    <RootContext.Consumer>
       {(context) => (
         <li className={styles.movieItem}>
           <Link className={styles.movieItemLink} to={`${productionType}/${id}`}>
@@ -34,7 +34,7 @@ const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
           </div>
         </li>
       )}
-    </AppContext.Consumer>
+    </RootContext.Consumer>
   );
 };
 export default MovieItem;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from 'context';
+import { AppContext } from 'context';
 import Input from 'components/Input/Input';
 import styles from './Select.module.scss';
 
@@ -15,8 +15,8 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
 
   const handleNewCategoryClick = () => {
     if (
-      context.categoriesState.some(
-        (el) => el.value === newCategoryValue.replace(/\s/g, ''),
+      context.stateCategories.some(
+        (c) => c.value === newCategoryValue.replace(/\s/g, ''),
       )
     )
       return;
@@ -48,14 +48,14 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
           isSelectListVisible && styles.selectListVisible
         }`}
       >
-        {options.map((item) => (
-          <li className={styles.selectItem} key={item.value}>
+        {options.map((o) => (
+          <li className={styles.selectItem} key={o.value}>
             <button
               className={`${styles.selectButton} ${styles.selectButtonOption}`}
               type="button"
-              onClick={() => setValue(item.value)}
+              onClick={() => setValue(o.value)}
             >
-              {item.value}
+              {o.name}
             </button>
           </li>
         ))}

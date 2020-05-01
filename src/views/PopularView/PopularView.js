@@ -4,11 +4,11 @@ import API_KEY from 'config';
 import Title from 'components/Title/Title';
 import Headline from 'components/Headline/Headline';
 import MovieList from 'components/MovieList/MovieList';
-import AppContext from 'context';
+import { RootContext } from 'context';
 import styles from './PopularView.module.scss';
 
 const NowPlaying = () => {
-  const context = useContext(AppContext);
+  const context = useContext(RootContext);
   const [movies, getMovies] = useState([]);
   const [shows, getShows] = useState([]);
 

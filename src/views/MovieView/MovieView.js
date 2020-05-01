@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useFetch } from 'hooks';
 import API_KEY from 'config';
-import AppContext from 'context';
+import { RootContext } from 'context';
 import Title from 'components/Title/Title';
 import MovieList from 'components/MovieList/MovieList';
 import styles from './MovieView.module.scss';
 
 const MovieView = () => {
-  const context = useContext(AppContext);
+  const context = useContext(RootContext);
   const [movies, getMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`;

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import AppContext from 'context';
+import { RootContext } from 'context';
 import styles from './MovieList.module.scss';
 import MovieItem from './MovieItem/MovieItem';
 
 const MovieList = ({ movies, type, additionalClass }) => {
-  const context = useContext(AppContext);
+  const context = useContext(RootContext);
 
   return (
     <ul className={`${styles.wrapper} ${additionalClass}`}>

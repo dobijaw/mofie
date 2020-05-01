@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from 'context';
+import { AppContext } from 'context';
 import API_KEY from 'config';
 import Input from 'components/Input/Input';
 import Select from 'components/Select/Select';
@@ -61,7 +61,7 @@ const Modal = ({ selected }) => {
             name="category"
             label="Your Category"
             placeholder="Choose your category"
-            options={context.categoriesState}
+            options={context.stateCategories}
             withButton
           />
           <Select
@@ -70,16 +70,46 @@ const Modal = ({ selected }) => {
             label="Your Rate"
             placeholder="Choose your rate"
             options={[
-              { value: 1 },
-              { value: 2 },
-              { value: 3 },
-              { value: 4 },
-              { value: 5 },
-              { value: 6 },
-              { value: 7 },
-              { value: 8 },
-              { value: 9 },
-              { value: 10 },
+              {
+                value: 1,
+                name: 1,
+              },
+              {
+                value: 2,
+                name: 2,
+              },
+              {
+                value: 3,
+                name: 3,
+              },
+              {
+                value: 4,
+                name: 4,
+              },
+              {
+                value: 5,
+                name: 5,
+              },
+              {
+                value: 6,
+                name: 6,
+              },
+              {
+                value: 7,
+                name: 7,
+              },
+              {
+                value: 8,
+                name: 8,
+              },
+              {
+                value: 9,
+                name: 9,
+              },
+              {
+                value: 10,
+                name: 10,
+              },
             ]}
           />
           <Input
