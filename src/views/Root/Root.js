@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SingleMovieView from 'views/SingleProductionView/SingleProductionView';
 import Navigation from 'components/Navigation/Navigation';
 import Modal from 'components/Modal/Modal';
-import API_KEY from 'config';
 import ShowView from 'views/ShowView/ShowView';
 import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';
@@ -12,6 +11,7 @@ import { useFetch } from 'hooks';
 import { routes } from 'routes';
 import Store from 'store';
 import { RootContext } from 'context';
+import API_KEY from 'config';
 import styles from './Root.module.scss';
 
 const Root = () => {

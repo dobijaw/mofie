@@ -60,7 +60,7 @@ const Modal = ({ selected }) => {
           <MovieYear year="2019-09-17" />
 
           <MovieTitle
-            light
+            lightTheme
             title={
               selected.type === 'movie'
                 ? productionData.title
@@ -68,10 +68,10 @@ const Modal = ({ selected }) => {
             }
           />
           <MovieGenres
-            light
+            lightTheme
             genres={productionData.genres.map((i) => i.name)}
           />
-          <MovieDescription light description={productionData.overview} />
+          <MovieDescription lightTheme description={productionData.overview} />
           <form onSubmit={(e) => handleSubmit(e)}>
             <Select
               id="category"
@@ -136,7 +136,7 @@ const Modal = ({ selected }) => {
               id="comment"
               label="Your comment"
             />
-            <Button light type="submit">
+            <Button lightTheme type="submit">
               + add to collection
             </Button>
           </form>

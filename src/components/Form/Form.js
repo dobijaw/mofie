@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Form.module.scss';
 import InputItem from './InputItem/InputItem';
-// import Button from '../Button/Button';
 
 const Form = () => (
   <form className={styles.formWrapper}>

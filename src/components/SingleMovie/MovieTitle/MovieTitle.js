@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './MovieTitle.module.scss';
 
-const MovieTitle = ({ light, title }) => (
-  <h3 className={light ? styles.movieTitleLight : styles.movieTitle}>
+const MovieTitle = ({ lightTheme, title }) => (
+  <h3 className={lightTheme ? styles.movieTitleLight : styles.movieTitle}>
     {title}
   </h3>
 );

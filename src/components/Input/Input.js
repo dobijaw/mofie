@@ -42,7 +42,7 @@ const Input = ({
             placeholder={placeholder}
             disabled={disabled}
             value={value}
-            onClick={type === 'button' && handleClick}
+            onClick={type === 'button' ? handleClick : null}
           />
         </>
       )}

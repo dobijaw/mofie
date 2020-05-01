@@ -4,6 +4,8 @@ import API_KEY from 'config';
 import { RootContext } from 'context';
 import Title from 'components/Title/Title';
 import MovieList from 'components/MovieList/MovieList';
+import Input from 'components/Input/Input';
+import Button from 'components/Button/Button';
 import styles from './MovieView.module.scss';
 
 const MovieView = () => {
@@ -32,13 +34,22 @@ const MovieView = () => {
     }
   }, [moviesRes, context]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={styles.wrapper}>
       <Title headline="Search movie" />
-      <form>
-        <input type="text" placeholder="your query" />
-        <input type="text" placeholder="year" />
-        <input type="text" placeholder="genres id" />
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          id="query"
+          name="query"
+          label="Search"
+          placeholder="Search"
+        />
+        <Button type="submit">Search</Button>
       </form>
       <MovieList movies={movies} type="movies" />
       <button

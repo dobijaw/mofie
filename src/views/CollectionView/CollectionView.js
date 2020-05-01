@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import Loading from 'components/Loading/Loading';
 import { AppContext } from 'context';
 import MovieItem from 'components/MovieList/MovieItem/MovieItem';
+import Categories from 'components/Categories/Categories';
 import Title from '../../components/Title/Title';
 
 const CollectionView = () => {
@@ -10,6 +10,7 @@ const CollectionView = () => {
   return (
     <>
       <Title headline="My collection" />
+      <Categories />
       {context.stateCollections.map((m) => (
         <ul>
           <MovieItem
@@ -23,7 +24,6 @@ const CollectionView = () => {
           />
         </ul>
       ))}
-      <Loading />
     </>
   );
 };
