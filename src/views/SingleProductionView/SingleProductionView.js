@@ -1,21 +1,26 @@
 import React from 'react';
 import { useFetch } from 'hooks';
+import { withRouter } from 'react-router';
+import MovieYear from 'components/SingleMovie/MovieYear/MovieYear';
+import MovieTitle from 'components/SingleMovie/MovieTitle/MovieTitle';
+import MovieGenres from 'components/SingleMovie/MovieGenres/MovieGenres';
+import MovieDescription from 'components/SingleMovie/MovieDescription/MovieDescription';
+import Comments from 'components/Comments/Comments';
+import MoviePoster from 'components/SingleMovie/MoviePoster/MoviePoster';
 import styles from './SingleProductionView.module.scss';
-import MovieYear from '../../components/SingleMovie/MovieYear/MovieYear';
-import MovieTitle from '../../components/SingleMovie/MovieTitle/MovieTitle';
-import MovieGenres from '../../components/SingleMovie/MovieGenres/MovieGenres';
-import MovieDescription from '../../components/SingleMovie/MovieDescription/MovieDescription';
-import Comments from '../../components/Comments/Comments';
-import MoviePoster from '../../components/SingleMovie/MoviePoster/MoviePoster';
 
 const SingleMovieView = (props) => {
-  const { id, type } = props.match.params;
+  const {
+    location: { pathname },
+    match: {
+      params: { id },
+    },
+  } = props;
 
-  const [data, error, loading] = useFetch(
-    `https://api.themoviedb.org/3/${
-      type === 'movies' ? 'movie' : 'tv'
-    }/${id}?api_key=f0881d0904275b8ecded5ddeaa83fe30&language=en-US`,
-  );
+  const context = pathname.includes('movies') ? 'movie' : 'tv';
+  const productionURL = `https://api.themoviedb.org/3/${context}/${id}?api_key=f0881d0904275b8ecded5ddeaa83fe30&language=en-US`;
+
+  const [data, error, loading] = useFetch(productionURL);
 
   return (
     <>
@@ -34,11 +39,11 @@ const SingleMovieView = (props) => {
             <div className={styles.movieWrapperItem}>
               <MovieYear
                 year={
-                  type === 'movies' ? data.release_date : data.first_air_date
+                  context === 'movie' ? data.release_date : data.first_air_date
                 }
               />
               <MovieTitle
-                title={type === 'movies' ? data.original_title : data.name}
+                title={context === 'movie' ? data.original_title : data.name}
               />
               <MovieGenres genres={data.genres.map((i) => i.name)} />
               <MovieDescription description={data.overview} />
@@ -52,4 +57,4 @@ const SingleMovieView = (props) => {
   );
 };
 
-export default SingleMovieView;
+export default withRouter(SingleMovieView);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SingleMovieView from 'views/SingleProductionView/SingleProductionView';
+import ProductionView from 'views/SingleProductionView/SingleProductionView';
 import Navigation from 'components/Navigation/Navigation';
 import Modal from 'components/Modal/Modal';
 import ShowView from 'views/ShowView/ShowView';
@@ -54,7 +54,8 @@ const Root = () => {
             <main className={styles.main}>
               <Switch>
                 <Route exact path={routes.home} component={PopularView} />
-                <Route path="/:type/:id" component={SingleMovieView} />
+                <Route path={routes.singleMovie} component={ProductionView} />
+                <Route path={routes.singleShow} component={ProductionView} />
                 <Route path={routes.movies} component={MovieView} />
                 <Route path={routes.shows} component={ShowView} />
                 <Route path={routes.collection} component={CollectionView} />
