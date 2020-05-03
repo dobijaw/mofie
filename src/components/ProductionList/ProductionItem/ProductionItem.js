@@ -2,25 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RootContext } from 'context';
-import styles from './MovieItem.module.scss';
-import Button from '../../Button/Button';
-import MoviePoster from '../../SingleMovie/MoviePoster/MoviePoster';
-import MovieYear from '../../SingleMovie/MovieYear/MovieYear';
-import MovieTitle from '../../SingleMovie/MovieTitle/MovieTitle';
-import MovieGenres from '../../SingleMovie/MovieGenres/MovieGenres';
+import Poster from 'components/Production/Poster/Poster';
+import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
+import Title from 'components/Production/Title/Title';
+import Genres from 'components/Production/Genres/Genres';
+import Button from 'components/Button/Button';
+import styles from './ProductionItem.module.scss';
 
-const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
+const ProductionItem = ({
+  img,
+  title,
+  year,
+  genres,
+  id,
+  type,
+  productionType,
+}) => {
   return (
     <RootContext.Consumer>
       {(context) => (
         <li className={styles.movieItem}>
           <Link className={styles.movieItemLink} to={`${productionType}/${id}`}>
-            <MoviePoster img={img} asBackground />
+            <Poster img={img} asBackground />
 
             <div className={styles.movieItemDetails}>
-              <MovieYear year={year} />
-              <MovieTitle title={title} />
-              <MovieGenres genres={genres} />
+              <ReleaseDate year={year} />
+              <Title title={title} />
+              <Genres genres={genres} />
             </div>
           </Link>
           <div className={styles.movieItemBtn}>
@@ -39,8 +47,8 @@ const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
   );
 };
 
-MovieItem.propTypes = {
+ProductionItem.propTypes = {
   year: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
-export default MovieItem;
+export default ProductionItem;

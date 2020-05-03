@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext, RootContext } from 'context';
-import API_KEY from 'config';
+import { API_KEY } from 'config';
 import Input from 'components/Input/Input';
 import Select from 'components/Select/Select';
 import { useFetch } from 'hooks';
 import Loading from 'components/Loading/Loading';
 import { addToCllection } from 'actions';
+import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
+import Title from 'components/Production/Title/Title';
+import Genres from 'components/Production/Genres/Genres';
+import Overview from 'components/Production/Overview/Overview';
 import styles from './Modal.module.scss';
-import MovieYear from '../SingleMovie/MovieYear/MovieYear';
-import MovieTitle from '../SingleMovie/MovieTitle/MovieTitle';
-import MovieGenres from '../SingleMovie/MovieGenres/MovieGenres';
-import MovieDescription from '../SingleMovie/MovieDescription/MovieDescription';
 import Button from '../Button/Button';
 import Close from './Close/Close';
 
@@ -57,9 +57,9 @@ const Modal = ({ selected }) => {
         <Loading />
       ) : (
         <>
-          <MovieYear year="2019-09-17" />
+          <ReleaseDate year="2019-09-17" />
 
-          <MovieTitle
+          <Title
             lightTheme
             title={
               selected.type === 'movie'
@@ -67,11 +67,11 @@ const Modal = ({ selected }) => {
                 : productionData.name
             }
           />
-          <MovieGenres
+          <Genres
             lightTheme
             genres={productionData.genres.map((i) => i.name)}
           />
-          <MovieDescription lightTheme description={productionData.overview} />
+          <Overview lightTheme description={productionData.overview} />
           <form onSubmit={(e) => handleSubmit(e)}>
             <Select
               id="category"

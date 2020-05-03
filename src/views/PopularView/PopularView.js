@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useFetch } from 'hooks';
-import API_KEY from 'config';
-import Title from 'components/Title/Title';
+import { API_KEY } from 'config';
+import PageTitle from 'components/PageTitle/PageTitle';
 import Headline from 'components/Headline/Headline';
-import MovieList from 'components/MovieList/MovieList';
+import ProductionList from 'components/ProductionList/ProductionList';
 import { RootContext } from 'context';
 import styles from './PopularView.module.scss';
 
@@ -60,14 +60,14 @@ const NowPlaying = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Title isHidden>Popular</Title>
+      <PageTitle isHidden>Popular</PageTitle>
 
       <div className={styles.innerWrapper}>
         <section className={styles.section}>
           <Headline tag="h2" additionalClass={styles.popularHeadline}>
             Popular movies
           </Headline>
-          <MovieList
+          <ProductionList
             movies={movies}
             type="movies"
             additionalClass={styles.popularList}
@@ -77,7 +77,7 @@ const NowPlaying = () => {
           <Headline tag="h2" additionalClass={styles.popularHeadline}>
             Popular TV shows
           </Headline>
-          <MovieList
+          <ProductionList
             movies={shows}
             type="shows"
             additionalClass={styles.popularList}

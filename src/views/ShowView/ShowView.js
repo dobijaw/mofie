@@ -1,9 +1,9 @@
 import React from 'react';
-import Title from '../../components/Title/Title';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 const ShowView = () => (
   <>
-    <Title headline="Search show" />
+    <PageTitle>Search show</PageTitle>
   </>
 );
 

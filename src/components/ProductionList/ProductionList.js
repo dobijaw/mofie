@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { RootContext } from 'context';
-import styles from './MovieList.module.scss';
-import MovieItem from './MovieItem/MovieItem';
+import styles from './ProductionList.module.scss';
+import ProductionItem from './ProductionItem/ProductionItem';
 
-const MovieList = ({ movies, type, additionalClass }) => {
+const ProductionList = ({ movies, type, additionalClass }) => {
   const context = useContext(RootContext);
 
   return (
     <ul className={`${styles.wrapper} ${additionalClass}`}>
       {movies.map((item) => (
-        <MovieItem
+        <ProductionItem
           productionType={type}
           key={item.title}
           {...item}
@@ -20,4 +20,4 @@ const MovieList = ({ movies, type, additionalClass }) => {
   );
 };
 
-export default MovieList;
+export default ProductionList;

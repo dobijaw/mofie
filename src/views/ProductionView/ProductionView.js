@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useFetch } from 'hooks';
 import { withRouter, Redirect } from 'react-router';
-import MovieYear from 'components/SingleMovie/MovieYear/MovieYear';
-import MovieTitle from 'components/SingleMovie/MovieTitle/MovieTitle';
-import MovieGenres from 'components/SingleMovie/MovieGenres/MovieGenres';
-import MovieDescription from 'components/SingleMovie/MovieDescription/MovieDescription';
+import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
+import Title from 'components/Production/Title/Title';
+import Genres from 'components/Production/Genres/Genres';
+import Overview from 'components/Production/Overview/Overview';
 import Comments from 'components/Comments/Comments';
-import MoviePoster from 'components/SingleMovie/MoviePoster/MoviePoster';
-import Crew from 'components/SingleMovie/Crew/Crew';
-import MainCrew from 'components/SingleMovie/MainCrew/MainCrew';
+import Poster from 'components/Production/Poster/Poster';
+import Crew from 'components/Production/Crew/Crew';
+import MainCrew from 'components/Production/MainCrew/MainCrew';
 import SubHeadline from 'components/SubHeadline/SubHeadline';
-import Cast from 'components/SingleMovie/Cast/Cast';
-import Keywords from 'components/SingleMovie/Keywords/Keywords';
-import Tagline from 'components/SingleMovie/Tagline/Tagline';
-import API_KEY from 'config';
-import styles from './SingleProductionView.module.scss';
+import Cast from 'components/Production/Cast/Cast';
+import Keywords from 'components/Production/Keywords/Keywords';
+import Tagline from 'components/Production/Tagline/Tagline';
+import { API_KEY } from 'config';
+import styles from './ProductionView.module.scss';
 
-const SingleMovieView = ({ location, match }) => {
+const ProductionView = ({ location, match }) => {
   const { pathname } = location;
   const { id } = match.params;
   const [mainCrew, setMainCrew] = useState([]);
@@ -74,28 +74,28 @@ const SingleMovieView = ({ location, match }) => {
             <>
               <section className={styles.movieWrapper}>
                 <div className={styles.movieWrapperItem}>
-                  <MoviePoster
+                  <Poster
                     img={`http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`}
                     poster
                   />
                 </div>
                 <div className={styles.movieWrapperItem}>
-                  <MovieYear
+                  <ReleaseDate
                     year={
                       context === 'movie'
                         ? detailsData.release_date
                         : detailsData.first_air_date
                     }
                   />
-                  <MovieTitle
+                  <Title
                     title={
                       context === 'movie' ? detailsData.title : detailsData.name
                     }
                   />
                   <Tagline>{detailsData.tagline}</Tagline>
-                  <MovieGenres genres={detailsData.genres.map((i) => i.name)} />
+                  <Genres genres={detailsData.genres.map((i) => i.name)} />
 
-                  <MovieDescription description={detailsData.overview} />
+                  <Overview description={detailsData.overview} />
                   {mainCrew.length && <MainCrew crew={mainCrew} />}
                   {!keywordsLoading && (
                     <Keywords
@@ -155,4 +155,4 @@ const SingleMovieView = ({ location, match }) => {
   );
 };
 
-export default withRouter(SingleMovieView);
+export default withRouter(ProductionView);

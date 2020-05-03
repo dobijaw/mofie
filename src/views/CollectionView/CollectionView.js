@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import { AppContext } from 'context';
-import MovieItem from 'components/MovieList/MovieItem/MovieItem';
+import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
 import Categories from 'components/Categories/Categories';
-import Title from '../../components/Title/Title';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 const CollectionView = () => {
   const context = useContext(AppContext);
 
   return (
     <>
-      <Title headline="My collection" />
+      <PageTitle>My collection</PageTitle>
       <Categories />
       {context.stateCollections.map((m) => (
         <ul>
-          <MovieItem
+          <ProductionItem
             id={m.id}
             productionType={m.type === 'movie' ? 'movies' : 'shows'}
             key={m.id}

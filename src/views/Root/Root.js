@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ProductionView from 'views/SingleProductionView/SingleProductionView';
+import ProductionView from 'views/ProductionView/ProductionView';
 import Navigation from 'components/Navigation/Navigation';
 import Modal from 'components/Modal/Modal';
 import ShowView from 'views/ShowView/ShowView';
@@ -12,7 +12,7 @@ import { useFetch } from 'hooks';
 import { routes } from 'routes';
 import Store from 'store';
 import { RootContext } from 'context';
-import API_KEY from 'config';
+import { API_KEY } from 'config';
 import styles from './Root.module.scss';
 
 const Root = () => {

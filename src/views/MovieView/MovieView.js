@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useFetch } from 'hooks';
-import API_KEY from 'config';
+import { API_KEY } from 'config';
 import { RootContext } from 'context';
-import Title from 'components/Title/Title';
-import MovieList from 'components/MovieList/MovieList';
+import PageTitle from 'components/PageTitle/PageTitle';
+import ProductionList from 'components/ProductionList/ProductionList';
 import Input from 'components/Input/Input';
 import Button from 'components/Button/Button';
 import styles from './MovieView.module.scss';
@@ -40,7 +40,7 @@ const MovieView = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Title headline="Search movie" />
+      <PageTitle>Search movie</PageTitle>
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -51,7 +51,7 @@ const MovieView = () => {
         />
         <Button type="submit">Search</Button>
       </form>
-      <MovieList movies={movies} type="movies" />
+      <ProductionList movies={movies} type="movies" />
       <button
         type="button"
         onClick={() => {

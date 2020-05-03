@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './MoviePoster.module.scss';
+import styles from './Poster.module.scss';
 
-const MoviePoster = ({ img, poster, asBackground }) => (
+const Poster = ({ img, poster, asBackground }) => (
   <>
     {asBackground ? (
       <div
@@ -22,4 +22,4 @@ const MoviePoster = ({ img, poster, asBackground }) => (
   </>
 );
 
-export default MoviePoster;
+export default Poster;
