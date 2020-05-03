@@ -1,25 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Poster.module.scss';
 
-const Poster = ({ img, poster, asBackground }) => (
+const Poster = ({ image, asPoster, asBackgroundImage, alt }) => (
   <>
-    {asBackground ? (
+    {asBackgroundImage ? (
       <div
-        className={styles.moviePosterBackground}
-        style={{ backgroundImage: `url(${img})` }}
+        className={`${styles.posterBackground} ${
+          asPoster && styles.posterBackgroundPoster
+        }`}
+        style={{ backgroundImage: `url(${image})` }}
       />
     ) : (
       <div
         className={
-          poster
-            ? styles.moviePosterContainerPoster
-            : styles.moviePosterContainer
+          asPoster ? styles.posterContainerPoster : styles.posterContainer
         }
       >
-        <img className={styles.moviePosterImg} src={img} alt="Cover" />
+        <img className={styles.posterImage} src={image} alt={alt} />
       </div>
     )}
   </>
 );
+
+Poster.propTypes = {
+  image: PropTypes.string.isRequired,
+  asBackgroundImage: PropTypes.bool,
+  asPoster: PropTypes.bool,
+  alt: PropTypes.string,
+};
+
+Poster.defaultProps = {
+  asBackgroundImage: false,
+  asPoster: false,
+  alt: '',
+};
 
 export default Poster;

@@ -1,4 +1,6 @@
-.moviePoster {
+@import '../../../theme/colors';
+
+.poster {
   &Container {
     position: relative;
     width: 100%;
@@ -6,27 +8,30 @@
     overflow: hidden;
 
     &Poster {
-      @extend .moviePosterContainer;
-
+      @extend .posterContainer;
       height: 800px;
     }
   }
 
-  &Img {
+  &Image {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     display: block;
     width: 105%;
     min-height: 100%;
+    transform: translate(-50%, -50%);
   }
 
   &Background {
     width: 100%;
     height: 280px;
-    background-color: #000;
-    background-size: cover;
+    background-color: $light-black;
     background-position: center;
+    background-size: cover;
+
+    &Poster {
+      height: 800px;
+    }
   }
 }

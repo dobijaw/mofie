@@ -1,12 +1,12 @@
 @import '../../../theme/colors';
 @import '../../../theme/mixins';
 
-.description {
+.overview {
   margin: 20px 0 30px;
   @include fontStyle($white, 16px, 300, 1.8, 0.05em);
 
   &Light {
-    @extend .description;
+    @extend .overview;
     color: $black;
   }
 }

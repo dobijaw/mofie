@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Genres.module.scss';
-import GenresItem from './GenresItem/GenresItem';
 
-const Genres = ({ lightTheme, genres }) => {
+const Genres = ({ genres, lightTheme }) => {
   return (
-    <ul className={lightTheme ? styles.movieGenresLight : styles.movieGenres}>
+    <ul className={lightTheme ? styles.genresLight : styles.genres}>
       {genres.map((item) => (
-        <GenresItem key={item} genre={item} />
+        <li key={item} className={styles.genresItem}>
+          {item}
+        </li>
       ))}
     </ul>
   );
+};
+
+Genres.propTypes = {
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  lightTheme: PropTypes.bool,
+};
+
+Genres.defaultProps = {
+  lightTheme: false,
 };
 
 export default Genres;

@@ -57,21 +57,18 @@ const Modal = ({ selected }) => {
         <Loading />
       ) : (
         <>
-          <ReleaseDate year="2019-09-17" />
+          <ReleaseDate>2019-09-17</ReleaseDate>
 
-          <Title
-            lightTheme
-            title={
-              selected.type === 'movie'
-                ? productionData.title
-                : productionData.name
-            }
-          />
+          <Title lightTheme>
+            {selected.type === 'movie'
+              ? productionData.title
+              : productionData.name}
+          </Title>
           <Genres
             lightTheme
             genres={productionData.genres.map((i) => i.name)}
           />
-          <Overview lightTheme description={productionData.overview} />
+          <Overview lightTheme>{productionData.overview}</Overview>
           <form onSubmit={(e) => handleSubmit(e)}>
             <Select
               id="category"

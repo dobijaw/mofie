@@ -2,16 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Tagline.module.scss';
 
-const Tagline = ({ children }) => (
-  <>{children && <p className={styles.tagline}>{children}</p>}</>
+const Tagline = ({ children, lightTheme }) => (
+  <>
+    {children && (
+      <p className={lightTheme ? styles.taglineLight : styles.tagline}>
+        {children}
+      </p>
+    )}
+  </>
 );
 
 Tagline.propTypes = {
-  children: PropTypes.string,
+  children: PropTypes.string.isRequired,
+  lightTheme: PropTypes.bool,
 };
 
 Tagline.defaultProps = {
-  children: '',
+  lightTheme: false,
 };
 
 export default Tagline;

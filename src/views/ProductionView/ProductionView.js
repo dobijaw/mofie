@@ -75,27 +75,23 @@ const ProductionView = ({ location, match }) => {
               <section className={styles.movieWrapper}>
                 <div className={styles.movieWrapperItem}>
                   <Poster
-                    img={`http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`}
-                    poster
+                    image={`http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`}
+                    asPoster
                   />
                 </div>
                 <div className={styles.movieWrapperItem}>
-                  <ReleaseDate
-                    year={
-                      context === 'movie'
-                        ? detailsData.release_date
-                        : detailsData.first_air_date
-                    }
-                  />
-                  <Title
-                    title={
-                      context === 'movie' ? detailsData.title : detailsData.name
-                    }
-                  />
+                  <ReleaseDate>
+                    {context === 'movie'
+                      ? detailsData.release_date
+                      : detailsData.first_air_date}
+                  </ReleaseDate>
+                  <Title>
+                    {context === 'movie' ? detailsData.title : detailsData.name}
+                  </Title>
                   <Tagline>{detailsData.tagline}</Tagline>
                   <Genres genres={detailsData.genres.map((i) => i.name)} />
 
-                  <Overview description={detailsData.overview} />
+                  <Overview>{detailsData.overview}</Overview>
                   {mainCrew.length && <MainCrew crew={mainCrew} />}
                   {!keywordsLoading && (
                     <Keywords

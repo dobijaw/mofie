@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import defaultAvatar from 'assets/img/avatar.svg';
 import styles from './Cast.module.scss';
 
 const Cast = ({ cast }) => (
   <ul className={styles.cast}>
-    {cast.map((i) => (
-      <li key={i.id} className={styles.castItem}>
+    {cast.map((c) => (
+      <li key={c.id} className={styles.castItem}>
         <div
-          className={styles.castAvatar}
+          className={c.avatar ? styles.castAvatar : styles.castAvatarDefault}
           style={{
-            backgroundImage: i.avatar && `url(${i.avatar})`,
+            backgroundImage: `url(${c.avatar || defaultAvatar})`,
           }}
         />
-        <h2 className={styles.castName}>{i.name}</h2>
-        <span className={styles.castCharacter}>{i.character}</span>
+        <h3 className={styles.castName}>{c.name}</h3>
+        <span className={styles.castCharacter}>{c.character}</span>
       </li>
     ))}
   </ul>

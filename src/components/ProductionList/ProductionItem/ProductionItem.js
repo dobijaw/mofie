@@ -23,11 +23,10 @@ const ProductionItem = ({
       {(context) => (
         <li className={styles.movieItem}>
           <Link className={styles.movieItemLink} to={`${productionType}/${id}`}>
-            <Poster img={img} asBackground />
-
+            <Poster image={img} asBackgroundImage />
             <div className={styles.movieItemDetails}>
-              <ReleaseDate year={year} />
-              <Title title={title} />
+              <ReleaseDate>{year}</ReleaseDate>
+              <Title>{title}</Title>
               <Genres genres={genres} />
             </div>
           </Link>
@@ -50,5 +49,6 @@ const ProductionItem = ({
 ProductionItem.propTypes = {
   year: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 export default ProductionItem;

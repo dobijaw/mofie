@@ -13,14 +13,14 @@
     display: block;
     padding: 0 0 0 10px;
     @include fontStyle($white, 9px, 300, 1.5, 0.04em);
-    opacity: 0.5;
     text-transform: uppercase;
+    opacity: 0.5;
 
     &:not(:first-child)::before {
       content: '|';
       display: inline-block;
       margin-right: 10px;
-      opacity: 0.4;
+      opacity: 0.3;
     }
   }
 

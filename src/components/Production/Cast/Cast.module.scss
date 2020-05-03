@@ -36,9 +36,15 @@
   &Avatar {
     width: 120px;
     height: 120px;
+    border-radius: 50%;
     background-size: cover;
     background-position: center;
     background-color: $light-black;
-    border-radius: 50%;
+    background-repeat: no-repeat;
+
+    &Default {
+      @extend .castAvatar;
+      background-size: 50%;
+    }
   }
 }
