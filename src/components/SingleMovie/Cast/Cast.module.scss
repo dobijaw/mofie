@@ -1,0 +1,44 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.cast {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  color: $white;
+
+  &Item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    padding: 20px 10px;
+  }
+
+  &Name {
+    padding: 0;
+    margin: 20px 0 0;
+    @include fontStyle($white, 18px, 500, 1.4, 0.02em);
+    text-align: center;
+  }
+
+  &Character {
+    display: block;
+    padding: 0;
+    margin: 5px 0 0;
+    @include fontStyle($white, 16px, 300, 1.4, 0.02em);
+    text-align: center;
+    opacity: 0.4;
+  }
+
+  &Avatar {
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    background-color: $light-black;
+    border-radius: 50%;
+  }
+}

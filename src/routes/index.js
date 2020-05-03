@@ -5,4 +5,5 @@ export const routes = {
   shows: '/shows',
   singleShow: '/shows/:id',
   collection: '/collection',
+  page404: '/404',
 };

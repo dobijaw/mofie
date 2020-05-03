@@ -1,0 +1,31 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.mainCrew {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 50px 0;
+
+  &Item {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 5px 0;
+    @include fontStyle($white, 12px, 300, 1.5, 0.04em);
+  }
+
+  &Job,
+  &Name {
+    display: block;
+  }
+
+  &Job {
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  &Name {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+}

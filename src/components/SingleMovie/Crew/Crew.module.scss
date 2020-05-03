@@ -1,0 +1,30 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.crew {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &Item {
+    display: block;
+    padding: 0 0 0 10px;
+    @include fontStyle($white, 9px, 300, 1.5, 0.04em);
+    opacity: 0.5;
+    text-transform: uppercase;
+
+    &:not(:first-child)::before {
+      content: '|';
+      display: inline-block;
+      margin-right: 10px;
+      opacity: 0.4;
+    }
+  }
+
+  &Name {
+    font-size: 12px;
+  }
+}

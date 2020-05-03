@@ -1,0 +1,13 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.tagline {
+  margin: -4px 0 26px;
+  @include fontStyle($white, 18px, 300, 1.4, 0.05em);
+  opacity: 0.3;
+
+  &Light {
+    @extend .tagline;
+    color: $black;
+  }
+}

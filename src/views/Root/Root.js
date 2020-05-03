@@ -7,6 +7,7 @@ import ShowView from 'views/ShowView/ShowView';
 import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';
 import CollectionView from 'views/CollectionView/CollectionView';
+import Page404View from 'views/Page404View/Page404View';
 import { useFetch } from 'hooks';
 import { routes } from 'routes';
 import Store from 'store';
@@ -59,6 +60,7 @@ const Root = () => {
                 <Route path={routes.movies} component={MovieView} />
                 <Route path={routes.shows} component={ShowView} />
                 <Route path={routes.collection} component={CollectionView} />
+                <Route path={routes.page404} component={Page404View} />
               </Switch>
             </main>
           </div>

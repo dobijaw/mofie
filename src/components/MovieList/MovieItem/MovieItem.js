@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RootContext } from 'context';
 import styles from './MovieItem.module.scss';
@@ -36,5 +37,10 @@ const MovieItem = ({ img, title, year, genres, id, type, productionType }) => {
       )}
     </RootContext.Consumer>
   );
+};
+
+MovieItem.propTypes = {
+  year: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 export default MovieItem;

@@ -22,6 +22,7 @@
     "no-plusplus": "off",
     "array-callback-return": "off",
     "consistent-return": "off",
+    "camelcase": "off",
     "react/jsx-filename-extension": [
       1,
       {

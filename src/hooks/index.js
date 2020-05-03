@@ -17,6 +17,7 @@ export const useFetch = (url, options) => {
         }
       })
       .catch((err) => {
+        console.log(`To to: ${err}`);
         if (!signal.aborted) {
           setError(err);
         }

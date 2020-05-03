@@ -14,7 +14,8 @@ const CollectionView = () => {
       {context.stateCollections.map((m) => (
         <ul>
           <MovieItem
-            productionType={m.type}
+            id={m.id}
+            productionType={m.type === 'movie' ? 'movies' : 'shows'}
             key={m.id}
             year={m.data.release_date}
             genres={m.data.genres.map((g) => g.name)}
