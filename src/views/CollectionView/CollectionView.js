@@ -1,30 +1,31 @@
-import React, { useContext } from 'react';
-import { AppContext } from 'context';
+import React from 'react';
+// import { AppContext } from 'context';
 import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
 import Categories from 'components/Categories/Categories';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import styles from './CollectionView.module.scss';
 
 const CollectionView = () => {
-  const context = useContext(AppContext);
+  // const context = useContext(AppContext);
 
   return (
     <>
       <PageTitle>My collection</PageTitle>
       <Categories />
-      {context.stateCollections.map((m) => (
-        <ul>
-          <ProductionItem
-            id={m.id}
-            productionType={m.type === 'movie' ? 'movies' : 'shows'}
-            key={m.id}
-            year={m.data.release_date}
-            genres={m.data.genres.map((g) => g.name)}
-            type="button"
-            title={m.data.original_title}
-            img={`http://image.tmdb.org/t/p/w500/${m.data.backdrop_path}`}
-          />
-        </ul>
-      ))}
+      <ul className={styles.collectionList}>
+        <ProductionItem
+          id={123}
+          title="Ad Astra"
+          genres={['Drama', 'Action']}
+          releaseDate="2020-06-01"
+          image="https://bit.ly/2yeV4Tg"
+          productionType="movie"
+          categoryAdded="hello"
+          tagline="Hello"
+          rate={9}
+          noModal
+        />
+      </ul>
     </>
   );
 };

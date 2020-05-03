@@ -6,7 +6,7 @@ import styles from './Button.module.scss';
 const Button = ({
   children,
   handleClick,
-  additionalClass,
+  className,
   lightTheme,
   type,
   to,
@@ -17,9 +17,7 @@ const Button = ({
       <Link
         to={to}
         type={type}
-        className={`${
-          lightTheme ? styles.btnLight : styles.btn
-        } ${additionalClass}`}
+        className={`${lightTheme ? styles.btnLight : styles.btn} ${className}`}
         data-id={id}
       >
         {children}
@@ -27,9 +25,7 @@ const Button = ({
     ) : (
       <button
         type={type}
-        className={`${
-          lightTheme ? styles.btnLight : styles.btn
-        } ${additionalClass}`}
+        className={`${lightTheme ? styles.btnLight : styles.btn} ${className}`}
         onClick={handleClick}
         data-id={id}
         data-type={type}
@@ -44,7 +40,7 @@ Button.propTypes = {
   type: PropTypes.string,
   lightTheme: PropTypes.bool,
   children: PropTypes.string.isRequired,
-  additionalClass: PropTypes.string,
+  className: PropTypes.string,
   handleClick: PropTypes.func,
   to: PropTypes.string,
   id: PropTypes.number,
@@ -53,7 +49,7 @@ Button.propTypes = {
 Button.defaultProps = {
   type: 'button',
   lightTheme: false,
-  additionalClass: '',
+  className: '',
   handleClick: null,
   id: null,
   to: '',

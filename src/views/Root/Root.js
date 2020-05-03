@@ -25,11 +25,11 @@ const Root = () => {
   const [movieGenres, movieGenresErrors] = useFetch(movieGenresURL);
   const [showGenres, showGenresErrors] = useFetch(showGenresURL);
 
-  const handleOpenModal = ({ target }) => {
+  const handleOpenModal = (productionType, id) => {
     setModalVisibility(true);
     setSelectedProduction({
-      id: target.getAttribute('data-id'),
-      type: target.getAttribute('data-type'),
+      productionType,
+      id,
     });
   };
 

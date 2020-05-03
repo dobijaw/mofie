@@ -1,0 +1,13 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.rate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background-color: $white;
+  @include fontStyle($black, 16px, 500, 1, 0);
+}

@@ -24,13 +24,14 @@ const Poster = ({ image, asPoster, asBackgroundImage, alt }) => (
 );
 
 Poster.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   asBackgroundImage: PropTypes.bool,
   asPoster: PropTypes.bool,
   alt: PropTypes.string,
 };
 
 Poster.defaultProps = {
+  image: '',
   asBackgroundImage: false,
   asPoster: false,
   alt: '',

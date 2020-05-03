@@ -2,44 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RootContext } from 'context';
-import Poster from 'components/Production/Poster/Poster';
-import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
-import Title from 'components/Production/Title/Title';
-import Genres from 'components/Production/Genres/Genres';
 import Button from 'components/Button/Button';
+import Rate from 'components/Production/Rate/Rate';
+import Title from 'components/Production/Title/Title';
+import Poster from 'components/Production/Poster/Poster';
+import Genres from 'components/Production/Genres/Genres';
+import Tagline from 'components/Production/Tagline/Tagline';
+import Category from 'components/Production/Category/Category';
+import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
-  img,
-  title,
-  year,
-  genres,
-  id,
-  type,
   productionType,
+  categoryAdded,
+  releaseDate,
+  buttonType,
+  noModal,
+  tagline,
+  genres,
+  title,
+  image,
+  rate,
+  id,
 }) => {
   return (
     <RootContext.Consumer>
       {(context) => (
-        <li className={styles.movieItem}>
-          <Link className={styles.movieItemLink} to={`${productionType}/${id}`}>
-            <Poster image={img} asBackgroundImage />
-            <div className={styles.movieItemDetails}>
-              <ReleaseDate>{year}</ReleaseDate>
+        <li className={styles.production}>
+          <Link
+            className={styles.productionLink}
+            to={`${productionType}/${id}`}
+          >
+            <Poster image={image} asBackgroundImage />
+            <div className={styles.productionDetails}>
+              <ReleaseDate>{releaseDate}</ReleaseDate>
               <Title>{title}</Title>
               <Genres genres={genres} />
+              {tagline && <Tagline>{tagline}</Tagline>}
             </div>
           </Link>
-          <div className={styles.movieItemBtn}>
-            <Button
-              id={id}
-              handleClick={context.handleOpenModal}
-              type={type}
-              additionalClass={styles.movieItemSingleBtn}
-            >
-              +
-            </Button>
-          </div>
+          {rate && <Rate>{rate}</Rate>}
+          {categoryAdded && <Category>{categoryAdded}</Category>}
+          {!noModal && (
+            <div className={styles.productionBtn}>
+              <Button
+                type={buttonType}
+                className={styles.productionSingleBtn}
+                handleClick={() => context.handleOpenModal(productionType, id)}
+              >
+                +
+              </Button>
+            </div>
+          )}
         </li>
       )}
     </RootContext.Consumer>
@@ -47,8 +61,27 @@ const ProductionItem = ({
 };
 
 ProductionItem.propTypes = {
-  year: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  productionType: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  categoryAdded: PropTypes.string,
+  releaseDate: PropTypes.string,
+  buttonType: PropTypes.string,
+  tagline: PropTypes.string,
+  image: PropTypes.string,
+  noModal: PropTypes.bool,
+  rate: PropTypes.number,
 };
+
+ProductionItem.defaultProps = {
+  releaseDate: 'UNKNOW DATE',
+  buttonType: 'text',
+  categoryAdded: '',
+  noModal: false,
+  tagline: '',
+  rate: null,
+  image: '',
+};
+
 export default ProductionItem;
