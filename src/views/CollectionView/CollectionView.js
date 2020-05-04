@@ -20,8 +20,8 @@ const CollectionView = () => {
           releaseDate="2020-06-01"
           image="https://bit.ly/2yeV4Tg"
           productionType="movie"
-          categoryAdded="hello"
-          tagline="Hello"
+          categoryAdded="Love it!"
+          tagline="One step from getting everytihng!"
           rate={9}
           noModal
         />

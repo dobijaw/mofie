@@ -2,13 +2,11 @@
 @import '../../../theme/mixins';
 
 .category {
-  position: absolute;
-  top: 10px;
-  left: 10px;
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 50px;
-  background: $white;
-  @include fontStyle($black, 14px, 500, 1, 0.02em);
+  padding: 6px 12px;
+  border: 1px solid $white;
+  margin-left: 10px;
+  @include fontStyle($white, 15px, 300, 1, 0.2em);
   text-transform: uppercase;
+  text-align: center;
 }

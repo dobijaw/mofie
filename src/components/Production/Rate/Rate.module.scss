@@ -3,11 +3,24 @@
 
 .rate {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 33px;
-  height: 33px;
-  border-radius: 50%;
-  background-color: $white;
-  @include fontStyle($black, 16px, 500, 1, 0);
+  margin-right: 10px;
+
+  &Item {
+    display: inline-block;
+    padding: 6px 6px;
+    @include fontStyle($primary, 15px, 300, 1, 0.05em);
+    text-align: center;
+
+    &Custom {
+      padding: 6px 10px;
+      border: 1px solid $white;
+      margin-left: 10px;
+      color: $white;
+    }
+  }
+
+  &Icon {
+    display: block;
+  }
 }

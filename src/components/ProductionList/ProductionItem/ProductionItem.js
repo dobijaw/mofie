@@ -35,14 +35,22 @@ const ProductionItem = ({
           >
             <Poster image={image} asBackgroundImage />
             <div className={styles.productionDetails}>
-              <ReleaseDate>{releaseDate}</ReleaseDate>
+              <div className={styles.productionTopDetails}>
+                <div className={styles.productionTopDetailsColumn}>
+                  {rate && <Rate>{rate}</Rate>}
+                  <ReleaseDate>{releaseDate}</ReleaseDate>
+                </div>
+                <div>
+                  {rate && <Rate custom>{rate}</Rate>}
+                  {categoryAdded && <Category>{categoryAdded}</Category>}
+                </div>
+              </div>
+
               <Title>{title}</Title>
-              <Genres genres={genres} />
               {tagline && <Tagline>{tagline}</Tagline>}
+              <Genres genres={genres} />
             </div>
           </Link>
-          {rate && <Rate>{rate}</Rate>}
-          {categoryAdded && <Category>{categoryAdded}</Category>}
           {!noModal && (
             <div className={styles.productionBtn}>
               <Button
