@@ -11,13 +11,6 @@
     padding: 6px 6px;
     @include fontStyle($primary, 15px, 300, 1, 0.05em);
     text-align: center;
-
-    &Custom {
-      padding: 6px 10px;
-      border: 1px solid $white;
-      margin-left: 10px;
-      color: $white;
-    }
   }
 
   &Icon {

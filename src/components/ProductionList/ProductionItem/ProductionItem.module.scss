@@ -11,8 +11,8 @@
   margin: 0 0 60px;
 
   &:hover {
-    .productionBtn {
-      display: block;
+    .productionButtonContainer {
+      transform: scale(1);
     }
   }
 
@@ -36,15 +36,16 @@
     margin-top: 20px;
   }
 
-  &Btn {
+  &ButtonContainer {
     position: absolute;
     top: 0;
     right: 0;
-    display: none;
+    transform: scale(0);
     padding: 15px;
+    transition: all 0.15s ease-in-out;
   }
 
-  &SingleBtn {
+  &Button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,6 +59,12 @@
     background: white;
     letter-spacing: 0;
     color: black;
+
+    &Delete {
+      @extend .productionButton;
+
+      transform: rotate(45deg);
+    }
 
     &:hover {
       background: none;

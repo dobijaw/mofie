@@ -23,7 +23,42 @@ const CollectionView = () => {
           categoryAdded="Love it!"
           tagline="One step from getting everytihng!"
           rate={9}
+          customRate="8"
+          customCategory="Love It"
           noModal
+        />
+        <ProductionItem
+          id={123}
+          title="Ad Astra"
+          genres={['Drama', 'Action']}
+          releaseDate="2020-06-01"
+          image="https://bit.ly/2yeV4Tg"
+          productionType="movie"
+          categoryAdded="Love it!"
+          tagline="One step from getting everytihng!"
+          rate={9}
+        />
+        <ProductionItem
+          id={123}
+          title="Ad Astra"
+          genres={['Drama', 'Action']}
+          releaseDate="2020-06-01"
+          image="https://bit.ly/2yeV4Tg"
+          productionType="movie"
+          categoryAdded="Love it!"
+          tagline="One step from getting everytihng!"
+          rate={9}
+        />
+        <ProductionItem
+          id={123}
+          title="Ad Astra"
+          genres={['Drama', 'Action']}
+          releaseDate="2020-06-01"
+          image="https://bit.ly/2yeV4Tg"
+          productionType="movie"
+          categoryAdded="Love it!"
+          tagline="One step from getting everytihng!"
+          rate={9}
         />
       </ul>
     </>

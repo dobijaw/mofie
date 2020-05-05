@@ -7,8 +7,17 @@ const Categories = () => {
 
   return (
     <ul className={styles.categories}>
+      <li className={styles.categoriesItem}>
+        <button type="button" className={styles.categoriesButton}>
+          All
+        </button>
+      </li>
       {context.stateCategories.map((c) => (
-        <li key={c.value}>{c.name}</li>
+        <li key={c.value} className={styles.categoriesItem}>
+          <button type="button" className={styles.categoriesButton}>
+            {c.name}
+          </button>
+        </li>
       ))}
     </ul>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RootContext } from 'context';
@@ -8,15 +8,16 @@ import Title from 'components/Production/Title/Title';
 import Poster from 'components/Production/Poster/Poster';
 import Genres from 'components/Production/Genres/Genres';
 import Tagline from 'components/Production/Tagline/Tagline';
-import Category from 'components/Production/Category/Category';
+import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
   productionType,
-  categoryAdded,
+  customCategory,
   releaseDate,
   buttonType,
+  customRate,
   noModal,
   tagline,
   genres,
@@ -25,46 +26,48 @@ const ProductionItem = ({
   rate,
   id,
 }) => {
-  return (
-    <RootContext.Consumer>
-      {(context) => (
-        <li className={styles.production}>
-          <Link
-            className={styles.productionLink}
-            to={`${productionType}/${id}`}
-          >
-            <Poster image={image} asBackgroundImage />
-            <div className={styles.productionDetails}>
-              <div className={styles.productionTopDetails}>
-                <div className={styles.productionTopDetailsColumn}>
-                  {rate && <Rate>{rate}</Rate>}
-                  <ReleaseDate>{releaseDate}</ReleaseDate>
-                </div>
-                <div>
-                  {rate && <Rate custom>{rate}</Rate>}
-                  {categoryAdded && <Category>{categoryAdded}</Category>}
-                </div>
-              </div>
+  const context = useContext(RootContext);
 
-              <Title>{title}</Title>
-              {tagline && <Tagline>{tagline}</Tagline>}
-              <Genres genres={genres} />
-            </div>
-          </Link>
-          {!noModal && (
-            <div className={styles.productionBtn}>
-              <Button
-                type={buttonType}
-                className={styles.productionSingleBtn}
-                handleClick={() => context.handleOpenModal(productionType, id)}
-              >
-                +
-              </Button>
-            </div>
-          )}
-        </li>
-      )}
-    </RootContext.Consumer>
+  return (
+    <li className={styles.production}>
+      <Link className={styles.productionLink} to={`${productionType}/${id}`}>
+        <Poster image={image} asBackgroundImage />
+      </Link>
+      <div className={styles.productionDetails}>
+        <div className={styles.productionTopDetails}>
+          <div className={styles.productionTopDetailsColumn}>
+            {rate && <Rate>{rate}</Rate>}
+            <ReleaseDate>{releaseDate}</ReleaseDate>
+          </div>
+          <div>
+            {customRate && <CustomRating custom>{customRate}</CustomRating>}
+            {customCategory && <CustomRating>{customCategory}</CustomRating>}
+          </div>
+        </div>
+        <Link className={styles.productionLink} to={`${productionType}/${id}`}>
+          <Title>{title}</Title>
+          {tagline && <Tagline>{tagline}</Tagline>}
+        </Link>
+        <Genres genres={genres} />
+      </div>
+      <div className={styles.productionButtonContainer}>
+        {!noModal ? (
+          <Button
+            asAdd
+            type={buttonType}
+            className={styles.productionButton}
+            handleClick={() => context.handleOpenModal(productionType, id)}
+          />
+        ) : (
+          <Button
+            asDelete
+            type={buttonType}
+            className={styles.productionButton}
+            handleClick={() => {}}
+          />
+        )}
+      </div>
+    </li>
   );
 };
 
@@ -73,7 +76,7 @@ ProductionItem.propTypes = {
   productionType: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  categoryAdded: PropTypes.string,
+  customCategory: PropTypes.string,
   releaseDate: PropTypes.string,
   buttonType: PropTypes.string,
   tagline: PropTypes.string,
@@ -85,7 +88,7 @@ ProductionItem.propTypes = {
 ProductionItem.defaultProps = {
   releaseDate: 'UNKNOW DATE',
   buttonType: 'text',
-  categoryAdded: '',
+  customCategory: '',
   noModal: false,
   tagline: '',
   rate: null,

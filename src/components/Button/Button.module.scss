@@ -11,13 +11,54 @@
   margin: 10px 0 0;
   background: none;
   text-decoration: none;
-  transition: all 0.35s;
+  transition: all 0.35s ease-in-out;
   cursor: pointer;
-
   @include fontStyle($white, 14px, 300, 1, 0.2em);
 
   @media (min-width: 600px) {
     width: auto;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &Icon {
+    position: relative;
+
+    &:hover {
+      &::after,
+      &::before {
+        background: $white;
+      }
+    }
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      background: $black;
+      transition: all 0.35s ease-in-out;
+    }
+
+    &::after {
+      width: 14px;
+      height: 2px;
+    }
+
+    &::before {
+      width: 2px;
+      height: 14px;
+    }
+  }
+
+  &Delete {
+    @extend .btnIcon;
+    transform: rotate(45deg);
   }
 
   &Light {

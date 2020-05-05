@@ -11,6 +11,8 @@ const Button = ({
   type,
   to,
   id,
+  asAdd,
+  asDelete,
 }) => (
   <>
     {to ? (
@@ -25,7 +27,9 @@ const Button = ({
     ) : (
       <button
         type={type}
-        className={`${lightTheme ? styles.btnLight : styles.btn} ${className}`}
+        className={`${lightTheme ? styles.btnLight : styles.btn} ${className} ${
+          asDelete && styles.btnDelete
+        } ${asAdd && styles.btnIcon}`}
         onClick={handleClick}
         data-id={id}
         data-type={type}
@@ -39,11 +43,13 @@ const Button = ({
 Button.propTypes = {
   type: PropTypes.string,
   lightTheme: PropTypes.bool,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.string,
   className: PropTypes.string,
   handleClick: PropTypes.func,
   to: PropTypes.string,
   id: PropTypes.number,
+  asAdd: PropTypes.bool,
+  asDelete: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -53,6 +59,9 @@ Button.defaultProps = {
   handleClick: null,
   id: null,
   to: '',
+  asAdd: false,
+  asDelete: false,
+  children: '',
 };
 
 export default Button;
