@@ -5,12 +5,13 @@ import PageTitle from 'components/PageTitle/PageTitle';
 import Headline from 'components/Headline/Headline';
 import ProductionList from 'components/ProductionList/ProductionList';
 import { RootContext } from 'context';
+import { FETCH_TYPE } from 'store';
 import styles from './PopularView.module.scss';
 
 const NowPlaying = () => {
   const context = useContext(RootContext);
-  const [movies, getMovies] = useState([]);
-  const [shows, getShows] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [shows, setShows] = useState([]);
 
   const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
   const popularShowsURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -18,18 +19,19 @@ const NowPlaying = () => {
   const [moviesRes] = useFetch(popularMoviesURL);
   const [showsRes] = useFetch(popularShowsURL);
 
-  const selectProductionData = (data, genresData, type = 'show') => {
+  const selectProductionData = (data, genresData, type) => {
     const output = data.map((p) => ({
       id: p.id,
       image: p.backdrop_path
         ? `http://image.tmdb.org/t/p/w500/${p.backdrop_path}`
         : p.poster_path && `http://image.tmdb.org/t/p/w500/${p.poster_path}`,
-      releaseDate: p.release_date,
+      releaseDate: type === 'movie' ? p.release_date : p.first_air_date,
       title: type === 'movie' ? p.title : p.name,
       genres: genresData
         .filter((i) => p.genre_ids.includes(i.id))
         .map((i) => i.name),
-      productionType: type === 'movie' ? 'movie' : 'tv',
+      productionType:
+        type === FETCH_TYPE.MOVIE ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV,
       rate: p.vote_average || 0,
     }));
 
@@ -41,10 +43,10 @@ const NowPlaying = () => {
       const selectedData = selectProductionData(
         moviesRes.results,
         context.movieGenres.genres,
-        'movie',
+        FETCH_TYPE.MOVIE,
       );
 
-      getMovies(selectedData);
+      setMovies(selectedData);
     }
   }, [moviesRes, context]);
 
@@ -53,9 +55,10 @@ const NowPlaying = () => {
       const selectedData = selectProductionData(
         showsRes.results,
         context.showGenres.genres,
+        FETCH_TYPE.TV,
       );
 
-      getShows(selectedData);
+      setShows(selectedData);
     }
   }, [showsRes, context]);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Input.module.scss';
 
 const Input = ({
@@ -8,9 +8,17 @@ const Input = ({
   label,
   placeholder,
   disabled,
-  value,
+  value = '',
   handleClick,
+  handleChange,
 }) => {
+  const [inputValue, setInputValue] = useState(value);
+
+  const onChange = ({ target }) => {
+    setInputValue(target.value);
+    handleChange(name, target.value);
+  };
+
   return (
     <div
       className={`${styles.wrapper} ${
@@ -27,6 +35,8 @@ const Input = ({
             id={id}
             name={name}
             placeholder={placeholder}
+            value={inputValue}
+            onChange={onChange}
           />
         </>
       ) : (

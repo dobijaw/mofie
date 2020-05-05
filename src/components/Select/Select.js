@@ -3,7 +3,15 @@ import { AppContext } from 'context';
 import Input from 'components/Input/Input';
 import styles from './Select.module.scss';
 
-const Select = ({ withButton, options, id, label, name, placeholder }) => {
+const Select = ({
+  withButton,
+  options,
+  id,
+  label,
+  name,
+  placeholder,
+  handleChange,
+}) => {
   const context = useContext(AppContext);
   const [value, setValue] = useState(placeholder);
   const [newCategoryValue, setNewCategoryValue] = useState('');
@@ -11,7 +19,7 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
 
   useEffect(() => {
     setSelectListVisibility(false);
-  }, [value]);
+  }, [value, setSelectListVisibility]);
 
   const handleNewCategoryClick = () => {
     if (
@@ -33,6 +41,11 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
     setNewCategoryValue('');
   };
 
+  const onClick = (option) => {
+    setValue(option);
+    handleChange(name, option);
+  };
+
   return (
     <div className={styles.select}>
       <Input
@@ -40,7 +53,7 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
         id={id}
         name={name}
         label={label}
-        value={value}
+        value={value.name || placeholder}
         handleClick={() => setSelectListVisibility(!isSelectListVisible)}
       />
       <ul
@@ -53,7 +66,7 @@ const Select = ({ withButton, options, id, label, name, placeholder }) => {
             <button
               className={`${styles.selectButton} ${styles.selectButtonOption}`}
               type="button"
-              onClick={() => setValue(o.value)}
+              onClick={() => onClick(o)}
             >
               {o.name}
             </button>

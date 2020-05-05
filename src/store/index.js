@@ -2,6 +2,16 @@ import React, { useReducer } from 'react';
 import { categoriesReducer, collectionReducer } from 'reducers';
 import { AppContext } from 'context';
 
+export const FETCH_TYPE = {
+  MOVIE: 'movie',
+  TV: 'tv',
+};
+
+export const ROUTE_TYPE = {
+  MOVIES: 'movies',
+  SHOWS: 'shows',
+};
+
 const initialStateCategories = [
   {
     value: 'loveit',

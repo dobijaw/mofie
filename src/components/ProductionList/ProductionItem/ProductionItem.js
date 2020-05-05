@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { RootContext } from 'context';
+import { AppContext, RootContext } from 'context';
 import Button from 'components/Button/Button';
 import Rate from 'components/Production/Rate/Rate';
 import Title from 'components/Production/Title/Title';
@@ -10,6 +10,8 @@ import Genres from 'components/Production/Genres/Genres';
 import Tagline from 'components/Production/Tagline/Tagline';
 import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
+import { FETCH_TYPE, ROUTE_TYPE } from 'store';
+import { REMOVE_FROM_COLLECTION } from 'reducers';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
@@ -25,11 +27,22 @@ const ProductionItem = ({
   rate,
   id,
 }) => {
-  const context = useContext(RootContext);
+  const rootContext = useContext(RootContext);
+  const context = useContext(AppContext);
+  const URL = `${
+    productionType === FETCH_TYPE.MOVIE ? ROUTE_TYPE.MOVIES : ROUTE_TYPE.SHOWS
+  }/${id}`;
+
+  const handleClick = () => {
+    context.dispatchCollections({
+      type: REMOVE_FROM_COLLECTION,
+      id,
+    });
+  };
 
   return (
     <li className={styles.production}>
-      <Link className={styles.productionLink} to={`${productionType}/${id}`}>
+      <Link className={styles.productionLink} to={URL}>
         <Poster image={image} asBackgroundImage />
       </Link>
       <div className={styles.productionDetails}>
@@ -43,7 +56,7 @@ const ProductionItem = ({
             {customCategory && <CustomRating>{customCategory}</CustomRating>}
           </div>
         </div>
-        <Link className={styles.productionLink} to={`${productionType}/${id}`}>
+        <Link className={styles.productionLink} to={URL}>
           <Title>{title}</Title>
           {tagline && <Tagline>{tagline}</Tagline>}
         </Link>
@@ -55,14 +68,14 @@ const ProductionItem = ({
             asAdd
             type="button"
             className={styles.productionButton}
-            handleClick={() => context.handleOpenModal(productionType, id)}
+            handleClick={() => rootContext.handleOpenModal(productionType, id)}
           />
         ) : (
           <Button
             asDelete
             type="button"
             className={styles.productionButton}
-            handleClick={() => {}}
+            handleClick={handleClick}
           />
         )}
       </div>

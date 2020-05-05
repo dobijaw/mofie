@@ -88,7 +88,9 @@ const ProductionView = ({ location, match }) => {
                   <Title>
                     {context === 'movie' ? detailsData.title : detailsData.name}
                   </Title>
-                  <Tagline>{detailsData.tagline}</Tagline>
+                  {detailsData.tagline && (
+                    <Tagline>{detailsData.tagline}</Tagline>
+                  )}
                   <Genres genres={detailsData.genres.map((i) => i.name)} />
 
                   <Overview>{detailsData.overview}</Overview>

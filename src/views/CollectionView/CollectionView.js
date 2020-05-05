@@ -1,65 +1,34 @@
-import React from 'react';
-// import { AppContext } from 'context';
+import React, { useContext } from 'react';
+import { AppContext } from 'context';
 import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
 import Categories from 'components/Categories/Categories';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import styles from './CollectionView.module.scss';
 
 const CollectionView = () => {
-  // const context = useContext(AppContext);
+  const context = useContext(AppContext);
 
   return (
     <>
       <PageTitle>My collection</PageTitle>
       <Categories />
       <ul className={styles.collectionList}>
-        <ProductionItem
-          id={123}
-          title="Ad Astra"
-          genres={['Drama', 'Action']}
-          releaseDate="2020-06-01"
-          image="https://bit.ly/2yeV4Tg"
-          productionType="movie"
-          categoryAdded="Love it!"
-          tagline="One step from getting everytihng!"
-          rate={9}
-          customRate="8"
-          customCategory="Love It"
-          noModal
-        />
-        <ProductionItem
-          id={123}
-          title="Ad Astra"
-          genres={['Drama', 'Action']}
-          releaseDate="2020-06-01"
-          image="https://bit.ly/2yeV4Tg"
-          productionType="movie"
-          categoryAdded="Love it!"
-          tagline="One step from getting everytihng!"
-          rate={9}
-        />
-        <ProductionItem
-          id={123}
-          title="Ad Astra"
-          genres={['Drama', 'Action']}
-          releaseDate="2020-06-01"
-          image="https://bit.ly/2yeV4Tg"
-          productionType="movie"
-          categoryAdded="Love it!"
-          tagline="One step from getting everytihng!"
-          rate={9}
-        />
-        <ProductionItem
-          id={123}
-          title="Ad Astra"
-          genres={['Drama', 'Action']}
-          releaseDate="2020-06-01"
-          image="https://bit.ly/2yeV4Tg"
-          productionType="movie"
-          categoryAdded="Love it!"
-          tagline="One step from getting everytihng!"
-          rate={9}
-        />
+        {context.stateCollections.map((c) => (
+          <ProductionItem
+            key={c.id}
+            id={c.id}
+            title={c.data.title}
+            genres={c.data.genres}
+            releaseDate={c.releaseDate}
+            image={c.data.image}
+            productionType={c.type}
+            tagline={c.data.tagline}
+            rate={c.data.rate}
+            customRate={c.customData?.rate?.name}
+            customCategory={c.customData?.category?.name}
+            noModal
+          />
+        ))}
       </ul>
     </>
   );
