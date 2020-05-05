@@ -1,23 +1,23 @@
-import React, { useContext } from 'react';
-import { RootContext } from 'context';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ProductionList.module.scss';
 import ProductionItem from './ProductionItem/ProductionItem';
 
-const ProductionList = ({ movies, type, additionalClass }) => {
-  const context = useContext(RootContext);
+const ProductionList = ({ productionData, className }) => (
+  <ul className={`${styles.wrapper} ${className}`}>
+    {productionData.map((p) => (
+      <ProductionItem {...p} key={p.id} />
+    ))}
+  </ul>
+);
 
-  return (
-    <ul className={`${styles.wrapper} ${additionalClass}`}>
-      {movies.map((item) => (
-        <ProductionItem
-          productionType={type}
-          key={item.title}
-          {...item}
-          genresName={context.genres}
-        />
-      ))}
-    </ul>
-  );
+ProductionList.propTypes = {
+  productionData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  className: PropTypes.string,
+};
+
+ProductionList.defaultProps = {
+  className: '',
 };
 
 export default ProductionList;

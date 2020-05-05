@@ -1,4 +1,6 @@
-import { ADD_CATEGORY, DELETE_CATEGORY, ADD_TO_COLLECTION } from 'actions';
+export const ADD_CATEGORY = 'ADD_CATEGORY';
+export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+export const ADD_TO_COLLECTION = 'ADD_TO_COLLECTION';
 
 export const categoriesReducer = (state, action) => {
   switch (action.type) {
@@ -7,7 +9,7 @@ export const categoriesReducer = (state, action) => {
     case DELETE_CATEGORY:
       return [...state];
     default:
-      throw new Error();
+      return state;
   }
 };
 
@@ -16,6 +18,6 @@ export const collectionReducer = (state, action) => {
     case ADD_TO_COLLECTION:
       return [...state, action.payload];
     default:
-      throw new Error();
+      return state;
   }
 };

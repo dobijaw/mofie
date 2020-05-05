@@ -18,43 +18,44 @@ const NowPlaying = () => {
   const [moviesRes] = useFetch(popularMoviesURL);
   const [showsRes] = useFetch(popularShowsURL);
 
+  const selectProductionData = (data, genresData, type = 'show') => {
+    const output = data.map((p) => ({
+      id: p.id,
+      image: p.backdrop_path
+        ? `http://image.tmdb.org/t/p/w500/${p.backdrop_path}`
+        : p.poster_path && `http://image.tmdb.org/t/p/w500/${p.poster_path}`,
+      releaseDate: p.release_date,
+      title: type === 'movie' ? p.title : p.name,
+      genres: genresData
+        .filter((i) => p.genre_ids.includes(i.id))
+        .map((i) => i.name),
+      productionType: type === 'movie' ? 'movie' : 'tv',
+      rate: p.vote_average || 0,
+    }));
+
+    return output;
+  };
+
   useEffect(() => {
     if (moviesRes !== null && context.movieGenres !== null) {
-      const data = moviesRes.results.map((movie) => ({
-        id: movie.id,
-        img: movie.backdrop_path
-          ? `http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
-          : movie.poster_path &&
-            `http://image.tmdb.org/t/p/w500/${movie.poster_path}`,
-        year: movie.release_date,
-        title: movie.title,
-        genres: context.movieGenres.genres
-          .filter((i) => movie.genre_ids.includes(i.id))
-          .map((i) => i.name),
-        type: 'movie',
-      }));
+      const selectedData = selectProductionData(
+        moviesRes.results,
+        context.movieGenres.genres,
+        'movie',
+      );
 
-      getMovies(data);
+      getMovies(selectedData);
     }
   }, [moviesRes, context]);
 
   useEffect(() => {
     if (showsRes !== null && context.showGenres !== null) {
-      const data = showsRes.results.map((show) => ({
-        id: show.id,
-        img: show.backdrop_path
-          ? `http://image.tmdb.org/t/p/w500/${show.backdrop_path}`
-          : show.poster_path &&
-            `http://image.tmdb.org/t/p/w500/${show.poster_path}`,
-        year: show.first_air_date,
-        title: show.name,
-        genres: context.showGenres.genres
-          .filter((i) => show.genre_ids.includes(i.id))
-          .map((i) => i.name),
-        type: 'shows',
-      }));
+      const selectedData = selectProductionData(
+        showsRes.results,
+        context.showGenres.genres,
+      );
 
-      getShows(data);
+      getShows(selectedData);
     }
   }, [showsRes, context]);
 
@@ -68,9 +69,8 @@ const NowPlaying = () => {
             Popular movies
           </Headline>
           <ProductionList
-            movies={movies}
-            type="movies"
-            additionalClass={styles.popularList}
+            productionData={movies}
+            className={styles.popularList}
           />
         </section>
         <section className={styles.section}>
@@ -78,9 +78,8 @@ const NowPlaying = () => {
             Popular TV shows
           </Headline>
           <ProductionList
-            movies={shows}
-            type="shows"
-            additionalClass={styles.popularList}
+            productionData={shows}
+            className={styles.popularList}
           />
         </section>
       </div>

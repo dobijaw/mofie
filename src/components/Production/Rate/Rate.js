@@ -11,7 +11,7 @@ const Rate = ({ children }) => (
 );
 
 Rate.propTypes = {
-  children: PropTypes.isRequired,
+  children: PropTypes.number.isRequired,
 };
 
 export default Rate;

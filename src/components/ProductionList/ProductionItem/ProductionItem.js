@@ -16,7 +16,6 @@ const ProductionItem = ({
   productionType,
   customCategory,
   releaseDate,
-  buttonType,
   customRate,
   noModal,
   tagline,
@@ -54,14 +53,14 @@ const ProductionItem = ({
         {!noModal ? (
           <Button
             asAdd
-            type={buttonType}
+            type="button"
             className={styles.productionButton}
             handleClick={() => context.handleOpenModal(productionType, id)}
           />
         ) : (
           <Button
             asDelete
-            type={buttonType}
+            type="button"
             className={styles.productionButton}
             handleClick={() => {}}
           />
@@ -78,7 +77,6 @@ ProductionItem.propTypes = {
   id: PropTypes.number.isRequired,
   customCategory: PropTypes.string,
   releaseDate: PropTypes.string,
-  buttonType: PropTypes.string,
   tagline: PropTypes.string,
   image: PropTypes.string,
   noModal: PropTypes.bool,
@@ -87,7 +85,6 @@ ProductionItem.propTypes = {
 
 ProductionItem.defaultProps = {
   releaseDate: 'UNKNOW DATE',
-  buttonType: 'text',
   customCategory: '',
   noModal: false,
   tagline: '',
