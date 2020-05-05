@@ -17,7 +17,10 @@ export const categoriesReducer = (state, action) => {
 export const collectionReducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_COLLECTION:
-      return [...state, action.payload];
+      return [
+        ...state.filter((item) => item.id !== action.payload.id),
+        action.payload,
+      ];
     case REMOVE_FROM_COLLECTION:
       return state.filter((item) => item.id !== action.id);
     default:

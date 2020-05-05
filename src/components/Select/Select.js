@@ -29,15 +29,17 @@ const Select = ({
     )
       return;
 
+    const data = {
+      value: newCategoryValue.replace(/\s/g, '').toLowerCase(),
+      name: newCategoryValue,
+    };
+
     context.dispatchCategories({
       type: 'ADD_CATEGORY',
-      payload: {
-        value: newCategoryValue.replace(/\s/g, '').toLowerCase(),
-        name: newCategoryValue,
-      },
+      payload: data,
     });
 
-    setValue(newCategoryValue);
+    setValue(data);
     setNewCategoryValue('');
   };
 
