@@ -1,15 +1,15 @@
 import React from 'react';
+// import Select from 'components/Select/Select';
 import styles from './Comments.module.scss';
 import SubHeadline from '../SubHeadline/SubHeadline';
-import SingleComment from './SingleComment/SingleComment';
+// import SingleComment from './SingleComment/SingleComment';
 
-const Comments = () => (
-  <section className={styles.commentsWrapper}>
+const Comments = ({ category, rate, comment }) => (
+  <section className={styles.comments}>
     <SubHeadline>My comments</SubHeadline>
-    <div>Tu raitingi</div>
-    <div>
-      <SingleComment comment="I really love this movie, is so nice, and I can watch it again." />
-    </div>
+    <p>{rate}</p>
+    <p>{category}</p>
+    <p>{comment}</p>
   </section>
 );
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useFetch } from 'hooks';
 import { withRouter, Redirect } from 'react-router';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
@@ -13,144 +13,193 @@ import SubHeadline from 'components/SubHeadline/SubHeadline';
 import Cast from 'components/Production/Cast/Cast';
 import Keywords from 'components/Production/Keywords/Keywords';
 import Tagline from 'components/Production/Tagline/Tagline';
+import Button from 'components/Button/Button';
 import { API_KEY } from 'config';
+import { AppContext } from 'context';
+import { FETCH_TYPE, ROUTE_TYPE } from 'store';
+import { routes } from 'routes';
 import styles from './ProductionView.module.scss';
 
 const ProductionView = ({ location, match }) => {
+  const appContext = useContext(AppContext);
   const { pathname } = location;
   const { id } = match.params;
-  const [mainCrew, setMainCrew] = useState([]);
+  const prodType = pathname.includes(ROUTE_TYPE.MOVIES)
+    ? FETCH_TYPE.MOVIE
+    : FETCH_TYPE.TV;
 
-  const context = pathname.includes('movies') ? 'movie' : 'tv';
-  const productionURL = `https://api.themoviedb.org/3/${context}/${id}?api_key=${API_KEY}&language=en-US`;
-  const creditsURL = `https://api.themoviedb.org/3/${context}/${id}/credits?api_key=${API_KEY}&language=en-US`;
-  const keywordsURL = `https://api.themoviedb.org/3/${context}/${id}/keywords?api_key=${API_KEY}&language=en-US`;
-  const videosURL = `https://api.themoviedb.org/3/${context}/${id}/videos?api_key=${API_KEY}&language=en-US`;
-  const simillarURL = `https://api.themoviedb.org/3/${context}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+  const detailsURL = `https://api.themoviedb.org/3/${prodType}/${id}?api_key=${API_KEY}&language=en-US`;
+  const keywordsURL = `https://api.themoviedb.org/3/${prodType}/${id}/keywords?api_key=${API_KEY}&language=en-US`;
+  const creditsURL = `https://api.themoviedb.org/3/${prodType}/${id}/credits?api_key=${API_KEY}&language=en-US`;
+  const videosURL = `https://api.themoviedb.org/3/${prodType}/${id}/videos?api_key=${API_KEY}&language=en-US`;
+  // const simillarURL = `https://api.themoviedb.org/3/${prodType}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
 
-  const [detailsData, detailsError, detailsLoading] = useFetch(productionURL);
-  const [creditsData, creditsError, creditsLoading] = useFetch(creditsURL);
+  const [detailsData, detailsError, detailsLoading] = useFetch(detailsURL);
   const [keywordsData, keywordsError, keywordsLoading] = useFetch(keywordsURL);
+  const [creditsData, creditsError, creditsLoading] = useFetch(creditsURL);
   const [videosData, videosError, videosLoading] = useFetch(videosURL);
-  const [simillarData, simillarError, simillarLoading] = useFetch(simillarURL);
+  // const [simillarData, simillarError, simillarLoading] = useFetch(simillarURL);
+  const [isClose, setClose] = useState(true);
+
+  // const [simmilarProductions, setSimillarProductions] = useState({});
+  const [isAllDataLoaded, setDataLoding] = useState(false);
+  const [renderedData, setRenderedData] = useState({});
+
+  const [isInCollection, setInCollection] = useState({});
 
   useEffect(() => {
-    if (!creditsLoading && !creditsError && !creditsData.status_code) {
-      const data = creditsData.crew
-        .filter(
-          (i) =>
-            i.job.toLowerCase() === 'director' ||
-            i.job.toLowerCase() === 'screenplay',
-        )
-        .sort((a, b) => {
-          if (a.job < b.job) return -1;
-          if (a.job > b.job) return 1;
-          return 0;
-        })
-        .map(({ job, name, credit_id }) => ({
+    if (
+      !detailsLoading &&
+      !keywordsLoading &&
+      !creditsLoading &&
+      !videosLoading &&
+      !detailsData?.status_code &&
+      !detailsError
+    ) {
+      const output = {
+        adults: detailsData.adult,
+        videos: videosData?.results.map((i) => ({
+          videoID: i.id,
+          videoName: i.name,
+          videoSite: i.site,
+          videoType: i.type,
+          videoKey: i.key,
+        })),
+        image:
+          `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}` || null,
+        releaseDate:
+          prodType === FETCH_TYPE.MOVIE
+            ? detailsData.release_date
+            : detailsData.first_air_date,
+        title:
+          prodType === FETCH_TYPE.MOVIE ? detailsData.title : detailsData.name,
+        tagline: detailsData.tagline || null,
+        genres: detailsData.genres.map((i) => i.name),
+        overview: detailsData.overview,
+        keywords:
+          prodType === FETCH_TYPE.MOVIE
+            ? keywordsData?.keywords
+            : keywordsData?.results,
+        crew: creditsData?.crew.map(({ job, name, credit_id }) => ({
           id: credit_id,
           job,
           name,
-        }));
+        })),
+        cast: creditsData?.cast.map((i) => ({
+          id: i.credit_id,
+          name: i.name,
+          character: i.character,
+          avatar: i.profile_path
+            ? `http://image.tmdb.org/t/p/w500${i.profile_path}`
+            : '',
+        })),
+        mainCrew: creditsData?.crew
+          .filter(
+            (i) =>
+              i.job.toLowerCase() === 'director' ||
+              i.job.toLowerCase() === 'screenplay',
+          )
+          .sort((a, b) => {
+            if (a.job < b.job) return -1;
+            if (a.job > b.job) return 1;
+            return 0;
+          })
+          .map(({ job, name, credit_id }) => ({
+            id: credit_id,
+            job,
+            name,
+          })),
+      };
 
-      setMainCrew(data);
+      setRenderedData(output);
+      setDataLoding(true);
     }
-  }, [creditsData, creditsLoading, creditsError]);
+  }, [
+    videosData,
+    creditsData,
+    detailsData,
+    keywordsData,
+    videosLoading,
+    detailsLoading,
+    keywordsLoading,
+    creditsLoading,
+    detailsError,
+    prodType,
+  ]);
+
+  useEffect(() => {
+    setInCollection(
+      appContext.stateCollections.find((item) => item.id === +id),
+    );
+  }, [appContext.stateCollections, id]);
 
   return (
     <>
-      {detailsError &&
-        keywordsError &&
-        videosError &&
-        simillarError &&
-        'Something went wrong!'}
-      {detailsLoading && videosLoading && simillarLoading ? (
-        'Is loading'
-      ) : (
+      {(detailsError !== null || detailsData?.status_code) && (
+        <Redirect to={routes.page404} />
+      )}
+      {isAllDataLoaded && (
         <>
-          {detailsData.status_code ? (
-            <Redirect to="/404" />
-          ) : (
-            <>
-              <section className={styles.movieWrapper}>
-                <div className={styles.movieWrapperItem}>
-                  <Poster
-                    image={`http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`}
-                    asPoster
-                  />
-                </div>
-                <div className={styles.movieWrapperItem}>
-                  <ReleaseDate>
-                    {context === 'movie'
-                      ? detailsData.release_date
-                      : detailsData.first_air_date}
-                  </ReleaseDate>
-                  <Title>
-                    {context === 'movie' ? detailsData.title : detailsData.name}
-                  </Title>
-                  {detailsData.tagline && (
-                    <Tagline>{detailsData.tagline}</Tagline>
-                  )}
-                  <Genres genres={detailsData.genres.map((i) => i.name)} />
-
-                  <Overview>{detailsData.overview}</Overview>
-                  {mainCrew.length && <MainCrew crew={mainCrew} />}
-                  {!keywordsLoading && (
-                    <Keywords
-                      keywords={
-                        context === 'movie'
-                          ? keywordsData.keywords
-                          : keywordsData.results
-                      }
-                    />
-                  )}
-
-                  {detailsData.adult && 'Only for Adults!'}
-                </div>
-              </section>
-              <section className={styles.cast}>
-                <SubHeadline>Cast</SubHeadline>
-                {!creditsLoading && (
-                  <Cast
-                    cast={creditsData.cast.map((i) => ({
-                      id: i.credit_id,
-                      name: i.name,
-                      character: i.character,
-                      avatar: i.profile_path
-                        ? `http://image.tmdb.org/t/p/w500${i.profile_path}`
-                        : '',
-                    }))}
-                  />
-                )}
-              </section>
-              <Comments />
-              <section>
-                {!creditsLoading && (
-                  <Crew
-                    crew={creditsData.crew.map(({ job, name, credit_id }) => ({
-                      id: credit_id,
-                      job,
-                      name,
-                    }))}
-                  />
-                )}
-              </section>
-              <section>
-                {!simillarLoading &&
-                  simillarData.results.map((i) => (
-                    <h2 key={i.id}>{i.title}</h2>
-                  ))}
-              </section>
-              <section>
-                {!videosLoading &&
-                  videosData.results.map((i) => <p key={i.key}>{i.name}</p>)}
-              </section>
-            </>
+          <section className={styles.movieWrapper}>
+            <div className={styles.movieWrapperItem}>
+              <Poster image={renderedData.image} asPoster />
+            </div>
+            <div className={styles.movieWrapperItem}>
+              <ReleaseDate>{renderedData.releaseDate}</ReleaseDate>
+              <Title>{renderedData.title}</Title>
+              {renderedData.tagline && (
+                <Tagline>{renderedData.tagline}</Tagline>
+              )}
+              <Genres genres={renderedData.genres} />
+              <Overview>{renderedData.overview}</Overview>
+              {(!creditsError || renderedData.mainCrew) && (
+                <MainCrew crew={renderedData.mainCrew} />
+              )}
+              {(!keywordsError || renderedData.keywords) && (
+                <Keywords keywords={renderedData.keywords} />
+              )}
+              {detailsData.adult && 'Only for Adults!'}
+            </div>
+          </section>
+          {isInCollection && (
+            <Comments
+              rate={isInCollection.customData.rate.name}
+              category={isInCollection.customData.category.name}
+              comment={isInCollection.customData.comment}
+            />
+          )}
+          {!creditsError && (
+            <section className={styles.cast}>
+              <SubHeadline>Cast</SubHeadline>
+              <Cast
+                cast={
+                  isClose ? renderedData.cast.slice(0, 5) : renderedData.cast
+                }
+              />
+              <Button
+                type="button"
+                handleClick={() => setClose(!isClose)}
+                className={styles.productionButton}
+              >
+                {isClose ? 'more' : 'less'}
+              </Button>
+            </section>
+          )}
+          {!videosError && (
+            <section>
+              <SubHeadline>Videos</SubHeadline>
+              <div className={styles.videoGroup}>video</div>
+            </section>
+          )}
+          {!creditsError && (
+            <section>
+              <SubHeadline>Crew</SubHeadline>
+              <Crew crew={renderedData.crew} />
+            </section>
           )}
         </>
       )}
     </>
   );
 };
-
 export default withRouter(ProductionView);

@@ -19,6 +19,7 @@ const NowPlaying = () => {
   const [moviesRes] = useFetch(popularMoviesURL);
   const [showsRes] = useFetch(popularShowsURL);
 
+  // change to hook
   const selectProductionData = (data, genresData, type) => {
     const output = data.map((p) => ({
       id: p.id,
@@ -72,7 +73,7 @@ const NowPlaying = () => {
             Popular movies
           </Headline>
           <ProductionList
-            productionData={movies}
+            productionData={movies.slice(0, 15)}
             className={styles.popularList}
           />
         </section>
@@ -81,7 +82,7 @@ const NowPlaying = () => {
             Popular TV shows
           </Headline>
           <ProductionList
-            productionData={shows}
+            productionData={shows.slice(0, 15)}
             className={styles.popularList}
           />
         </section>

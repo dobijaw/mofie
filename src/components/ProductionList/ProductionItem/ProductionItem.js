@@ -48,7 +48,7 @@ const ProductionItem = ({
       <div className={styles.productionDetails}>
         <div className={styles.productionTopDetails}>
           <div className={styles.productionTopDetailsColumn}>
-            {rate && <Rate>{rate}</Rate>}
+            <Rate>{rate}</Rate>
             <ReleaseDate>{releaseDate}</ReleaseDate>
           </div>
           <div>
@@ -101,7 +101,7 @@ ProductionItem.defaultProps = {
   customCategory: '',
   noModal: false,
   tagline: '',
-  rate: null,
+  rate: 0,
   image: '',
 };
 

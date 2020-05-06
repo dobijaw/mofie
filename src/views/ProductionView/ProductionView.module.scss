@@ -18,3 +18,17 @@
 .cast {
   margin-top: 60px;
 }
+
+.productionButton {
+  margin: 60px auto 0;
+}
+
+.videoGroup {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.videoItem {
+  width: 50%;
+}
