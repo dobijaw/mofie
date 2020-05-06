@@ -23,6 +23,7 @@
     "array-callback-return": "off",
     "consistent-return": "off",
     "camelcase": "off",
+    "no-nested-ternary": "off",
     "react/jsx-filename-extension": [
       1,
       {

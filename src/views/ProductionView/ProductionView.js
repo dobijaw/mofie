@@ -86,7 +86,8 @@ const ProductionView = ({ location, match }) => {
           name,
         })),
         cast: creditsData?.cast.map((i) => ({
-          id: i.credit_id,
+          id: i.id,
+          creditID: i.credit_id,
           name: i.name,
           character: i.character,
           avatar: i.profile_path
@@ -110,7 +111,7 @@ const ProductionView = ({ location, match }) => {
             name,
           })),
       };
-
+      console.log(creditsData);
       setRenderedData(output);
       setDataLoding(true);
     }

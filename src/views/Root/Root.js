@@ -13,6 +13,7 @@ import { routes } from 'routes';
 import Store from 'store';
 import { RootContext } from 'context';
 import { API_KEY } from 'config';
+import ActorView from 'views/ActorView/ActorView';
 import styles from './Root.module.scss';
 
 const ratingScale = [
@@ -105,6 +106,7 @@ const Root = () => {
                 <Route path={routes.shows} component={ShowView} />
                 <Route path={routes.collection} component={CollectionView} />
                 <Route path={routes.page404} component={Page404View} />
+                <Route path="/actor/:id" component={ActorView} />
               </Switch>
             </main>
           </div>

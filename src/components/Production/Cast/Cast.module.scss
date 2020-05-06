@@ -9,6 +9,10 @@
   padding: 0;
   color: $white;
 
+  &Link {
+    text-decoration: none;
+  }
+
   &Item {
     display: flex;
     flex-direction: column;
