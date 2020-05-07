@@ -32,3 +32,11 @@
 .videoItem {
   width: 50%;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  width: 100%;
+}

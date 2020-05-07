@@ -18,6 +18,7 @@ import { API_KEY } from 'config';
 import { AppContext } from 'context';
 import { FETCH_TYPE, ROUTE_TYPE } from 'store';
 import { routes } from 'routes';
+import Loading from 'components/Loading/Loading';
 import styles from './ProductionView.module.scss';
 
 const ProductionView = ({ location, match }) => {
@@ -111,9 +112,9 @@ const ProductionView = ({ location, match }) => {
             name,
           })),
       };
-      console.log(creditsData);
+
       setRenderedData(output);
-      setDataLoding(true);
+      setTimeout(() => setDataLoding(true), 500);
     }
   }, [
     videosData,
@@ -139,7 +140,7 @@ const ProductionView = ({ location, match }) => {
       {(detailsError !== null || detailsData?.status_code) && (
         <Redirect to={routes.page404} />
       )}
-      {isAllDataLoaded && (
+      {isAllDataLoaded ? (
         <>
           <section className={styles.movieWrapper}>
             <div className={styles.movieWrapperItem}>
@@ -199,6 +200,10 @@ const ProductionView = ({ location, match }) => {
             </section>
           )}
         </>
+      ) : (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
       )}
     </>
   );

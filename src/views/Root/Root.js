@@ -106,7 +106,7 @@ const Root = () => {
                 <Route path={routes.shows} component={ShowView} />
                 <Route path={routes.collection} component={CollectionView} />
                 <Route path={routes.page404} component={Page404View} />
-                <Route path="/actor/:id" component={ActorView} />
+                <Route path={routes.singleActor} component={ActorView} />
               </Switch>
             </main>
           </div>

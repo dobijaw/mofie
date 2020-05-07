@@ -13,6 +13,7 @@ const Button = ({
   id,
   asAdd,
   asDelete,
+  disabled,
 }) => (
   <>
     {to ? (
@@ -33,6 +34,7 @@ const Button = ({
         onClick={handleClick}
         data-id={id}
         data-type={type}
+        disabled={disabled}
       >
         {children}
       </button>
@@ -50,6 +52,7 @@ Button.propTypes = {
   id: PropTypes.number,
   asAdd: PropTypes.bool,
   asDelete: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -62,6 +65,7 @@ Button.defaultProps = {
   asAdd: false,
   asDelete: false,
   children: '',
+  disabled: false,
 };
 
 export default Button;

@@ -6,6 +6,7 @@ import Headline from 'components/Headline/Headline';
 import ProductionList from 'components/ProductionList/ProductionList';
 import { RootContext } from 'context';
 import { FETCH_TYPE } from 'store';
+import Loading from 'components/Loading/Loading';
 import styles from './PopularView.module.scss';
 
 const NowPlaying = () => {
@@ -16,8 +17,9 @@ const NowPlaying = () => {
   const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
   const popularShowsURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`;
 
-  const [moviesRes] = useFetch(popularMoviesURL);
-  const [showsRes] = useFetch(popularShowsURL);
+  const [moviesRes, moviesErr, moviesLoading] = useFetch(popularMoviesURL);
+  const [showsRes, showsErr, showsLoading] = useFetch(popularShowsURL);
+  const [isLoaded, setLoaded] = useState(false);
 
   // change to hook
   const selectProductionData = (data, genresData, type) => {
@@ -40,7 +42,7 @@ const NowPlaying = () => {
   };
 
   useEffect(() => {
-    if (moviesRes !== null && context.movieGenres !== null) {
+    if (!moviesLoading && context?.movieGenres !== null) {
       const selectedData = selectProductionData(
         moviesRes.results,
         context.movieGenres.genres,
@@ -49,10 +51,10 @@ const NowPlaying = () => {
 
       setMovies(selectedData);
     }
-  }, [moviesRes, context]);
+  }, [moviesRes, context, moviesLoading]);
 
   useEffect(() => {
-    if (showsRes !== null && context.showGenres !== null) {
+    if (!showsLoading && context?.showGenres !== null) {
       const selectedData = selectProductionData(
         showsRes.results,
         context.showGenres.genres,
@@ -61,31 +63,44 @@ const NowPlaying = () => {
 
       setShows(selectedData);
     }
-  }, [showsRes, context]);
+  }, [showsRes, context, showsLoading]);
+
+  useEffect(() => {
+    if (movies !== [] && shows !== []) setTimeout(() => setLoaded(true), 500);
+  }, [movies, shows]);
 
   return (
     <div className={styles.wrapper}>
       <PageTitle isHidden>Popular</PageTitle>
+      {(moviesErr || showsErr) && <p>Something went wrong, sorry :(</p>}
 
-      <div className={styles.innerWrapper}>
-        <section className={styles.section}>
-          <Headline tag="h2" additionalClass={styles.popularHeadline}>
-            Popular movies
-          </Headline>
-          <ProductionList
-            productionData={movies.slice(0, 15)}
-            className={styles.popularList}
-          />
-        </section>
-        <section className={styles.section}>
-          <Headline tag="h2" additionalClass={styles.popularHeadline}>
-            Popular TV shows
-          </Headline>
-          <ProductionList
-            productionData={shows.slice(0, 15)}
-            className={styles.popularList}
-          />
-        </section>
+      <div className={styles.popularProductionLists}>
+        {isLoaded ? (
+          <>
+            <section className={styles.section}>
+              <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                Popular movies
+              </Headline>
+              <ProductionList
+                productionData={movies.slice(0, 15)}
+                className={styles.popularList}
+              />
+            </section>
+            <section className={styles.section}>
+              <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                Popular TV shows
+              </Headline>
+              <ProductionList
+                productionData={shows.slice(0, 15)}
+                className={styles.popularList}
+              />
+            </section>
+          </>
+        ) : (
+          <div className={styles.popularLoading}>
+            <Loading />
+          </div>
+        )}
       </div>
     </div>
   );

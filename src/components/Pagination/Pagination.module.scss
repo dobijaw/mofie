@@ -1,0 +1,18 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 60px 0 0;
+
+  &List {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0 40px;
+    list-style: none;
+  }
+
+  &Button {
+    margin: 0;
+  }
+}
