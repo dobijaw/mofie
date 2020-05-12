@@ -1,13 +1,59 @@
-import React from 'react';
-import styles from './Form.module.scss';
-import InputItem from './InputItem/InputItem';
+import React, { useState, useEffect, useCallback } from 'react';
 
-const Form = () => (
-  <form className={styles.formWrapper}>
-    <InputItem id="inOneWord" label="In one word" />
-    <InputItem id="inNumScale" label="In number scale" />
-    <InputItem id="inComment" label="Your Comment" />
-  </form>
-);
+const Form = ({ render, initialValues, className, onSubmit, validate }) => {
+  const [values, setValues] = useState(initialValues);
+  const [errors, setErrors] = useState({});
+  const [curName, setCurName] = useState('');
+  const [currentError, setCurrentError] = useState('');
+
+  useEffect(() => {
+    setCurrentError(errors[curName] || '');
+  }, [errors, curName]);
+
+  const getAllErrors = useCallback((validateRules) => {
+    const validateErrors = {};
+
+    Object.entries(validateRules).forEach((property) => {
+      const errorsHere = property[1].find((i) => !i.correct);
+      validateErrors[property[0]] = errorsHere?.errorMessage || '';
+    });
+
+    return validateErrors;
+  }, []);
+
+  const handleChange = ({ target: { name, value } }) => {
+    setValues({ ...values, [name]: value });
+    setCurName(name);
+  };
+
+  useEffect(() => {
+    const data = validate(values);
+    const anyError = data[curName] && data[curName].find((i) => !i.correct);
+
+    if (currentError)
+      setErrors((e) => ({ ...e, [curName]: anyError?.errorMessage }));
+  }, [values, curName, validate, currentError]);
+
+  const handleBlur = ({ target: { name } }) => {
+    const validateErrors = getAllErrors(validate(values));
+    setErrors({ ...errors, [name]: validateErrors[name] || '' });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validateErrors = getAllErrors(validate(values));
+    setErrors(validateErrors);
+
+    const submitPossible = Object.values(validateErrors).some((i) => !!i);
+    if (!submitPossible) onSubmit(values);
+  };
+
+  return (
+    <form className={className} onSubmit={handleSubmit}>
+      {render(values, errors, handleChange, handleBlur)}
+    </form>
+  );
+};
 
 export default Form;

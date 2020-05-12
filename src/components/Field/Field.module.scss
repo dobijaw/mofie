@@ -1,0 +1,51 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.field {
+  position: relative;
+  margin: 40px 0;
+
+  &Input {
+    display: block;
+    width: 100%;
+    padding: 5px 0 10px;
+    border: none;
+    border-bottom: 1px solid $dark-white;
+    background: none;
+    margin: 0;
+    @include fontStyle($light-black, 18px, 300, 1.5, 0.02em);
+    transition: all 0.25s ease-in-out;
+
+    &Light {
+      color: $white;
+    }
+
+    &:focus {
+      outline: 0;
+      border-bottom: 1px solid $primary;
+    }
+    &::placeholder {
+      @include fontStyle($light-gray, 18px, 300, 1.5, 0.02em);
+    }
+
+    &[type='button'] {
+      text-align: left;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      background: none;
+    }
+
+    &Label {
+      display: block;
+      padding: 0;
+      margin: 0 0 10px;
+      @include fontStyle($light-gray, 12px, 300, 1, 0.02em);
+      text-transform: uppercase;
+    }
+  }
+  &Error {
+    @include fontStyle($primary, 12px, 300, 1, 0.02em);
+  }
+}
