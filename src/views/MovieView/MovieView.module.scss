@@ -1,3 +1,41 @@
 .wrapper {
   display: block;
 }
+
+.movies {
+  @media (min-width: 960px) {
+    display: flex;
+
+    > li {
+      &:first-child {
+        width: 100%;
+      }
+
+      &:not(:first-child) {
+        width: calc(50% - 20px);
+
+        &:nth-child(even) {
+          margin-right: 10px;
+        }
+
+        &:nth-child(odd) {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+
+  > div {
+    width: 100%;
+    margin-right: 40px;
+  }
+
+  > button {
+    margin-top: 24px;
+  }
+}
