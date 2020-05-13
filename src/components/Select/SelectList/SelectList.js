@@ -17,13 +17,13 @@ const SelectList = ({
       }
     >
       {options.map((o) => (
-        <li key={o} className={styles.selectListItem}>
+        <li key={o.id} className={styles.selectListItem}>
           <button
             type="button"
             onClick={() => handleItemClick(name, o)}
             className={styles.selectListButton}
           >
-            {o}
+            {o.value}
           </button>
         </li>
       ))}

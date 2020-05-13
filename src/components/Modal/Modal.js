@@ -87,20 +87,20 @@ const Modal = ({ selected }) => {
               <Overview lightTheme>{selectedData.overview}</Overview>
               <Form
                 initialValues={{
-                  category: '',
-                  rate: '',
+                  category: {},
+                  rate: {},
                   comment: '',
                 }}
                 validate={(values) => ({
                   category: [
                     {
-                      correct: values.category,
+                      correct: values.category.value,
                       errorMessage: 'Category required!',
                     },
                   ],
                   rate: [
                     {
-                      correct: values.rate,
+                      correct: values.rate.value,
                       errorMessage: 'Rate required!',
                     },
                   ],

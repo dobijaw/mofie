@@ -15,15 +15,19 @@ export const ROUTE_TYPE = {
 const initialStateCategories = [
   {
     value: 'Love it',
+    id: 'loveit',
   },
   {
     value: 'Quite good',
+    id: 'quitegood',
   },
   {
     value: 'Never again',
+    id: 'neveragain',
   },
   {
     value: 'Hate it',
+    id: 'hateit',
   },
 ];
 

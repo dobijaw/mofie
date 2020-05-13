@@ -23,7 +23,7 @@ const Select = ({
   const context = useContext(AppContext);
   const [isListVisible, toggleListVisibility] = useState(false);
   const [newCategoryValue, setNewCategoryValue] = useState('');
-  const [isPlaceholder, setPlaceholder] = useState(!value);
+  const [isPlaceholder, setPlaceholder] = useState(!value?.value);
   const [newCategoryError, setNewCategoryError] = useState('');
 
   const checkIfErrors = (categoryValue) => {
@@ -47,9 +47,9 @@ const Select = ({
     setNewCategoryValue({ [categoryName]: categoryValue });
   };
 
-  const handleListOptionChange = (selectInputName, optionValue) => {
+  const handleListOptionChange = (selectInputName, optionValueObj) => {
     setPlaceholder(false);
-    onChange(selectInputName, optionValue);
+    onChange(selectInputName, optionValueObj);
     toggleListVisibility(false);
     setNewCategoryValue('');
   };
@@ -85,12 +85,16 @@ const Select = ({
     if (!isRepeat && !newCategoryError) {
       setPlaceholder(false);
       toggleListVisibility(false);
-      onChange(selectName, optionValue);
+      onChange(selectName, {
+        value: optionValue,
+        id: convertedValue,
+      });
 
       context.dispatchCategories({
         type: 'ADD_CATEGORY',
         payload: {
           value: optionValue,
+          id: convertedValue,
         },
       });
 
@@ -105,7 +109,7 @@ const Select = ({
         <Input
           id={id}
           type="button"
-          value={value}
+          value={value.value}
           name={name}
           onClick={handleSelectInputClick}
           lightTheme={lightTheme}
@@ -116,7 +120,7 @@ const Select = ({
       </div>
       <SelectList
         name={name}
-        options={options.map((o) => o.value)}
+        options={options}
         handleItemClick={handleListOptionChange}
         isVisible={isListVisible}
       >

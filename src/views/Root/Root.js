@@ -19,33 +19,43 @@ import styles from './Root.module.scss';
 const ratingScale = [
   {
     value: '1',
+    id: 'rate1',
   },
   {
     value: '2',
+    id: 'rate2',
   },
   {
     value: '3',
+    id: 'rate3',
   },
   {
     value: '4',
+    id: 'rate4',
   },
   {
     value: '5',
+    id: 'rate5',
   },
   {
     value: '6',
+    id: 'rate6',
   },
   {
     value: '7',
+    id: 'rate7',
   },
   {
     value: '8',
+    id: 'rate8',
   },
   {
     value: '9',
+    id: 'rate9',
   },
   {
     value: '10',
+    id: 'rate10',
   },
 ];
 
