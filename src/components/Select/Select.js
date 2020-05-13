@@ -1,97 +1,149 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from 'context';
+import Label from 'components/Label/Label';
 import Input from 'components/Input/Input';
+import FormError from 'components/FormError/FormError';
+import Button from 'components/Button/Button';
 import styles from './Select.module.scss';
+import SelectList from './SelectList/SelectList';
 
 const Select = ({
-  withButton,
-  options,
   id,
-  label,
+  value,
+  onChange,
+  onBlur,
   name,
+  label,
+  error,
+  options,
+  withButton,
+  lightTheme,
   placeholder,
-  handleChange,
 }) => {
   const context = useContext(AppContext);
-  const [value, setValue] = useState(placeholder);
+  const [isListVisible, toggleListVisibility] = useState(false);
   const [newCategoryValue, setNewCategoryValue] = useState('');
-  const [isSelectListVisible, setSelectListVisibility] = useState(true);
+  const [isPlaceholder, setPlaceholder] = useState(!value);
+  const [newCategoryError, setNewCategoryError] = useState('');
 
-  useEffect(() => {
-    setSelectListVisibility(false);
-  }, [value, setSelectListVisibility]);
+  const checkIfErrors = (categoryValue) => {
+    const regPunction = new RegExp(/[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/);
+    const regNumber = new RegExp('[0-9]');
+    let errorMessage = '';
 
-  const handleNewCategoryClick = () => {
-    if (
-      context.stateCategories.some(
-        (c) => c.value === newCategoryValue.replace(/\s/g, ''),
-      )
-    )
-      return;
+    setNewCategoryError('');
+    if (categoryValue.length < 3) errorMessage = 'To short';
+    if (!categoryValue) errorMessage = 'Needs data!';
+    if (regPunction.test(categoryValue))
+      errorMessage = "You can't use punctions!";
+    if (regNumber.test(categoryValue)) errorMessage = "You can't use numbers!";
+    if (categoryValue.length > 20) errorMessage = 'To long name!';
 
-    const data = {
-      value: newCategoryValue.replace(/\s/g, '').toLowerCase(),
-      name: newCategoryValue,
-    };
+    setNewCategoryError(errorMessage);
+  };
 
-    context.dispatchCategories({
-      type: 'ADD_CATEGORY',
-      payload: data,
-    });
+  const handleNewCategoryChange = (categoryName, categoryValue) => {
+    checkIfErrors(categoryValue);
+    setNewCategoryValue({ [categoryName]: categoryValue });
+  };
 
-    setValue(data);
+  const handleListOptionChange = (selectInputName, optionValue) => {
+    setPlaceholder(false);
+    onChange(selectInputName, optionValue);
+    toggleListVisibility(false);
     setNewCategoryValue('');
   };
 
-  const onClick = (option) => {
-    setValue(option);
-    handleChange(name, option);
+  const handleSelectInputClick = () => {
+    if (isListVisible) onBlur(name);
+
+    toggleListVisibility(!isListVisible);
+    setNewCategoryValue('');
+  };
+
+  const handleAddingNewItemClick = (selectName, optionValue = '') => {
+    checkIfErrors(optionValue);
+    const numberReg = new RegExp(/[0-9]/g, '');
+    const punctionReg = new RegExp(
+      /[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|\s]/g,
+      '',
+    );
+
+    const convertedValue = optionValue
+      .replace(punctionReg)
+      .replace(numberReg)
+      .toLowerCase();
+
+    const isRepeat = !!context.stateCategories.find(
+      (i) =>
+        i.value.replace(punctionReg).replace(numberReg).toLowerCase() ===
+        convertedValue,
+    );
+
+    if (isRepeat) setNewCategoryError('Category exist!');
+
+    if (!isRepeat && !newCategoryError) {
+      setPlaceholder(false);
+      toggleListVisibility(false);
+      onChange(selectName, optionValue);
+
+      context.dispatchCategories({
+        type: 'ADD_CATEGORY',
+        payload: {
+          value: optionValue,
+        },
+      });
+
+      setNewCategoryValue('');
+    }
   };
 
   return (
     <div className={styles.select}>
-      <Input
-        type="button"
-        id={id}
+      <Label id={id} name={label} />
+      <div className={styles.selectInput}>
+        <Input
+          id={id}
+          type="button"
+          value={value}
+          name={name}
+          onClick={handleSelectInputClick}
+          lightTheme={lightTheme}
+        />
+        {isPlaceholder && (
+          <span className={styles.selectPlaceholder}>{placeholder}</span>
+        )}
+      </div>
+      <SelectList
         name={name}
-        label={label}
-        value={value.name || placeholder}
-        handleClick={() => setSelectListVisibility(!isSelectListVisible)}
-      />
-      <ul
-        className={`${styles.selectList} ${
-          isSelectListVisible && styles.selectListVisible
-        }`}
+        options={options.map((o) => o.value)}
+        handleItemClick={handleListOptionChange}
+        isVisible={isListVisible}
       >
-        {options.map((o) => (
-          <li className={styles.selectItem} key={o.value}>
-            <button
-              className={`${styles.selectButton} ${styles.selectButtonOption}`}
-              type="button"
-              onClick={() => onClick(o)}
-            >
-              {o.name}
-            </button>
-          </li>
-        ))}
         {withButton && (
-          <li className={styles.selectItemAdd}>
-            <input
+          <div className={styles.selectListItem}>
+            <Input
               type="text"
-              className={styles.selectInput}
-              onChange={(e) => setNewCategoryValue(e.target.value)}
-              value={newCategoryValue}
+              placeholder="Type custom category"
+              id="newCategory"
+              value={newCategoryValue.newCategory}
+              onChange={handleNewCategoryChange}
+              name="newCategory"
+              lightTheme={lightTheme}
             />
-            <button
-              className={`${styles.selectButton} ${styles.selectButtonAdd}`}
-              type="button"
-              onClick={handleNewCategoryClick}
+            {newCategoryError && <span>{newCategoryError}</span>}
+            <Button
+              lightTheme={lightTheme}
+              handleClick={() =>
+                handleAddingNewItemClick(name, newCategoryValue.newCategory)
+              }
             >
               +
-            </button>
-          </li>
+            </Button>
+          </div>
         )}
-      </ul>
+      </SelectList>
+      {error && <FormError error={error} />}
     </div>
   );
 };

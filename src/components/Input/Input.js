@@ -1,63 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Input.module.scss';
 
 const Input = ({
-  type = 'text',
+  type,
   id,
   name,
-  label,
   placeholder,
+  value,
+  onBlur,
+  onChange,
+  lightTheme,
   disabled,
-  value = '',
-  handleClick,
-  handleChange,
-}) => {
-  const [inputValue, setInputValue] = useState(value);
+  onClick,
+}) => (
+  <>
+    {type === 'textarea' ? (
+      <textarea
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        onChange={(e) => onChange(name, e.target.value)}
+        onBlur={() => onBlur(name)}
+        value={value}
+        className={
+          lightTheme
+            ? `${styles.input} ${styles.inputLight}`
+            : `${styles.input}`
+        }
+        disabled={disabled}
+      />
+    ) : (
+      <input
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange ? (e) => onChange(name, e.target.value) : null}
+        onBlur={onBlur ? () => onBlur(name) : null}
+        value={value}
+        className={
+          lightTheme
+            ? `${styles.input} ${styles.inputLight}`
+            : `${styles.input}`
+        }
+        disabled={disabled}
+        onClick={onClick}
+      />
+    )}
+  </>
+);
 
-  const onChange = ({ target }) => {
-    setInputValue(target.value);
-    handleChange(name, target.value);
-  };
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  lightTheme: PropTypes.bool,
+  disabled: PropTypes.bool,
+};
 
-  return (
-    <div
-      className={`${styles.wrapper} ${
-        type === 'button' && styles.wrapperButton
-      }`}
-    >
-      {type === 'textarea' ? (
-        <>
-          <label className={styles.label} htmlFor={id}>
-            {label}
-          </label>
-          <textarea
-            className={styles.textarea}
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            value={inputValue}
-            onChange={onChange}
-          />
-        </>
-      ) : (
-        <>
-          <label className={styles.label} htmlFor={id}>
-            {label}
-          </label>
-          <input
-            className={styles.input}
-            type={type}
-            id={id}
-            name={name}
-            placeholder={placeholder}
-            disabled={disabled}
-            value={value}
-            onClick={type === 'button' ? handleClick : null}
-          />
-        </>
-      )}
-    </div>
-  );
+Input.defaultProps = {
+  type: 'text',
+  placeholder: 'Type here...',
+  value: '',
+  onBlur: null,
+  onChange: null,
+  lightTheme: false,
+  disabled: false,
 };
 
 export default Input;

@@ -24,8 +24,8 @@ const CollectionView = () => {
             productionType={c.type}
             tagline={c.data.tagline}
             rate={c.data.rate}
-            customRate={c.customData?.rate?.name}
-            customCategory={c.customData?.category?.name}
+            customRate={c.customData?.rate}
+            customCategory={c.customData?.category}
             noModal
           />
         ))}

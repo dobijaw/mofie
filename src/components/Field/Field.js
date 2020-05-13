@@ -1,4 +1,7 @@
 import React from 'react';
+import Input from 'components/Input/Input';
+import Label from 'components/Label/Label';
+import FormError from 'components/FormError/FormError';
 import styles from './Field.module.scss';
 
 const Field = ({
@@ -12,29 +15,20 @@ const Field = ({
   label,
   lightTheme,
   error,
-  touch,
 }) => (
   <div className={styles.field}>
-    <label htmlFor={id} className={styles.fieldLabel}>
-      {label}
-    </label>
-    <input
+    <Label id={id} name={label} />
+    <Input
       id={id}
+      type={type}
       name={name}
-      type={type || 'text'}
       placeholder={placeholder}
       onChange={onChange}
       onBlur={onBlur}
       value={value}
-      className={
-        !lightTheme
-          ? styles.fieldInput
-          : `${styles.fieldInput} ${styles.fieldInputLight}`
-      }
+      lightTheme={lightTheme}
     />
-    {(touch || error) && (
-      <span className={styles.fieldError}>{touch || error}</span>
-    )}
+    {error && <FormError error={error} />}
   </div>
 );
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext, RootContext } from 'context';
 import { API_KEY } from 'config';
-import Input from 'components/Input/Input';
 import Select from 'components/Select/Select';
 import { useFetch } from 'hooks';
 import Loading from 'components/Loading/Loading';
@@ -11,6 +10,8 @@ import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
 import { ADD_TO_COLLECTION } from 'reducers';
 import { FETCH_TYPE } from 'store';
+import Form from 'components/Form/Form';
+import Field from 'components/Field/Field';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
 import Close from './Close/Close';
@@ -21,7 +22,6 @@ const Modal = ({ selected }) => {
   const [selectedData, setSelectedData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [inputsValue, setInputsValue] = useState({});
 
   const productionURL = `https://api.themoviedb.org/3/${selected.productionType}/${selected.id}?api_key=${API_KEY}&language=en-US`;
 
@@ -56,24 +56,18 @@ const Modal = ({ selected }) => {
     return () => clearTimeout(timeoutID);
   }, [prodData, prodLoading, selected]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = (values) => {
     context.dispatchCollections({
       type: ADD_TO_COLLECTION,
       payload: {
         data: selectedData,
         id: selected.id,
         type: selected.productionType,
-        customData: inputsValue,
+        customData: values,
       },
     });
 
     rootContext.handleCloseModal();
-  };
-
-  const handleChange = (name, value) => {
-    setInputsValue({ ...inputsValue, [name]: value });
   };
 
   return (
@@ -91,38 +85,80 @@ const Modal = ({ selected }) => {
               <Title lightTheme>{selectedData.title}</Title>
               <Genres lightTheme genres={selectedData.genres} />
               <Overview lightTheme>{selectedData.overview}</Overview>
-              <form onSubmit={(e) => handleSubmit(e)}>
-                <Select
-                  id="category"
-                  name="category"
-                  label="Your Category"
-                  placeholder="Choose your category"
-                  options={context.stateCategories}
-                  withButton
-                  handleChange={handleChange}
-                />
-                <Select
-                  id="rate"
-                  name="rate"
-                  label="Your Rate"
-                  placeholder="Choose your rate"
-                  options={rootContext.ratingScale}
-                  handleChange={handleChange}
-                />
-                <Input
-                  type="textarea"
-                  name="comment"
-                  placeholder="Type here..."
-                  id="comment"
-                  label="Your comment"
-                  handleChange={handleChange}
-                />
-                <div className={styles.modalButtonContainer}>
-                  <Button lightTheme type="submit">
-                    + add to collection
-                  </Button>
-                </div>
-              </form>
+              <Form
+                initialValues={{
+                  category: '',
+                  rate: '',
+                  comment: '',
+                }}
+                validate={(values) => ({
+                  category: [
+                    {
+                      correct: values.category,
+                      errorMessage: 'Category required!',
+                    },
+                  ],
+                  rate: [
+                    {
+                      correct: values.rate,
+                      errorMessage: 'Rate required!',
+                    },
+                  ],
+                  comment: [
+                    {
+                      correct: values.comment.length,
+                      errorMessage: 'Comment required!',
+                    },
+                  ],
+                })}
+                onSubmit={(values) => {
+                  handleSubmit(values);
+                }}
+                render={(values, errors, handleChange, handleBlur) => (
+                  <>
+                    <Select
+                      id="category"
+                      value={values.category}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="category"
+                      label="Category"
+                      error={errors.category}
+                      options={context.stateCategories}
+                      placeholder="Choose a category"
+                      lightTheme
+                      withButton
+                    />
+                    <Select
+                      id="rate"
+                      value={values.rate}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="rate"
+                      label="Rate"
+                      error={errors.rate}
+                      options={rootContext.ratingScale}
+                      placeholder="Choose a rate"
+                      lightTheme
+                    />
+                    <Field
+                      id="comment"
+                      type="textarea"
+                      placeholder="Enter your name"
+                      value={values.comment}
+                      name="comment"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="Comment"
+                      error={errors.comment}
+                      lightTheme
+                    />
+                    <Button type="submit" lightTheme>
+                      add to collection +
+                    </Button>
+                  </>
+                )}
+              />
             </>
           )}
         </>

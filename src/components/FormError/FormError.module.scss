@@ -1,0 +1,6 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.error {
+  @include fontStyle($primary, 12px, 300, 1, 0.02em);
+}

@@ -1,0 +1,10 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.label {
+  display: block;
+  padding: 0;
+  margin: 0 0 12px;
+  @include fontStyle($light-gray, 12px, 300, 1, 0.02em);
+  text-transform: uppercase;
+}

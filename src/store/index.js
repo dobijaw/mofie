@@ -14,16 +14,16 @@ export const ROUTE_TYPE = {
 
 const initialStateCategories = [
   {
-    value: 'loveit',
-    name: 'Love it!',
+    value: 'Love it',
   },
   {
-    value: 'hateit',
-    name: 'Hate it!',
+    value: 'Quite good',
   },
   {
-    value: 'itsokay',
-    name: "It's okay",
+    value: 'Never again',
+  },
+  {
+    value: 'Hate it',
   },
 ];
 

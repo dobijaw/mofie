@@ -1,37 +1,6 @@
 @import '../../theme/colors';
 @import '../../theme/mixins';
 
-.wrapper {
-  position: relative;
-  margin: 40px 0;
-
-  &Button {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      right: 2px;
-      border: solid $gray;
-      border-width: 0 1px 1px 0;
-      display: inline-block;
-      padding: 4px;
-      transform: rotate(45deg);
-    }
-
-    &Focus {
-      background: red;
-    }
-  }
-}
-
-.label {
-  display: block;
-  padding: 0;
-  margin: 0 0 10px;
-  @include fontStyle($light-gray, 12px, 300, 1, 0.02em);
-  text-transform: uppercase;
-}
-
 .input {
   display: block;
   width: 100%;
@@ -39,13 +8,16 @@
   border: none;
   border-bottom: 1px solid $dark-white;
   margin: 0;
-  @include fontStyle($light-black, 18px, 300, 1.5, 0.02em);
+  background: none;
+  @include fontStyle($white, 18px, 300, 1.5, 0.02em);
   transition: all 0.25s ease-in-out;
+  resize: none;
 
   &:focus {
     outline: 0;
     border-bottom: 1px solid $primary;
   }
+
   &::placeholder {
     @include fontStyle($light-gray, 18px, 300, 1.5, 0.02em);
   }
@@ -59,9 +31,9 @@
   &:disabled {
     background: none;
   }
-}
 
-.textarea {
-  @extend .input;
-  resize: none;
+  &Light {
+    color: $black;
+    font-weight: 400;
+  }
 }

@@ -21,7 +21,7 @@ const Form = ({ render, initialValues, className, onSubmit, validate }) => {
     return validateErrors;
   }, []);
 
-  const handleChange = ({ target: { name, value } }) => {
+  const handleChange = (name, value) => {
     setValues({ ...values, [name]: value });
     setCurName(name);
   };
@@ -34,7 +34,7 @@ const Form = ({ render, initialValues, className, onSubmit, validate }) => {
       setErrors((e) => ({ ...e, [curName]: anyError?.errorMessage }));
   }, [values, curName, validate, currentError]);
 
-  const handleBlur = ({ target: { name } }) => {
+  const handleBlur = (name) => {
     const validateErrors = getAllErrors(validate(values));
     setErrors({ ...errors, [name]: validateErrors[name] || '' });
   };
