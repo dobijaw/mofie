@@ -13,16 +13,17 @@ const CollectionView = () => {
     setCategory(categoryClicked);
   };
 
+  const sortData = context.stateCollections.filter((c) =>
+    category === 'all' ? c : category === c.customData?.category?.id,
+  );
+
   return (
     <>
       <PageTitle>My collection</PageTitle>
-      <Categories handleClick={handleClick} />
-      <ul className={styles.collectionList}>
-        {context.stateCollections
-          .filter((c) =>
-            category === 'all' ? c : category === c.customData?.category?.id,
-          )
-          .map((c) => (
+      <Categories handleClick={handleClick} category={category} />
+      {sortData.length ? (
+        <ul className={styles.collectionList}>
+          {sortData.map((c) => (
             <ProductionItem
               key={c.id}
               id={c.id}
@@ -38,7 +39,10 @@ const CollectionView = () => {
               noModal
             />
           ))}
-      </ul>
+        </ul>
+      ) : (
+        <span className={styles.collectionNoData}>No data yet!</span>
+      )}
     </>
   );
 };

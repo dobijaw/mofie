@@ -1,3 +1,6 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
 .collection {
   &List {
     display: grid;
@@ -5,5 +8,13 @@
     gap: 40px;
     padding: 0;
     margin: 80px 0 0;
+  }
+
+  &NoData {
+    display: block;
+    margin: 120px 0 0;
+    text-align: center;
+    text-transform: uppercase;
+    @include fontStyle($dark-gray, 16px, 400, 1, 0.4em);
   }
 }

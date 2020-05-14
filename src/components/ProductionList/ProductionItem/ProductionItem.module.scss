@@ -1,6 +1,16 @@
 @import '../../../theme/colors';
 @import '../../../theme/mixins';
 
+@keyframes itemIn {
+  0% {
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .production {
   position: relative;
   display: flex;
@@ -9,6 +19,7 @@
   width: 100%;
   padding: 0;
   margin: 0 0 60px;
+  animation: itemIn 0.35s;
 
   &:hover {
     .productionButtonContainer {

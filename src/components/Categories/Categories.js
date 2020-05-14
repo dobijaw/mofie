@@ -2,12 +2,16 @@ import React, { useContext } from 'react';
 import { AppContext } from 'context';
 import styles from './Categories.module.scss';
 
-const Categories = ({ handleClick }) => {
+const Categories = ({ handleClick, category }) => {
   const context = useContext(AppContext);
 
   return (
     <ul className={styles.categories}>
-      <li className={styles.categoriesItem}>
+      <li
+        className={`${styles.categoriesItem} ${
+          category === 'all' && styles.categoriesItemActive
+        }`}
+      >
         <button
           type="button"
           className={styles.categoriesButton}
@@ -17,7 +21,12 @@ const Categories = ({ handleClick }) => {
         </button>
       </li>
       {context.stateCategories.map((c) => (
-        <li key={c.value} className={styles.categoriesItem}>
+        <li
+          key={c.value}
+          className={`${styles.categoriesItem} ${
+            category === c.id && styles.categoriesItemActive
+          }`}
+        >
           <button
             type="button"
             className={styles.categoriesButton}

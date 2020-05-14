@@ -18,6 +18,16 @@
       @include fontStyle($white, 16px, 300, 1, 0.2em);
       opacity: 0.2;
     }
+
+    &Active {
+      .categoriesButton {
+        color: $primary;
+
+        &:focus {
+          color: $primary;
+        }
+      }
+    }
   }
 
   &Button {
@@ -28,5 +38,11 @@
     @include fontStyle($white, 16px, 300, 1, 0.2em);
     text-transform: uppercase;
     cursor: pointer;
+    transition: all 0.35s ease-in-out;
+
+    &:focus {
+      outline: 0;
+      color: $focus;
+    }
   }
 }
