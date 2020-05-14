@@ -19,6 +19,7 @@ const Select = ({
   withButton,
   lightTheme,
   placeholder,
+  className,
 }) => {
   const context = useContext(AppContext);
   const [isListVisible, toggleListVisibility] = useState(false);
@@ -103,13 +104,13 @@ const Select = ({
   };
 
   return (
-    <div className={styles.select}>
+    <div className={`${styles.select} ${className}`}>
       <Label id={id} name={label} />
       <div className={styles.selectInput}>
         <Input
           id={id}
           type="button"
-          value={value.value}
+          value={value?.value}
           name={name}
           onClick={handleSelectInputClick}
           lightTheme={lightTheme}

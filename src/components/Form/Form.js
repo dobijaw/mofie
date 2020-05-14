@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const Form = ({ render, initialValues, className, onSubmit, validate }) => {
+const Form = ({
+  render,
+  initialValues,
+  className,
+  onSubmit,
+  validate,
+  submitOnChange,
+}) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [curName, setCurName] = useState('');
@@ -24,6 +31,8 @@ const Form = ({ render, initialValues, className, onSubmit, validate }) => {
   const handleChange = (name, value) => {
     setValues({ ...values, [name]: value });
     setCurName(name);
+
+    if (submitOnChange) onSubmit({ ...values, [name]: value });
   };
 
   useEffect(() => {
