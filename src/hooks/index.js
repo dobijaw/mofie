@@ -6,6 +6,10 @@ export const useFetch = (url, options) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
+  }, [url]);
+
+  useEffect(() => {
     const controller = new window.AbortController();
     const { signal } = controller;
 

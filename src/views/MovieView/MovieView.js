@@ -10,6 +10,7 @@ import ProductionList from 'components/ProductionList/ProductionList';
 import { FETCH_TYPE } from 'store';
 import { RootContext } from 'context';
 import { selectProductionData } from 'universal';
+import Loading from 'components/Loading/Loading';
 import styles from './MovieView.module.scss';
 
 const MovieView = () => {
@@ -72,14 +73,19 @@ const MovieView = () => {
           </>
         )}
       />
-      {!loading && !error && (
-        <ProductionList productionData={movies} className={styles.movies} />
-      )}
-
-      <Pagination
-        current={currentPage}
-        total={totalPages}
-        handleCurrentPage={setCurrentPage}
+      <Loading
+        url={queryURL}
+        loaded={!loading && !error}
+        render={() => (
+          <>
+            <ProductionList productionData={movies} className={styles.movies} />
+            <Pagination
+              current={currentPage}
+              total={totalPages}
+              handleCurrentPage={setCurrentPage}
+            />
+          </>
+        )}
       />
     </div>
   );
