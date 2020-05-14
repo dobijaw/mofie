@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useFetch, useDataProduction } from 'hooks';
 import { API_KEY } from 'config';
 import PageTitle from 'components/PageTitle/PageTitle';
@@ -18,7 +18,6 @@ const NowPlaying = () => {
 
   const [moviesRes, moviesErr, moviesLoading] = useFetch(popularMoviesURL);
   const [showsRes, showsErr, showsLoading] = useFetch(popularShowsURL);
-  const [isLoaded, setLoaded] = useState(false);
 
   const [movies, areMoviesLoaded] = useDataProduction(
     !moviesLoading && context?.movieGenres !== null,
@@ -36,43 +35,38 @@ const NowPlaying = () => {
     selectProductionData,
   );
 
-  useEffect(() => {
-    if (areMoviesLoaded && areShowsLoaded)
-      setTimeout(() => setLoaded(true), 500);
-  }, [areMoviesLoaded, areShowsLoaded]);
-
   return (
     <div className={styles.wrapper}>
       <PageTitle isHidden>Popular</PageTitle>
       {(moviesErr || showsErr) && <p>Something went wrong, sorry :(</p>}
 
       <div className={styles.popularProductionLists}>
-        {isLoaded ? (
-          <>
-            <section className={styles.section}>
-              <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                Popular movies
-              </Headline>
-              <ProductionList
-                productionData={movies.slice(0, 15)}
-                className={styles.popularList}
-              />
-            </section>
-            <section className={styles.section}>
-              <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                Popular TV shows
-              </Headline>
-              <ProductionList
-                productionData={shows.slice(0, 15)}
-                className={styles.popularList}
-              />
-            </section>
-          </>
-        ) : (
-          <div className={styles.popularLoading}>
-            <Loading />
-          </div>
-        )}
+        <Loading
+          className={styles.popularLoading}
+          loaded={areMoviesLoaded && areShowsLoaded}
+          render={() => (
+            <>
+              <section className={styles.section}>
+                <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                  Popular movies
+                </Headline>
+                <ProductionList
+                  productionData={movies.slice(0, 15)}
+                  className={styles.popularList}
+                />
+              </section>
+              <section className={styles.section}>
+                <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                  Popular TV shows
+                </Headline>
+                <ProductionList
+                  productionData={shows.slice(0, 15)}
+                  className={styles.popularList}
+                />
+              </section>
+            </>
+          )}
+        />
       </div>
     </div>
   );

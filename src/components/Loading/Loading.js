@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Loading.module.scss';
 
-const Loading = ({ loaded, render, url }) => {
+const Loading = ({ loaded, render, url, className }) => {
   const [renderData, setRenderData] = useState(false);
 
   useEffect(() => {
@@ -17,8 +17,10 @@ const Loading = ({ loaded, render, url }) => {
       {renderData ? (
         render()
       ) : (
-        <div className={styles.loading}>
-          <span className={styles.loadingItem} />
+        <div className={className}>
+          <div className={styles.loading}>
+            <span className={styles.loadingItem} />
+          </div>
         </div>
       )}
     </>

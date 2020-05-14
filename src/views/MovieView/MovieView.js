@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import PageTitle from 'components/PageTitle/PageTitle';
 import Button from 'components/Button/Button';
 import Pagination from 'components/Pagination/Pagination';
@@ -17,10 +17,12 @@ const MovieView = () => {
   const context = useContext(RootContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
-  const [queryURL, setQueryURL] = useState(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${currentPage}`,
-  );
+
+  const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
+
+  const [queryURL, setQueryURL] = useState(baseURL);
   const [response, error, loading] = useFetch(queryURL);
+  const [saveQuery, setSaveQuery] = useState('');
 
   const [movies] = useDataProduction(
     !loading && context?.movieGenres !== null,
@@ -29,6 +31,18 @@ const MovieView = () => {
     FETCH_TYPE.MOVIE,
     selectProductionData,
   );
+
+  const generateLink = useCallback((page, query) => {
+    if (query)
+      return `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}`;
+
+    return `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
+  }, []);
+
+  useEffect(() => {
+    const link = generateLink(currentPage, saveQuery);
+    setQueryURL(link);
+  }, [currentPage, saveQuery, generateLink]);
 
   useEffect(() => {
     if (!loading) setTotalPages(response?.total_pages);
@@ -53,7 +67,10 @@ const MovieView = () => {
         })}
         onSubmit={(values) => {
           const query = encodeURIComponent(values.search);
-          const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${currentPage}`;
+          const URL = generateLink(1, query);
+
+          setSaveQuery(query);
+          setCurrentPage(1);
           setQueryURL(URL);
         }}
         render={(values, errors, handleChange, handleBlur) => (
@@ -74,14 +91,15 @@ const MovieView = () => {
         )}
       />
       <Loading
+        className={styles.loading}
         url={queryURL}
         loaded={!loading && !error}
         render={() => (
           <>
             <ProductionList productionData={movies} className={styles.movies} />
             <Pagination
-              current={currentPage}
-              total={totalPages}
+              currentPage={currentPage}
+              totalPages={totalPages}
               handleCurrentPage={setCurrentPage}
             />
           </>

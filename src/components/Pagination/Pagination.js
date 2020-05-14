@@ -3,10 +3,8 @@ import Button from 'components/Button/Button';
 import styles from './Pagination.module.scss';
 import PaginationItem from './PaginationItem/PaginationItem';
 
-const Pagination = () => {
+const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
   const [paginationItems, setPaginationItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages] = useState(20);
 
   useEffect(() => {
     const arr = [];
@@ -73,7 +71,7 @@ const Pagination = () => {
       <Button
         type="button"
         handleClick={() => {
-          setCurrentPage(currentPage - 1);
+          handleCurrentPage(currentPage - 1);
         }}
         disabled={currentPage <= 1}
         className={styles.paginationButton}
@@ -85,7 +83,7 @@ const Pagination = () => {
           <PaginationItem
             key={item.key}
             number={item.isNumber}
-            handleClick={() => setCurrentPage(item.value)}
+            handleClick={() => handleCurrentPage(item.value)}
             active={currentPage === item.value}
           >
             {item.value}
@@ -95,7 +93,7 @@ const Pagination = () => {
       <Button
         type="button"
         handleClick={() => {
-          setCurrentPage(currentPage + 1);
+          handleCurrentPage(currentPage + 1);
         }}
         disabled={currentPage >= totalPages}
         className={styles.paginationButton}

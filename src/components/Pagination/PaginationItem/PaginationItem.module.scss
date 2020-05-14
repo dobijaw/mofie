@@ -30,6 +30,11 @@
     &Active {
       background: $primary;
       color: $white;
+
+      &:hover {
+        background: $primary;
+        color: $white;
+      }
     }
   }
 }
