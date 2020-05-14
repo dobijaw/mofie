@@ -135,19 +135,23 @@ const Select = ({
               name="newCategory"
               lightTheme={lightTheme}
             />
-            {newCategoryError && <span>{newCategoryError}</span>}
+            {newCategoryError && (
+              <FormError
+                className={styles.selectErrorFlying}
+                error={newCategoryError}
+              />
+            )}
             <Button
+              className={styles.selectButton}
               lightTheme={lightTheme}
               handleClick={() =>
                 handleAddingNewItemClick(name, newCategoryValue.newCategory)
               }
-            >
-              +
-            </Button>
+            />
           </div>
         )}
       </SelectList>
-      {error && <FormError error={error} />}
+      {error && <FormError error={error} className={styles.selectError} />}
     </div>
   );
 };

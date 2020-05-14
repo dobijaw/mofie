@@ -27,7 +27,11 @@ const SelectList = ({
           </button>
         </li>
       ))}
-      <li className={styles.selectListItem}>{children}</li>
+      {children && (
+        <li className={`${styles.selectListItem} ${styles.selectListItemAdd}`}>
+          {children}
+        </li>
+      )}
     </ul>
   );
 };
