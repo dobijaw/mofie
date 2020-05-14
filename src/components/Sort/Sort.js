@@ -5,18 +5,22 @@ import styles from './Sort.module.scss';
 
 const Sort = ({
   setValues,
+  categoryOptions,
   sortOptions,
   typeOptions,
   initialValue,
   initalTypeValue,
+  initialCategory,
 }) => (
   <Form
     submitOnChange
     initialValues={{
+      category: initialCategory,
       sort: initialValue,
       type: initalTypeValue,
     }}
     validate={() => ({
+      category: [],
       sort: [],
       type: [],
     })}
@@ -25,6 +29,17 @@ const Sort = ({
     }}
     render={(values, errors, handleChange, handleBlur) => (
       <div className={styles.sort}>
+        <Select
+          id="category"
+          value={values.category}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          name="category"
+          label="Category"
+          error={errors.category}
+          options={categoryOptions}
+          className={styles.sortSelect}
+        />
         <Select
           id="type"
           value={values.type}

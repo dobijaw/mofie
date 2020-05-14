@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from 'context';
 import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
-import Categories from 'components/Categories/Categories';
 import Sort from 'components/Sort/Sort';
 import { FETCH_TYPE } from 'store';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -51,8 +50,16 @@ const typeOptions = [
 
 const CollectionView = () => {
   const context = useContext(AppContext);
-  const [category, setCategory] = useState('all');
+  const categoryOptions = [
+    {
+      value: 'All',
+      id: 'all',
+    },
+    ...context.stateCategories,
+  ];
+
   const [sortValue, setSortValue] = useState(sortOptions[0]);
+  const [categoryValue, setCategoryValue] = useState(categoryOptions[0]);
   const [typeValue, setTypeValue] = useState(typeOptions[0]);
   const [sortData, setSortData] = useState(context.stateCollections);
 
@@ -73,7 +80,9 @@ const CollectionView = () => {
     );
 
     const sortByCategories = sortByType.filter((c) =>
-      category === 'all' ? c : category === c.customData?.category?.id,
+      categoryValue.id === 'all'
+        ? c
+        : categoryValue.id === c.customData?.category?.id,
     );
 
     switch (sortValue.id) {
@@ -96,21 +105,23 @@ const CollectionView = () => {
         setSortData(sortByCategories);
         break;
     }
-  }, [sortValue, typeValue, context.stateCollections, category]);
+  }, [sortValue, typeValue, context.stateCollections, categoryValue]);
 
   const handleSubmit = (values) => {
     setSortValue(values.sort);
     setTypeValue(values.type);
+    setCategoryValue(values.category);
   };
 
   return (
     <>
       <PageTitle>My collection</PageTitle>
-      <Categories handleClick={setCategory} category={category} />
       <Sort
         setValues={handleSubmit}
         sortOptions={sortOptions}
         typeOptions={typeOptions}
+        categoryOptions={categoryOptions}
+        initialCategory={categoryValue}
         initialValue={sortValue}
         initalTypeValue={typeValue}
       />

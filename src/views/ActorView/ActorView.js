@@ -2,7 +2,11 @@ import React from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { API_KEY } from 'config';
 import { useFetch } from 'hooks';
-import PageTitle from '../../components/PageTitle/PageTitle';
+import Avatar from 'components/Actor/Avatar/Avatar';
+import Title from 'components/Production/Title/Title';
+import PageTitle from 'components/PageTitle/PageTitle';
+import Period from 'components/Actor/Period/Period';
+import Bio from 'components/Actor/Bio/Bio';
 import styles from './ActorView.module.scss';
 
 const ActorView = ({ match }) => {
@@ -19,14 +23,14 @@ const ActorView = ({ match }) => {
       {detailsErr && <Redirect to="/404" />}
       {!detailsLoading && (
         <div className={styles.actor}>
-          <img
-            src={`http://image.tmdb.org/t/p/w500${details.profile_path}`}
-            alt=""
+          <Avatar
+            image={`http://image.tmdb.org/t/p/w500${details.profile_path}`}
           />
-          <h2>{details.name}</h2>
-          <span>{details.birthday}</span>
-          {details.deathday && <span>- {details.deathday}</span>}
-          <p>{details.biography}</p>
+          <div className={styles.actorData}>
+            <Title>{details.name}</Title>
+            <Period birthday={details.birthday} deathday={details.deathday} />
+            <Bio>{details.biography}</Bio>
+          </div>
         </div>
       )}
       {!creditsLoading && !creditsErr && (

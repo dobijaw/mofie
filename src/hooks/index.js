@@ -35,3 +35,24 @@ export const useFetch = (url, options) => {
 
   return [response, error, loading];
 };
+
+export const useDataProduction = (
+  allLoaded,
+  response,
+  genres,
+  type,
+  callback,
+) => {
+  const [output, setOutput] = useState([]);
+  const [dataLoaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (allLoaded) {
+      const filteredResponse = callback(response, genres, type);
+      setOutput(filteredResponse);
+      setLoaded(true);
+    }
+  }, [allLoaded, callback, response, genres, type]);
+
+  return [output, dataLoaded];
+};

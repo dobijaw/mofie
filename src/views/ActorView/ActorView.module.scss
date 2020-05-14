@@ -1,5 +1,10 @@
 .actor {
-  color: white;
+  display: flex;
+  align-items: center;
+
+  &Data {
+    margin-left: 50px;
+  }
 }
 
 .movie {

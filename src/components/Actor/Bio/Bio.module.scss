@@ -1,0 +1,6 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.bio {
+  @include fontStyle($white, 18px, 300, 1.4, 0.05em);
+}

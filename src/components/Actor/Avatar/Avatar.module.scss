@@ -1,0 +1,11 @@
+@import '../../../theme/colors';
+
+.avatar {
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
+  background-color: $light-black;
+  background-position: center;
+  background-size: cover;
+  flex-shrink: 0;
+}
