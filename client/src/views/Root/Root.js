@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProductionView from 'views/ProductionView/ProductionView';
 import Navigation from 'components/Navigation/Navigation';
@@ -90,6 +90,23 @@ const Root = () => {
     showGenresErrors,
     ratingScale,
   };
+
+  useEffect(() => {
+    fetch('http://localhost:9000/user/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'dobija@gmail.com',
+        password: '123dsfsfg5r',
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  }, []);
 
   return (
     <BrowserRouter>
