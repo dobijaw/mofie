@@ -111,7 +111,6 @@ const Store = ({ children }) => {
 
   return (
     <AppContext.Provider value={contextElements}>
-      {console.log(stateCollections)}
       {children}
     </AppContext.Provider>
   );

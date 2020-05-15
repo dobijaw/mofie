@@ -55,7 +55,6 @@ const SearchProduction = ({ title, fetchType }) => {
 
   return (
     <div className={styles.wrapper}>
-      {console.log(response)}
       <PageTitle>{title}</PageTitle>
       <Form
         className={styles.form}

@@ -3,8 +3,6 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { API_KEY } from 'config';
 import { RootContext } from 'context';
 import { useFetch } from 'hooks';
-// import { FETCH_TYPE } from 'store';
-// import { selectProductionData } from 'universal';
 import Avatar from 'components/Actor/Avatar/Avatar';
 import Title from 'components/Production/Title/Title';
 import PageTitle from 'components/PageTitle/PageTitle';
@@ -87,7 +85,6 @@ const ActorView = ({ match }) => {
         </div>
       )}
       <SubHedline>Productions</SubHedline>
-      {console.log(credits)}
       {loaded && (
         <ProductionList
           className={styles.actorProductionList}
