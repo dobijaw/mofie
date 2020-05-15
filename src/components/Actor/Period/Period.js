@@ -4,8 +4,8 @@ import styles from './Period.module.scss';
 
 const Period = ({ birthday, deathday }) => (
   <div>
-    <span className={styles.date}>{birthday} to </span>
-    {deathday && <span className={styles.date}>{deathday}</span>}
+    <span className={styles.date}>{birthday}</span>
+    {deathday && <span className={styles.date}> to {deathday}</span>}
   </div>
 );
 

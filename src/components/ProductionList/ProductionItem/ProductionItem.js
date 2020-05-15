@@ -29,7 +29,7 @@ const ProductionItem = ({
 }) => {
   const rootContext = useContext(RootContext);
   const context = useContext(AppContext);
-  const URL = `${
+  const URL = `/${
     productionType === FETCH_TYPE.MOVIE ? ROUTE_TYPE.MOVIES : ROUTE_TYPE.SHOWS
   }/${id}`;
 

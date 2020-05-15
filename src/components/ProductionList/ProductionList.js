@@ -6,7 +6,7 @@ import ProductionItem from './ProductionItem/ProductionItem';
 const ProductionList = ({ productionData, className }) => (
   <ul className={`${styles.wrapper} ${className}`}>
     {productionData.map((p) => (
-      <ProductionItem {...p} key={p.id} />
+      <ProductionItem {...p} key={p.id + p.productionType} />
     ))}
   </ul>
 );
