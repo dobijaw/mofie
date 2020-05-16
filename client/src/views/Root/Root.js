@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProductionView from 'views/ProductionView/ProductionView';
 import Navigation from 'components/Navigation/Navigation';
@@ -7,6 +7,7 @@ import ShowView from 'views/ShowView/ShowView';
 import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';
 import CollectionView from 'views/CollectionView/CollectionView';
+import AuthenticationView from 'views/AuthenticationView/AuthenticationView';
 import Page404View from 'views/Page404View/Page404View';
 import { useFetch } from 'hooks';
 import { routes } from 'routes';
@@ -91,23 +92,6 @@ const Root = () => {
     ratingScale,
   };
 
-  useEffect(() => {
-    fetch('http://localhost:9000/user/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: 'dobija@gmail.com',
-        password: '123dsfsfg5r',
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      });
-  }, []);
-
   return (
     <BrowserRouter>
       <Store>
@@ -124,6 +108,7 @@ const Root = () => {
                 <Route path={routes.collection} component={CollectionView} />
                 <Route path={routes.page404} component={Page404View} />
                 <Route path={routes.singleActor} component={ActorView} />
+                <Route path={routes.signup} component={AuthenticationView} />
               </Switch>
             </main>
           </div>

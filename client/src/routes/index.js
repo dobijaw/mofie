@@ -8,4 +8,5 @@ export const routes = {
   singleActor: '/actor/:id',
   collection: '/collection',
   page404: '/404',
+  signup: '/signup',
 };
