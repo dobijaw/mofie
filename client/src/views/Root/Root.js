@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProductionView from 'views/ProductionView/ProductionView';
-import Navigation from 'components/Navigation/Navigation';
+
 import Modal from 'components/Modal/Modal';
 import ShowView from 'views/ShowView/ShowView';
 import PopularView from 'views/PopularView/PopularView';
 import MovieView from 'views/MovieView/MovieView';
 import CollectionView from 'views/CollectionView/CollectionView';
-import AuthenticationView from 'views/AuthenticationView/AuthenticationView';
 import Page404View from 'views/Page404View/Page404View';
 import { useFetch } from 'hooks';
 import { routes } from 'routes';
@@ -15,7 +14,8 @@ import Store from 'store';
 import { RootContext } from 'context';
 import { API_KEY } from 'config';
 import ActorView from 'views/ActorView/ActorView';
-import styles from './Root.module.scss';
+import LoginView from 'views/LoginView/LoginView';
+import SignUpView from 'views/SignUpView/SignUpView';
 
 const ratingScale = [
   {
@@ -96,22 +96,18 @@ const Root = () => {
     <BrowserRouter>
       <Store>
         <RootContext.Provider value={contextElements}>
-          <div className={styles.root}>
-            <Navigation />
-            <main className={styles.main}>
-              <Switch>
-                <Route exact path={routes.home} component={PopularView} />
-                <Route path={routes.singleMovie} component={ProductionView} />
-                <Route path={routes.singleShow} component={ProductionView} />
-                <Route path={routes.movies} component={MovieView} />
-                <Route path={routes.shows} component={ShowView} />
-                <Route path={routes.collection} component={CollectionView} />
-                <Route path={routes.page404} component={Page404View} />
-                <Route path={routes.singleActor} component={ActorView} />
-                <Route path={routes.signup} component={AuthenticationView} />
-              </Switch>
-            </main>
-          </div>
+          <Switch>
+            <Route exact path={routes.home} component={PopularView} />
+            <Route path={routes.singleMovie} component={ProductionView} />
+            <Route path={routes.singleShow} component={ProductionView} />
+            <Route path={routes.movies} component={MovieView} />
+            <Route path={routes.shows} component={ShowView} />
+            <Route path={routes.collection} component={CollectionView} />
+            <Route path={routes.page404} component={Page404View} />
+            <Route path={routes.singleActor} component={ActorView} />
+            <Route path={routes.signup} component={SignUpView} />
+            <Route path={routes.login} component={LoginView} />
+          </Switch>
           {isModalVisible && <Modal selected={selectedProduction} />}
         </RootContext.Provider>
       </Store>

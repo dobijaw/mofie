@@ -1,0 +1,30 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.footerRoute {
+  margin: 60px 0 0;
+  text-align: center;
+
+  &Copy {
+    padding: 0;
+  }
+
+  &Copy,
+  &Link {
+    margin: 0;
+    display: inline-block;
+    @include fontStyle($white, 15px, 300, 1.5, 0.1em);
+  }
+
+  &Link {
+    padding: 0 0 0 5px;
+    color: $primary;
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

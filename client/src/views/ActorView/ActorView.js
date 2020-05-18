@@ -10,6 +10,7 @@ import Period from 'components/Actor/Period/Period';
 import Bio from 'components/Actor/Bio/Bio';
 import SubHedline from 'components/SubHeadline/SubHeadline';
 import ProductionList from 'components/ProductionList/ProductionList';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import styles from './ActorView.module.scss';
 
 const ActorView = ({ match }) => {
@@ -67,7 +68,7 @@ const ActorView = ({ match }) => {
   }, [creditsLoading, credits, creditsErr, context]);
 
   return (
-    <>
+    <MainTemplate>
       <PageTitle>Actor</PageTitle>
       {detailsErr && <Redirect to="/404" />}
       {!detailsLoading && (
@@ -91,7 +92,7 @@ const ActorView = ({ match }) => {
           productionData={production}
         />
       )}
-    </>
+    </MainTemplate>
   );
 };
 

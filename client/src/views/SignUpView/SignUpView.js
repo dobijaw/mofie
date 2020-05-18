@@ -2,28 +2,24 @@ import React from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
-import styles from './AuthenticationView.module.scss';
+import Authentication from 'components/Authentication/Authentication';
+import { routes } from 'routes';
 
-const AuthenticationView = () => (
-  <div className={styles.wrapper}>
+const SignUpView = () => (
+  <Authentication
+    title="Sign up"
+    description="Please provide yor data to create an account."
+    copy="Already have an account?"
+    route={routes.login}
+    routeName="Login"
+  >
     <Form
       initialValues={{
-        username: '',
         email: '',
         password: '',
         repeatPassword: '',
       }}
       validate={(values) => ({
-        username: [
-          {
-            correct: values.username.length > 5,
-            errorMessage: 'Username is to short',
-          },
-          {
-            correct: values.username.length <= 15,
-            errorMessage: 'Username is to long',
-          },
-        ],
         email: [
           {
             correct: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email),
@@ -72,20 +68,9 @@ const AuthenticationView = () => (
       render={(values, errors, handleChange, handleBlur) => (
         <>
           <Field
-            id="username"
-            type="text"
-            placeholder="Your username"
-            value={values.username}
-            name="username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            label="Username"
-            error={errors.username}
-          />
-          <Field
             id="email"
             type="email"
-            placeholder="Your email"
+            placeholder="Type here..."
             value={values.email}
             name="email"
             onChange={handleChange}
@@ -96,30 +81,30 @@ const AuthenticationView = () => (
           <Field
             id="password"
             type="password"
-            placeholder="Your password"
+            placeholder="Type here..."
             value={values.password}
             name="password"
             onChange={handleChange}
             onBlur={handleBlur}
-            label="Password"
+            label="New password"
             error={errors.password}
           />
           <Field
             id="repeatPassword"
             type="password"
-            placeholder="Repeat your password"
+            placeholder="Type here..."
             value={values.repeatPassword}
             name="repeatPassword"
             onChange={handleChange}
             onBlur={handleBlur}
-            label="Password repeat"
+            label="Repeat password"
             error={errors.repeatPassword}
           />
           <Button type="submit">Sign Up</Button>
         </>
       )}
     />
-  </div>
+  </Authentication>
 );
 
-export default AuthenticationView;
+export default SignUpView;

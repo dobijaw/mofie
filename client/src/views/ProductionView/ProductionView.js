@@ -19,6 +19,7 @@ import { AppContext } from 'context';
 import { FETCH_TYPE, ROUTE_TYPE } from 'store';
 import { routes } from 'routes';
 import Loading from 'components/Loading/Loading';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import styles from './ProductionView.module.scss';
 
 const ProductionView = ({ location, match }) => {
@@ -136,7 +137,7 @@ const ProductionView = ({ location, match }) => {
   }, [appContext.stateCollections, id]);
 
   return (
-    <>
+    <MainTemplate>
       {(detailsError !== null || detailsData?.status_code) && (
         <Redirect to={routes.page404} />
       )}
@@ -205,7 +206,7 @@ const ProductionView = ({ location, match }) => {
           <Loading />
         </div>
       )}
-    </>
+    </MainTemplate>
   );
 };
 export default withRouter(ProductionView);

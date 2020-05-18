@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require('./config/index');
 
 mongoose.connect(config.db, {
   useNewUrlParser: true,

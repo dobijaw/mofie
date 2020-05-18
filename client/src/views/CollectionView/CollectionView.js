@@ -3,6 +3,7 @@ import { AppContext } from 'context';
 import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
 import Sort from 'components/Sort/Sort';
 import { FETCH_TYPE } from 'store';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import styles from './CollectionView.module.scss';
 
@@ -114,7 +115,7 @@ const CollectionView = () => {
   };
 
   return (
-    <>
+    <MainTemplate>
       <PageTitle>My collection</PageTitle>
       <Sort
         setValues={handleSubmit}
@@ -147,7 +148,7 @@ const CollectionView = () => {
       ) : (
         <span className={styles.collectionNoData}>No data yet!</span>
       )}
-    </>
+    </MainTemplate>
   );
 };
 

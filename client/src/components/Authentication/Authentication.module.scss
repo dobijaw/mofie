@@ -1,0 +1,50 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.authentication {
+  display: flex;
+
+  &Sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: $mid-white;
+    width: 30%;
+    height: 100vh;
+  }
+
+  &Column {
+    position: relative;
+    width: 70%;
+    height: 100vh;
+    background: black;
+  }
+
+  &Box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    max-width: 500px;
+    padding: 60px 40px;
+    transform: translate(-50%, -50%);
+  }
+
+  &Header {
+    padding: 0 0 20px 0;
+    text-align: center;
+  }
+
+  &Title {
+    padding: 0;
+    margin: 0 0 5px;
+    @include fontStyle($white, 30px, 400, 1.5, 0.1em);
+  }
+
+  &Description {
+    padding: 0;
+    margin: 0;
+    @include fontStyle($white, 16px, 300, 1.5, 0.05em);
+  }
+}

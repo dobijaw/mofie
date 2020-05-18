@@ -8,6 +8,7 @@ import { RootContext } from 'context';
 import { FETCH_TYPE } from 'store';
 import Loading from 'components/Loading/Loading';
 import { selectProductionData } from 'universal';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import styles from './PopularView.module.scss';
 
 const NowPlaying = () => {
@@ -36,39 +37,41 @@ const NowPlaying = () => {
   );
 
   return (
-    <div className={styles.wrapper}>
-      <PageTitle isHidden>Popular</PageTitle>
-      {(moviesErr || showsErr) && <p>Something went wrong, sorry :(</p>}
+    <MainTemplate>
+      <div className={styles.wrapper}>
+        <PageTitle isHidden>Popular</PageTitle>
+        {(moviesErr || showsErr) && <p>Something went wrong, sorry :(</p>}
 
-      <div className={styles.popularProductionLists}>
-        <Loading
-          className={styles.popularLoading}
-          loaded={areMoviesLoaded && areShowsLoaded}
-          render={() => (
-            <>
-              <section className={styles.section}>
-                <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                  Popular movies
-                </Headline>
-                <ProductionList
-                  productionData={movies.slice(0, 15)}
-                  className={styles.popularList}
-                />
-              </section>
-              <section className={styles.section}>
-                <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                  Popular TV shows
-                </Headline>
-                <ProductionList
-                  productionData={shows.slice(0, 15)}
-                  className={styles.popularList}
-                />
-              </section>
-            </>
-          )}
-        />
+        <div className={styles.popularProductionLists}>
+          <Loading
+            className={styles.popularLoading}
+            loaded={areMoviesLoaded && areShowsLoaded}
+            render={() => (
+              <>
+                <section className={styles.section}>
+                  <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                    Popular movies
+                  </Headline>
+                  <ProductionList
+                    productionData={movies.slice(0, 15)}
+                    className={styles.popularList}
+                  />
+                </section>
+                <section className={styles.section}>
+                  <Headline tag="h2" additionalClass={styles.popularHeadline}>
+                    Popular TV shows
+                  </Headline>
+                  <ProductionList
+                    productionData={shows.slice(0, 15)}
+                    className={styles.popularList}
+                  />
+                </section>
+              </>
+            )}
+          />
+        </div>
       </div>
-    </div>
+    </MainTemplate>
   );
 };
 

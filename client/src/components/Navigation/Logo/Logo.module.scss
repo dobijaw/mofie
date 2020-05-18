@@ -1,6 +1,15 @@
 .logo {
   width: 86px;
 
+  &Middle {
+    width: 105px;
+    .logo {
+      &Link {
+        padding: 10px;
+      }
+    }
+  }
+
   &Link {
     display: block;
     padding: 5px 10px 5px 0;

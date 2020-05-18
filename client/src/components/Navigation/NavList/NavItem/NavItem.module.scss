@@ -12,7 +12,11 @@
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
-    transition: 0.15s;
+    transition: 0.25s;
+
+    &Primary {
+      color: $focus;
+    }
 
     &Active {
       color: $primary;

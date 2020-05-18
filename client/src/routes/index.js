@@ -9,4 +9,5 @@ export const routes = {
   collection: '/collection',
   page404: '/404',
   signup: '/signup',
+  login: '/login',
 };
