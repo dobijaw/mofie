@@ -44,7 +44,7 @@ const LoginView = () => (
           ],
         })}
         onSubmit={(values) => {
-          fetch('http://localhost:9000/user/signup', {
+          fetch('http://localhost:9000/user/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const LoginView = () => (
               label="Password"
               error={errors.password}
             />
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">login</Button>
           </>
         )}
       />
