@@ -1,5 +1,5 @@
 import React from 'react';
-import Authentication from 'components/Authentication/Authentication';
+import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
@@ -7,9 +7,9 @@ import { routes } from 'routes';
 
 const LoginView = () => (
   <div>
-    <Authentication
+    <UserAuthentication
       title="Login"
-      description="Please enter your data."
+      description="Please enter your data to log in."
       copy="Don't have an account?"
       route={routes.signup}
       routeName="Sign Up"
@@ -64,7 +64,7 @@ const LoginView = () => (
             <Field
               id="email"
               type="email"
-              placeholder="Your email"
+              placeholder="Type here..."
               value={values.email}
               name="email"
               onChange={handleChange}
@@ -75,7 +75,7 @@ const LoginView = () => (
             <Field
               id="password"
               type="password"
-              placeholder="Your password"
+              placeholder="Type here..."
               value={values.password}
               name="password"
               onChange={handleChange}
@@ -87,7 +87,7 @@ const LoginView = () => (
           </>
         )}
       />
-    </Authentication>
+    </UserAuthentication>
   </div>
 );
 

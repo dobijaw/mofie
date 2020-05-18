@@ -1,9 +1,9 @@
 import React from 'react';
 import FooterRoute from 'components/FooterRoute/FooterRoute';
 import Logo from 'components/Navigation/Logo/Logo';
-import styles from './Authentication.module.scss';
+import styles from './UserAuthentication.module.scss';
 
-const AuthenticationView = ({
+const UserAuthentication = ({
   title,
   description,
   children,
@@ -28,4 +28,4 @@ const AuthenticationView = ({
   </div>
 );
 
-export default AuthenticationView;
+export default UserAuthentication;

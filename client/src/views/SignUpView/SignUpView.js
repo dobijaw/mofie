@@ -2,13 +2,13 @@ import React from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
-import Authentication from 'components/Authentication/Authentication';
+import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import { routes } from 'routes';
 
 const SignUpView = () => (
-  <Authentication
+  <UserAuthentication
     title="Sign up"
-    description="Please provide yor data to create an account."
+    description="Enter your email to create an account."
     copy="Already have an account?"
     route={routes.login}
     routeName="Login"
@@ -104,7 +104,7 @@ const SignUpView = () => (
         </>
       )}
     />
-  </Authentication>
+  </UserAuthentication>
 );
 
 export default SignUpView;

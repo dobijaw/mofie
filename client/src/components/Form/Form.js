@@ -59,7 +59,7 @@ const Form = ({
   };
 
   return (
-    <form className={className} onSubmit={handleSubmit}>
+    <form className={className} onSubmit={handleSubmit} noValidate>
       {render(values, errors, handleChange, handleBlur)}
     </form>
   );
