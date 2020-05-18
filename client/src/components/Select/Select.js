@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AppContext } from 'context';
 import Label from 'components/Label/Label';
 import Input from 'components/Input/Input';
@@ -26,6 +26,19 @@ const Select = ({
   const [newCategoryValue, setNewCategoryValue] = useState('');
   const [isPlaceholder, setPlaceholder] = useState(!value?.value);
   const [newCategoryError, setNewCategoryError] = useState('');
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (selectRef.current && !selectRef.current.contains(e.target)) {
+        toggleListVisibility(false);
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => document.removeEventListener('click', handleClick);
+  }, [selectRef, toggleListVisibility]);
 
   const checkIfErrors = (categoryValue) => {
     const regPunction = new RegExp(/[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/);
@@ -104,7 +117,7 @@ const Select = ({
   };
 
   return (
-    <div className={`${styles.select} ${className}`}>
+    <div className={`${styles.select} ${className}`} ref={selectRef}>
       <Label id={id} name={label} />
       <div className={styles.selectInput}>
         <Input
