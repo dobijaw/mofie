@@ -4,8 +4,11 @@ import ProductionItem from 'components/ProductionList/ProductionItem/ProductionI
 import Sort from 'components/Sort/Sort';
 import { FETCH_TYPE } from 'store';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
-import PageTitle from '../../components/PageTitle/PageTitle';
+import { Redirect } from 'react-router';
+import { useUserContext } from 'hooks';
+import { routes } from 'routes';
 import styles from './CollectionView.module.scss';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 const sortOptions = [
   {
@@ -58,6 +61,8 @@ const CollectionView = () => {
     },
     ...context.stateCategories,
   ];
+
+  const isLoggedIn = useUserContext();
 
   const [sortValue, setSortValue] = useState(sortOptions[0]);
   const [categoryValue, setCategoryValue] = useState(categoryOptions[0]);
@@ -115,40 +120,43 @@ const CollectionView = () => {
   };
 
   return (
-    <MainTemplate>
-      <PageTitle>My collection</PageTitle>
-      <Sort
-        setValues={handleSubmit}
-        sortOptions={sortOptions}
-        typeOptions={typeOptions}
-        categoryOptions={categoryOptions}
-        initialCategory={categoryValue}
-        initialValue={sortValue}
-        initalTypeValue={typeValue}
-      />
-      {sortData.length ? (
-        <ul className={styles.collectionList}>
-          {sortData.map((c) => (
-            <ProductionItem
-              key={c.id}
-              id={c.id}
-              title={c.data.title}
-              genres={c.data.genres}
-              releaseDate={c.releaseDate}
-              image={c.data.image}
-              productionType={c.type}
-              tagline={c.data.tagline}
-              rate={c.data.rate}
-              customRate={c.customData?.rate?.value}
-              customCategory={c.customData?.category?.value}
-              noModal
-            />
-          ))}
-        </ul>
-      ) : (
-        <span className={styles.collectionNoData}>No data yet!</span>
-      )}
-    </MainTemplate>
+    <>
+      {!isLoggedIn && <Redirect to={routes.login} />}
+      <MainTemplate>
+        <PageTitle>My collection</PageTitle>
+        <Sort
+          setValues={handleSubmit}
+          sortOptions={sortOptions}
+          typeOptions={typeOptions}
+          categoryOptions={categoryOptions}
+          initialCategory={categoryValue}
+          initialValue={sortValue}
+          initalTypeValue={typeValue}
+        />
+        {sortData.length ? (
+          <ul className={styles.collectionList}>
+            {sortData.map((c) => (
+              <ProductionItem
+                key={c.id}
+                id={c.id}
+                title={c.data.title}
+                genres={c.data.genres}
+                releaseDate={c.releaseDate}
+                image={c.data.image}
+                productionType={c.type}
+                tagline={c.data.tagline}
+                rate={c.data.rate}
+                customRate={c.customData?.rate?.value}
+                customCategory={c.customData?.category?.value}
+                noModal
+              />
+            ))}
+          </ul>
+        ) : (
+          <span className={styles.collectionNoData}>No data yet!</span>
+        )}
+      </MainTemplate>
+    </>
   );
 };
 

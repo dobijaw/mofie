@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { categoriesReducer, collectionReducer } from 'reducers';
+import { userReducer, categoriesReducer, collectionReducer } from 'reducers';
 import { AppContext } from 'context';
 
 export const FETCH_TYPE = {
@@ -102,11 +102,18 @@ const Store = ({ children }) => {
     initialCollection,
   );
 
+  const [stateUser, dispatchUser] = useReducer(userReducer, {
+    email: '',
+    id: '',
+  });
+
   const contextElements = {
+    stateUser,
     stateCategories,
     stateCollections,
     dispatchCategories,
     dispatchCollections,
+    dispatchUser,
   };
 
   return (

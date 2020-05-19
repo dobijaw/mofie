@@ -12,6 +12,7 @@ import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import { FETCH_TYPE, ROUTE_TYPE } from 'store';
 import { REMOVE_FROM_COLLECTION } from 'reducers';
+import { useUserContext } from 'hooks';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
@@ -40,6 +41,8 @@ const ProductionItem = ({
     });
   };
 
+  const isLoggedIn = useUserContext();
+
   return (
     <li className={styles.production}>
       <Link className={styles.productionLink} to={URL}>
@@ -62,23 +65,27 @@ const ProductionItem = ({
         </Link>
         <Genres genres={genres} />
       </div>
-      <div className={styles.productionButtonContainer}>
-        {!noModal ? (
-          <Button
-            asAdd
-            type="button"
-            className={styles.productionButton}
-            handleClick={() => rootContext.handleOpenModal(productionType, id)}
-          />
-        ) : (
-          <Button
-            asDelete
-            type="button"
-            className={styles.productionButton}
-            handleClick={handleClick}
-          />
-        )}
-      </div>
+      {isLoggedIn && (
+        <div className={styles.productionButtonContainer}>
+          {!noModal ? (
+            <Button
+              asAdd
+              type="button"
+              className={styles.productionButton}
+              handleClick={() =>
+                rootContext.handleOpenModal(productionType, id)
+              }
+            />
+          ) : (
+            <Button
+              asDelete
+              type="button"
+              className={styles.productionButton}
+              handleClick={handleClick}
+            />
+          )}
+        </div>
+      )}
     </li>
   );
 };
