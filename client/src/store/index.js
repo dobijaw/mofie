@@ -5,7 +5,7 @@ import userReducer from 'reducers/user';
 import { AppContext } from 'context';
 
 const Store = ({ children }) => {
-  const userInitial = { id: undefined, email: undefined };
+  const userInitial = { id: undefined, email: undefined, error: undefined };
 
   const [user, userDispatch] = useReducer(userReducer, userInitial);
   const [categories, categoriesDispatch] = useReducer(categoriesReducer, []);
@@ -20,7 +20,12 @@ const Store = ({ children }) => {
     userDispatch,
   };
 
-  return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={state}>
+      {console.log(state.user)}
+      {children}
+    </AppContext.Provider>
+  );
 };
 
 export default Store;

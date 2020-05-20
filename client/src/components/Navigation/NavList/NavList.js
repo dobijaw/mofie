@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { routes } from 'routes';
 import { useUserContext } from 'hooks';
 import { AppContext } from 'context';
-import { LOGOUT_SUCCESS } from 'actions/user';
+import { logout } from 'actions/user';
 import NavItem from './NavItem/NavItem';
 import styles from './NavList.module.scss';
 
@@ -11,9 +11,7 @@ const NavList = ({ isOpen }) => {
   const state = useContext(AppContext);
 
   const handleLogOut = () => {
-    state.userDispatch({
-      type: LOGOUT_SUCCESS,
-    });
+    logout(state.userDispatch);
   };
 
   return (

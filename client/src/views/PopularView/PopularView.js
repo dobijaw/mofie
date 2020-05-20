@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useFetch, useDataProduction } from 'hooks';
 import { API_KEY } from 'config';
 import PageTitle from 'components/PageTitle/PageTitle';
@@ -36,23 +36,23 @@ const NowPlaying = () => {
     selectProductionData,
   );
 
-  useEffect(() => {
-    fetch('http://localhost:9000/category/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: '1223453453453',
-        value: 'Love it',
-        enum: 'LOVE_IT_ELO',
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:9000/category/add', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       userID: '1223453453453',
+  //       value: 'Love it',
+  //       enum: 'LOVE_IT_ELO',
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // }, []);
 
   return (
     <MainTemplate>

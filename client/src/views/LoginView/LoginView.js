@@ -1,44 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
 import { routes } from 'routes';
 import { AppContext } from 'context';
-import { AUTH_SUCCESS } from 'actions/user';
 import { Redirect } from 'react-router';
 import { useUserContext } from 'hooks';
+import { authenticate } from 'actions/user';
 
 const LoginView = () => {
-  const [logData, setLogData] = useState({});
   const state = useContext(AppContext);
   const isLoggedIn = useUserContext();
-
-  useEffect(() => {
-    if (logData.email && logData.password) {
-      fetch('http://localhost:9000/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: logData.email,
-          password: logData.password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          state.userDispatch({
-            type: AUTH_SUCCESS,
-            payload: {
-              email: res.email,
-              id: res._id,
-            },
-          });
-          console.log(res);
-        });
-    }
-  }, [logData, state]);
 
   return (
     <div>
@@ -80,7 +53,7 @@ const LoginView = () => {
             ],
           })}
           onSubmit={(values) => {
-            setLogData({
+            authenticate(state.userDispatch, {
               email: values.email,
               password: values.password,
             });

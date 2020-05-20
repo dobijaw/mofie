@@ -13,7 +13,7 @@ router.post('/signup', (req, res, next) => {
     .then((user) => {
       if (user.length >= 1) {
         return res.status(409).json({
-          message: 'Mail exists',
+          warning: 'Mail exists',
         });
       } else {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -32,8 +32,11 @@ router.post('/signup', (req, res, next) => {
               .save()
               .then((result) => {
                 console.log(result);
+
                 return res.status(201).json({
                   message: 'User created',
+                  email: user.email,
+                  _id: user._id,
                 });
               })
               .catch((err) => {
@@ -54,14 +57,14 @@ router.post('/login', (req, res, next) => {
     .then((user) => {
       if (user.length < 1) {
         return res.status(401).json({
-          message: 'Auth failed',
+          warning: 'Auth failed',
         });
       }
 
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
         if (err) {
           return res.status(401).json({
-            message: 'Auth failed',
+            warning: 'Auth failed',
           });
         }
 
@@ -86,7 +89,7 @@ router.post('/login', (req, res, next) => {
         }
 
         return res.status(401).json({
-          message: 'Auth failed',
+          warning: 'Auth failed',
         });
       });
     })
