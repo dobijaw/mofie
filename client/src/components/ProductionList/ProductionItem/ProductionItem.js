@@ -10,8 +10,8 @@ import Genres from 'components/Production/Genres/Genres';
 import Tagline from 'components/Production/Tagline/Tagline';
 import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
-import { FETCH_TYPE, ROUTE_TYPE } from 'store';
-import { REMOVE_FROM_COLLECTION } from 'reducers';
+import { FETCH_TYPE, ROUTE_TYPE } from 'types';
+import { REMOVE_FROM_COLLECTION } from 'reducers/collection';
 import { useUserContext } from 'hooks';
 import styles from './ProductionItem.module.scss';
 
@@ -29,13 +29,13 @@ const ProductionItem = ({
   id,
 }) => {
   const rootContext = useContext(RootContext);
-  const context = useContext(AppContext);
+  const state = useContext(AppContext);
   const URL = `/${
     productionType === FETCH_TYPE.MOVIE ? ROUTE_TYPE.MOVIES : ROUTE_TYPE.SHOWS
   }/${id}`;
 
   const handleClick = () => {
-    context.dispatchCollections({
+    state.collectionDispatch({
       type: REMOVE_FROM_COLLECTION,
       id,
     });

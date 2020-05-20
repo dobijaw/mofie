@@ -1,4 +1,4 @@
-import { FETCH_TYPE } from 'store';
+import { FETCH_TYPE } from 'types';
 
 export const selectProductionData = (data, genresData, type) => {
   const output = data.map((p) => ({
@@ -8,8 +8,8 @@ export const selectProductionData = (data, genresData, type) => {
       : p.poster_path
       ? `http://image.tmdb.org/t/p/w500${p.poster_path}`
       : '',
-    releaseDate: type === 'movie' ? p.release_date : p.first_air_date,
-    title: type === 'movie' ? p.title : p.name,
+    releaseDate: type === FETCH_TYPE.MOVIE ? p.release_date : p.first_air_date,
+    title: type === FETCH_TYPE.MOVIE ? p.title : p.name,
     genres: genresData
       .filter((i) => p.genre_ids.includes(i.id))
       .map((i) => i.name),

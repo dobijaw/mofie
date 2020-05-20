@@ -1,0 +1,8 @@
+export const AUTH_REQUEST = 'AUTH_REQUEST';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAILURE = 'AUTH_FAILURE';
+export const REGI_REQUEST = 'REGI_REQUEST';
+export const REGI_SUCCESS = 'REGI_SUCCESS';
+export const REGI_FAILURE = 'REGI_FAILURE';
+
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';

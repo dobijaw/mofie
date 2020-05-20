@@ -8,8 +8,8 @@ import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import Title from 'components/Production/Title/Title';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
-import { ADD_TO_COLLECTION } from 'reducers';
-import { FETCH_TYPE } from 'store';
+import { ADD_TO_COLLECTION } from 'reducers/collection';
+import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import styles from './Modal.module.scss';
@@ -17,7 +17,7 @@ import Button from '../Button/Button';
 import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
-  const context = useContext(AppContext);
+  const state = useContext(AppContext);
   const rootContext = useContext(RootContext);
   const [selectedData, setSelectedData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -57,7 +57,7 @@ const Modal = ({ selected }) => {
   }, [prodData, prodLoading, selected]);
 
   const handleSubmit = (values) => {
-    context.dispatchCollections({
+    state.collectionDispatch({
       type: ADD_TO_COLLECTION,
       payload: {
         data: selectedData,
@@ -124,7 +124,7 @@ const Modal = ({ selected }) => {
                       name="category"
                       label="Category"
                       error={errors.category}
-                      options={context.stateCategories}
+                      options={state.categories}
                       placeholder="Choose a category"
                       lightTheme
                       withButton

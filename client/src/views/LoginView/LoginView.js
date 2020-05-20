@@ -5,13 +5,13 @@ import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
 import { routes } from 'routes';
 import { AppContext } from 'context';
-import { ADD_USER } from 'reducers';
+import { AUTH_SUCCESS } from 'actions/user';
 import { Redirect } from 'react-router';
 import { useUserContext } from 'hooks';
 
 const LoginView = () => {
   const [logData, setLogData] = useState({});
-  const context = useContext(AppContext);
+  const state = useContext(AppContext);
   const isLoggedIn = useUserContext();
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const LoginView = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          context.dispatchUser({
-            type: ADD_USER,
+          state.userDispatch({
+            type: AUTH_SUCCESS,
             payload: {
               email: res.email,
               id: res._id,
@@ -38,7 +38,7 @@ const LoginView = () => {
           console.log(res);
         });
     }
-  }, [logData, context]);
+  }, [logData, state]);
 
   return (
     <div>

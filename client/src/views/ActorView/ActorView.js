@@ -11,6 +11,7 @@ import Bio from 'components/Actor/Bio/Bio';
 import SubHedline from 'components/SubHeadline/SubHeadline';
 import ProductionList from 'components/ProductionList/ProductionList';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import { FETCH_TYPE } from 'types';
 import styles from './ActorView.module.scss';
 
 const ActorView = ({ match }) => {
@@ -43,7 +44,7 @@ const ActorView = ({ match }) => {
         productionType: p.media_type,
         rate: p.vote_average,
         genres:
-          p.media_type === 'movie'
+          p.media_type === FETCH_TYPE.MOVIE
             ? context?.movieGenres?.genres
                 .filter((i) => p.genre_ids.includes(i.id))
                 .map((i) => i.name)

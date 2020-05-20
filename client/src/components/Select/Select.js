@@ -21,7 +21,7 @@ const Select = ({
   placeholder,
   className,
 }) => {
-  const context = useContext(AppContext);
+  const state = useContext(AppContext);
   const [isListVisible, toggleListVisibility] = useState(false);
   const [newCategoryValue, setNewCategoryValue] = useState('');
   const [isPlaceholder, setPlaceholder] = useState(!value?.value);
@@ -88,7 +88,7 @@ const Select = ({
       .replace(numberReg)
       .toLowerCase();
 
-    const isRepeat = !!context.stateCategories.find(
+    const isRepeat = !!state.categories.find(
       (i) =>
         i.value.replace(punctionReg).replace(numberReg).toLowerCase() ===
         convertedValue,
@@ -104,7 +104,7 @@ const Select = ({
         id: convertedValue,
       });
 
-      context.dispatchCategories({
+      state.categoriesDispatch({
         type: 'ADD_CATEGORY',
         payload: {
           value: optionValue,

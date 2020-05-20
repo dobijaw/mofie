@@ -5,7 +5,7 @@ import PageTitle from 'components/PageTitle/PageTitle';
 import Headline from 'components/Headline/Headline';
 import ProductionList from 'components/ProductionList/ProductionList';
 import { RootContext } from 'context';
-import { FETCH_TYPE } from 'store';
+import { FETCH_TYPE } from 'types';
 import Loading from 'components/Loading/Loading';
 import { selectProductionData } from 'universal';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';

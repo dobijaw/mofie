@@ -16,14 +16,14 @@ import Tagline from 'components/Production/Tagline/Tagline';
 import Button from 'components/Button/Button';
 import { API_KEY } from 'config';
 import { AppContext } from 'context';
-import { FETCH_TYPE, ROUTE_TYPE } from 'store';
+import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { routes } from 'routes';
 import Loading from 'components/Loading/Loading';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import styles from './ProductionView.module.scss';
 
 const ProductionView = ({ location, match }) => {
-  const appContext = useContext(AppContext);
+  const state = useContext(AppContext);
   const { pathname } = location;
   const { id } = match.params;
   const prodType = pathname.includes(ROUTE_TYPE.MOVIES)
@@ -131,10 +131,8 @@ const ProductionView = ({ location, match }) => {
   ]);
 
   useEffect(() => {
-    setInCollection(
-      appContext.stateCollections.find((item) => item.id === +id),
-    );
-  }, [appContext.stateCollections, id]);
+    setInCollection(state.collection.find((item) => item.id === +id));
+  }, [state.collection, id]);
 
   return (
     <MainTemplate>

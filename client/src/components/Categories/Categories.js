@@ -3,7 +3,7 @@ import { AppContext } from 'context';
 import styles from './Categories.module.scss';
 
 const Categories = ({ handleClick, category }) => {
-  const context = useContext(AppContext);
+  const state = useContext(AppContext);
 
   return (
     <ul className={styles.categories}>
@@ -20,7 +20,7 @@ const Categories = ({ handleClick, category }) => {
           All
         </button>
       </li>
-      {context.stateCategories.map((c) => (
+      {state.categories.map((c) => (
         <li
           key={c.value}
           className={`${styles.categoriesItem} ${

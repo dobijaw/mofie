@@ -7,7 +7,7 @@ import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import { API_KEY } from 'config';
 import ProductionList from 'components/ProductionList/ProductionList';
-import { FETCH_TYPE } from 'store';
+import { FETCH_TYPE } from 'types';
 import { RootContext } from 'context';
 import { selectProductionData } from 'universal';
 import Loading from 'components/Loading/Loading';
@@ -27,10 +27,10 @@ const SearchProduction = ({ title, fetchType }) => {
   const [production] = useDataProduction(
     !loading && context?.movieGenres !== null && context?.showGenres !== null,
     response?.results,
-    fetchType === 'movie'
+    fetchType === FETCH_TYPE.MOVIE
       ? context?.movieGenres?.genres
       : context?.showGenres?.genres,
-    fetchType === 'movie' ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV,
+    fetchType === FETCH_TYPE.MOVIE ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV,
     selectProductionData,
   );
 

@@ -62,8 +62,8 @@ export const useDataProduction = (
 };
 
 export const useUserContext = () => {
-  const context = useContext(AppContext);
-  const isLoggedIn = !!context.stateUser.id;
+  const state = useContext(AppContext);
+  const isLoggedIn = !!state.user.id;
 
   return isLoggedIn;
 };
