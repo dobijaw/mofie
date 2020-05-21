@@ -12,6 +12,7 @@ import { ADD_TO_COLLECTION } from 'reducers/collection';
 import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
+import { getCategories } from 'actions/categories';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
 import Close from './Close/Close';
@@ -26,6 +27,10 @@ const Modal = ({ selected }) => {
   const productionURL = `https://api.themoviedb.org/3/${selected.productionType}/${selected.id}?api_key=${API_KEY}&language=en-US`;
 
   const [prodData, prodError, prodLoading] = useFetch(productionURL);
+
+  useEffect(() => {
+    getCategories(state.categoriesDispatch, state.user.id);
+  }, [state.categoriesDispatch, state.user.id]);
 
   useEffect(() => {
     if (prodLoading) return;

@@ -6,6 +6,7 @@ import { AppContext } from 'context';
 
 const Store = ({ children }) => {
   const userInitial = { id: undefined, email: undefined, error: undefined };
+  // const userInitial = { id: '123456', email: undefined, error: undefined };
 
   const [user, userDispatch] = useReducer(userReducer, userInitial);
   const [categories, categoriesDispatch] = useReducer(categoriesReducer, []);
@@ -22,7 +23,8 @@ const Store = ({ children }) => {
 
   return (
     <AppContext.Provider value={state}>
-      {console.log(state.user)}
+      {console.log('elo categories state: ')}
+      {console.log(state.categories)}
       {children}
     </AppContext.Provider>
   );

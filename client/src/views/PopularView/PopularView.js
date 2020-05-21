@@ -36,24 +36,6 @@ const NowPlaying = () => {
     selectProductionData,
   );
 
-  // useEffect(() => {
-  //   fetch('http://localhost:9000/category/add', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       userID: '1223453453453',
-  //       value: 'Love it',
-  //       enum: 'LOVE_IT_ELO',
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // }, []);
-
   return (
     <MainTemplate>
       <div className={styles.wrapper}>

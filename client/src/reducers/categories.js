@@ -1,5 +1,8 @@
-export const ADD_CATEGORY = 'ADD_CATEGORY';
-export const DELETE_CATEGORY = 'DELETE_CATEGORY';
+import {
+  ADD_CATEGORY,
+  DELETE_CATEGORY,
+  GET_CATEGORIES,
+} from 'actions/categories';
 
 const categoriesReducer = (state, action) => {
   switch (action.type) {
@@ -7,6 +10,8 @@ const categoriesReducer = (state, action) => {
       return [...state, action.payload];
     case DELETE_CATEGORY:
       return [...state];
+    case GET_CATEGORIES:
+      return action.payload;
     default:
       return state;
   }

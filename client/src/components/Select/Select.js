@@ -4,6 +4,7 @@ import Label from 'components/Label/Label';
 import Input from 'components/Input/Input';
 import FormError from 'components/FormError/FormError';
 import Button from 'components/Button/Button';
+import { addCategory } from 'actions/categories';
 import styles from './Select.module.scss';
 import SelectList from './SelectList/SelectList';
 
@@ -79,14 +80,18 @@ const Select = ({
     checkIfErrors(optionValue);
     const numberReg = new RegExp(/[0-9]/g, '');
     const punctionReg = new RegExp(
-      /[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|\s]/g,
+      /[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/g,
       '',
     );
 
     const convertedValue = optionValue
       .replace(punctionReg)
       .replace(numberReg)
-      .toLowerCase();
+      .split(' ')
+      .join('_')
+      .toUpperCase();
+
+    // console.log(convertedValue);
 
     const isRepeat = !!state.categories.find(
       (i) =>
@@ -104,12 +109,10 @@ const Select = ({
         id: convertedValue,
       });
 
-      state.categoriesDispatch({
-        type: 'ADD_CATEGORY',
-        payload: {
-          value: optionValue,
-          id: convertedValue,
-        },
+      addCategory(state.categoriesDispatch, {
+        id: state.user.id,
+        value: optionValue,
+        key: convertedValue,
       });
 
       setNewCategoryValue('');
