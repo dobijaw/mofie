@@ -7,7 +7,8 @@
   "globals": {
     "window": true,
     "document": true,
-    "fetch": false
+    "fetch": false,
+    "localStorage": true
   },
   "rules": {
     "react/destructuring-assignment": 0,

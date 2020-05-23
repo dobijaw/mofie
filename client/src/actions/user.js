@@ -1,3 +1,4 @@
+export const AUTH_LOCAL = 'AUTH_LOCAL';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 export const REGI_SUCCESS = 'REGI_SUCCESS';
@@ -45,6 +46,21 @@ export const registration = (dispatch, data) => {
     });
 };
 
+export const localAuthenticate = (dispatch) => {
+  const token = localStorage.getItem('token');
+  const userID = localStorage.getItem('userID');
+
+  if (!token || !userID) return;
+
+  dispatch({
+    type: AUTH_LOCAL,
+    payload: {
+      token: localStorage.getItem('token'),
+      userID: localStorage.getItem('userID'),
+    },
+  });
+};
+
 export const authenticate = (dispatch, data) => {
   fetch('http://localhost:9000/user/login', {
     method: 'POST',
@@ -58,6 +74,7 @@ export const authenticate = (dispatch, data) => {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res);
       if (res.warning) {
         dispatch({
           type: AUTH_FAILURE,
@@ -73,6 +90,10 @@ export const authenticate = (dispatch, data) => {
             email: res.email,
           },
         });
+
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('userID', res._id);
+        localStorage.setItem('email', res.email);
       }
     })
     .catch((err) => {

@@ -16,6 +16,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
+const productionRouter = require('./routes/production');
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
+app.use('/production', productionRouter);
 
 module.exports = app;

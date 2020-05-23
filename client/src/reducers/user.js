@@ -1,4 +1,5 @@
 import {
+  AUTH_LOCAL,
   AUTH_SUCCESS,
   AUTH_FAILURE,
   REGI_SUCCESS,
@@ -8,6 +9,13 @@ import {
 
 const userReducer = (state, action) => {
   switch (action.type) {
+    case AUTH_LOCAL:
+      return {
+        id: action.payload.userID,
+        token: action.payload.token,
+        // email: action.payload.email,
+        error: undefined,
+      };
     case AUTH_SUCCESS:
       return {
         id: action.payload.id,

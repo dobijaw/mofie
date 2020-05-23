@@ -6,7 +6,6 @@ export const getCategories = (dispatch, userID) => {
   fetch(`http://localhost:9000/category/${userID}`)
     .then((res) => res.json())
     .then((res) => {
-      // console.log(res);
       dispatch({
         type: GET_CATEGORIES,
         payload: [

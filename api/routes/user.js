@@ -72,7 +72,7 @@ router.post('/login', (req, res, next) => {
           const token = jwt.sign(
             {
               email: user[0].email,
-              userId: user[0]._id,
+              userId: user[0]._id.toString(),
             },
             config.JWT_KEY,
             {
@@ -83,7 +83,7 @@ router.post('/login', (req, res, next) => {
           return res.status(200).json({
             message: 'Auth successful',
             email: user[0].email,
-            _id: user[0]._id,
+            _id: user[0]._id.toString(),
             token: token,
           });
         }
