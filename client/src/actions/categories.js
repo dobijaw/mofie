@@ -46,7 +46,7 @@ export const addCategory = (dispatch, data) => {
           },
         });
       }
-      // console.log(res);
+      console.log(res);
     });
 };
 

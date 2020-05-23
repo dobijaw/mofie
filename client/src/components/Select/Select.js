@@ -49,8 +49,7 @@ const Select = ({
     setNewCategoryError('');
     if (categoryValue.length < 3) errorMessage = 'To short';
     if (!categoryValue) errorMessage = 'Needs data!';
-    if (regPunction.test(categoryValue))
-      errorMessage = "You can't use punctions!";
+    if (regPunction.test(categoryValue)) errorMessage = "You can't use punctions!";
     if (regNumber.test(categoryValue)) errorMessage = "You can't use numbers!";
     if (categoryValue.length > 20) errorMessage = 'To long name!';
 
@@ -79,10 +78,7 @@ const Select = ({
   const handleAddingNewItemClick = (selectName, optionValue = '') => {
     checkIfErrors(optionValue);
     const numberReg = new RegExp(/[0-9]/g, '');
-    const punctionReg = new RegExp(
-      /[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/g,
-      '',
-    );
+    const punctionReg = new RegExp(/[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/g, '');
 
     const convertedValue = optionValue
       .replace(punctionReg)
@@ -94,9 +90,7 @@ const Select = ({
     // console.log(convertedValue);
 
     const isRepeat = !!state.categories.find(
-      (i) =>
-        i.value.replace(punctionReg).replace(numberReg).toLowerCase() ===
-        convertedValue,
+      (i) => i.value.replace(punctionReg).replace(numberReg).toLowerCase() === convertedValue,
     );
 
     if (isRepeat) setNewCategoryError('Category exist!');
@@ -131,9 +125,7 @@ const Select = ({
           onClick={handleSelectInputClick}
           lightTheme={lightTheme}
         />
-        {isPlaceholder && (
-          <span className={styles.selectPlaceholder}>{placeholder}</span>
-        )}
+        {isPlaceholder && <span className={styles.selectPlaceholder}>{placeholder}</span>}
       </div>
       <SelectList
         name={name}
@@ -153,17 +145,12 @@ const Select = ({
               lightTheme={lightTheme}
             />
             {newCategoryError && (
-              <FormError
-                className={styles.selectErrorFlying}
-                error={newCategoryError}
-              />
+              <FormError className={styles.selectErrorFlying} error={newCategoryError} />
             )}
             <Button
               className={styles.selectButton}
               lightTheme={lightTheme}
-              handleClick={() =>
-                handleAddingNewItemClick(name, newCategoryValue.newCategory)
-              }
+              handleClick={() => handleAddingNewItemClick(name, newCategoryValue.newCategory)}
             />
           </div>
         )}

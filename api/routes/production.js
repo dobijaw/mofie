@@ -45,7 +45,6 @@ router.post('/add', (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-  res.json({ message: 'work' });
 });
 
 module.exports = router;

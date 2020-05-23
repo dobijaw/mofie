@@ -17,49 +17,6 @@ import ActorView from 'views/ActorView/ActorView';
 import LoginView from 'views/LoginView/LoginView';
 import SignUpView from 'views/SignUpView/SignUpView';
 
-const ratingScale = [
-  {
-    value: '1',
-    id: 'rate1',
-  },
-  {
-    value: '2',
-    id: 'rate2',
-  },
-  {
-    value: '3',
-    id: 'rate3',
-  },
-  {
-    value: '4',
-    id: 'rate4',
-  },
-  {
-    value: '5',
-    id: 'rate5',
-  },
-  {
-    value: '6',
-    id: 'rate6',
-  },
-  {
-    value: '7',
-    id: 'rate7',
-  },
-  {
-    value: '8',
-    id: 'rate8',
-  },
-  {
-    value: '9',
-    id: 'rate9',
-  },
-  {
-    value: '10',
-    id: 'rate10',
-  },
-];
-
 const Root = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
   const [selectedProduction, setSelectedProduction] = useState({});
@@ -69,6 +26,14 @@ const Root = () => {
 
   const [movieGenres, movieGenresErrors] = useFetch(movieGenresURL);
   const [showGenres, showGenresErrors] = useFetch(showGenresURL);
+
+  const ratingScale = Array(10)
+    .fill({})
+    .map((_, index) => ({
+      value: `${index + 1}`,
+      key: `RATE_${index + 1}`,
+      id: `${index + 1}`,
+    }));
 
   const handleOpenModal = (productionType, id) => {
     setModalVisibility(true);

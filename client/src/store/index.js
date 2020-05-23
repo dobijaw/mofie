@@ -31,7 +31,7 @@ const Store = ({ children }) => {
 
   return (
     <AppContext.Provider value={state}>
-      {console.log(user)}
+      {console.log(categories)}
       {children}
     </AppContext.Provider>
   );

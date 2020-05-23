@@ -53,9 +53,6 @@ export const localAuthenticate = (dispatch) => {
   const token = localStorage.getItem('token');
   const userID = localStorage.getItem('userID');
 
-  console.log(token);
-  console.log(userID);
-
   if (!token || !userID) return;
 
   dispatch({

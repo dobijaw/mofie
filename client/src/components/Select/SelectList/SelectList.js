@@ -1,36 +1,27 @@
 import React from 'react';
 import styles from './SelectList.module.scss';
+import SelectItem from '../SelectItem/SelectItem';
 
-const SelectList = ({
-  children,
-  options,
-  name,
-  handleItemClick,
-  isVisible,
-}) => {
+const SelectList = ({ children, options, name, handleItemClick, isVisible }) => {
   return (
     <ul
       className={
-        isVisible
-          ? `${styles.selectList} ${styles.selectListVisible}`
-          : styles.selectList
+        isVisible ? `${styles.selectList} ${styles.selectListVisible}` : styles.selectList
       }
     >
       {options.map((o) => (
-        <li key={o.id} className={styles.selectListItem}>
-          <button
-            type="button"
-            onClick={() => handleItemClick(name, o)}
-            className={styles.selectListButton}
-          >
-            {o.value}
-          </button>
-        </li>
+        <SelectItem
+          className={styles.selectListItem}
+          key={o.id}
+          id={o.id}
+          value={o.value}
+          handleClick={() => handleItemClick(name, o)}
+        />
       ))}
       {children && (
-        <li className={`${styles.selectListItem} ${styles.selectListItemAdd}`}>
+        <SelectItem className={`${styles.selectListItem} ${styles.selectListItemAdd}`}>
           {children}
-        </li>
+        </SelectItem>
       )}
     </ul>
   );

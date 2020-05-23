@@ -6,9 +6,7 @@ const NavItem = ({ name, link, asPrimary }) => (
   <li className={styles.navItem}>
     <NavLink
       activeClassName={styles.navItemLinkActive}
-      className={`${styles.navItemLink} ${
-        asPrimary && styles.navItemLinkPrimary
-      }`}
+      className={`${styles.navItemLink} ${asPrimary && styles.navItemLinkPrimary}`}
       to={link}
     >
       {name}
