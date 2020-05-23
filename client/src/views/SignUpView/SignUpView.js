@@ -6,16 +6,14 @@ import UserAuthentication from 'components/UserAuthentication/UserAuthentication
 import { routes } from 'routes';
 import { registration } from 'actions/user';
 import { AppContext } from 'context';
-import { useUserContext } from 'hooks';
 import { Redirect } from 'react-router';
 
 const SignUpView = () => {
-  const state = useContext(AppContext);
-  const isLoggedIn = useUserContext();
+  const { user, userDispatch } = useContext(AppContext);
 
   return (
     <>
-      {isLoggedIn && <Redirect to="/" />}
+      {user.isAuth && <Redirect to="/" />}
       <UserAuthentication
         title="Sign up"
         description="Enter your email to create an account."
@@ -38,9 +36,7 @@ const SignUpView = () => {
             ],
             password: [
               {
-                correct: values.password
-                  .split('')
-                  .some((i) => i === i.toUpperCase()),
+                correct: values.password.split('').some((i) => i === i.toUpperCase()),
                 errorMessage: 'One uppercase needed',
               },
               {
@@ -60,7 +56,7 @@ const SignUpView = () => {
             ],
           })}
           onSubmit={(values) => {
-            registration(state.userDispatch, {
+            registration(userDispatch, {
               email: values.email,
               password: values.password,
             });

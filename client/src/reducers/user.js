@@ -1,39 +1,28 @@
 import {
-  AUTH_LOCAL,
   AUTH_SUCCESS,
   AUTH_FAILURE,
   REGI_SUCCESS,
   REGI_FAILURE,
   LOGOUT_SUCCESS,
+  AUTH_LOCAL_SUCCESS,
 } from 'actions/user';
 
-const userReducer = (state, action) => {
-  switch (action.type) {
-    case AUTH_LOCAL:
-      return {
-        id: action.payload.userID,
-        token: action.payload.token,
-        // email: action.payload.email,
-        error: undefined,
-      };
+const userReducer = (state, { type, payload }) => {
+  switch (type) {
     case AUTH_SUCCESS:
-      return {
-        id: action.payload.id,
-        email: action.payload.email,
-        error: undefined,
-      };
+    case AUTH_LOCAL_SUCCESS:
     case REGI_SUCCESS:
       return {
-        id: action.payload.id,
-        email: action.payload.email,
+        isAuth: true,
+        id: payload.userID,
+        token: payload.token,
         error: undefined,
       };
     case AUTH_FAILURE:
-      return { ...state, error: action.payload.error };
     case REGI_FAILURE:
-      return { ...state, error: action.payload.error };
+      return { ...state, error: payload.error };
     case LOGOUT_SUCCESS:
-      return { id: undefined, email: undefined, error: undefined };
+      return { id: undefined, token: undefined, error: undefined, isAuth: false };
     default:
       return state;
   }

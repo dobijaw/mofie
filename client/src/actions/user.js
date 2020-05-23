@@ -1,9 +1,9 @@
-export const AUTH_LOCAL = 'AUTH_LOCAL';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 export const REGI_SUCCESS = 'REGI_SUCCESS';
 export const REGI_FAILURE = 'REGI_FAILURE';
 
+export const AUTH_LOCAL_SUCCESS = 'AUTH_LOCAL_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const registration = (dispatch, data) => {
@@ -30,10 +30,13 @@ export const registration = (dispatch, data) => {
         dispatch({
           type: REGI_SUCCESS,
           payload: {
-            id: res._id,
-            email: res.email,
+            userID: res.userID,
+            token: res.token,
           },
         });
+
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('userID', res.userID);
       }
     })
     .catch((err) => {
@@ -50,13 +53,16 @@ export const localAuthenticate = (dispatch) => {
   const token = localStorage.getItem('token');
   const userID = localStorage.getItem('userID');
 
+  console.log(token);
+  console.log(userID);
+
   if (!token || !userID) return;
 
   dispatch({
-    type: AUTH_LOCAL,
+    type: AUTH_LOCAL_SUCCESS,
     payload: {
-      token: localStorage.getItem('token'),
-      userID: localStorage.getItem('userID'),
+      userID,
+      token,
     },
   });
 };
@@ -86,14 +92,13 @@ export const authenticate = (dispatch, data) => {
         dispatch({
           type: AUTH_SUCCESS,
           payload: {
-            id: res._id,
-            email: res.email,
+            userID: res.userID,
+            token: res.token,
           },
         });
 
         localStorage.setItem('token', res.token);
-        localStorage.setItem('userID', res._id);
-        localStorage.setItem('email', res.email);
+        localStorage.setItem('userID', res.userID);
       }
     })
     .catch((err) => {
@@ -103,4 +108,6 @@ export const authenticate = (dispatch, data) => {
 
 export const logout = (dispatch) => {
   dispatch({ type: LOGOUT_SUCCESS });
+  localStorage.removeItem('token');
+  localStorage.removeItem('userID');
 };

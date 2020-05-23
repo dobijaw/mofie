@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
-import { AppContext } from 'context';
+import { useState, useEffect } from 'react';
 
 export const useFetch = (url, options) => {
   const [response, setResponse] = useState(null);
@@ -40,13 +39,7 @@ export const useFetch = (url, options) => {
   return [response, error, loading];
 };
 
-export const useDataProduction = (
-  allLoaded,
-  response,
-  genres,
-  type,
-  callback,
-) => {
+export const useDataProduction = (allLoaded, response, genres, type, callback) => {
   const [output, setOutput] = useState([]);
   const [dataLoaded, setLoaded] = useState(false);
 
@@ -59,11 +52,4 @@ export const useDataProduction = (
   }, [allLoaded, callback, response, genres, type]);
 
   return [output, dataLoaded];
-};
-
-export const useUserContext = () => {
-  const state = useContext(AppContext);
-  const isLoggedIn = !!state.user.id;
-
-  return isLoggedIn;
 };

@@ -12,7 +12,6 @@ import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { REMOVE_FROM_COLLECTION } from 'reducers/collection';
-import { useUserContext } from 'hooks';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
@@ -29,19 +28,17 @@ const ProductionItem = ({
   id,
 }) => {
   const rootContext = useContext(RootContext);
-  const state = useContext(AppContext);
+  const { user, collectionDispatch } = useContext(AppContext);
   const URL = `/${
     productionType === FETCH_TYPE.MOVIE ? ROUTE_TYPE.MOVIES : ROUTE_TYPE.SHOWS
   }/${id}`;
 
   const handleClick = () => {
-    state.collectionDispatch({
+    collectionDispatch({
       type: REMOVE_FROM_COLLECTION,
       id,
     });
   };
-
-  const isLoggedIn = useUserContext();
 
   return (
     <li className={styles.production}>
@@ -65,16 +62,14 @@ const ProductionItem = ({
         </Link>
         <Genres genres={genres} />
       </div>
-      {isLoggedIn && (
+      {user.isAuth && (
         <div className={styles.productionButtonContainer}>
           {!noModal ? (
             <Button
               asAdd
               type="button"
               className={styles.productionButton}
-              handleClick={() =>
-                rootContext.handleOpenModal(productionType, id)
-              }
+              handleClick={() => rootContext.handleOpenModal(productionType, id)}
             />
           ) : (
             <Button

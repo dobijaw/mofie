@@ -5,7 +5,6 @@ import Sort from 'components/Sort/Sort';
 import { FETCH_TYPE } from 'types';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { Redirect } from 'react-router';
-import { useUserContext } from 'hooks';
 import { routes } from 'routes';
 import styles from './CollectionView.module.scss';
 import PageTitle from '../../components/PageTitle/PageTitle';
@@ -53,21 +52,19 @@ const typeOptions = [
 ];
 
 const CollectionView = () => {
-  const state = useContext(AppContext);
+  const { collection, categories, user } = useContext(AppContext);
   const categoryOptions = [
     {
       value: 'All',
       id: 'all',
     },
-    ...state.categories,
+    ...categories,
   ];
-
-  const isLoggedIn = useUserContext();
 
   const [sortValue, setSortValue] = useState(sortOptions[0]);
   const [categoryValue, setCategoryValue] = useState(categoryOptions[0]);
   const [typeValue, setTypeValue] = useState(typeOptions[0]);
-  const [sortData, setSortData] = useState(state.collection);
+  const [sortData, setSortData] = useState(collection);
 
   const sortByRated = (a, b) => {
     return +a.customData.rate.value - +b.customData.rate.value;
@@ -81,14 +78,12 @@ const CollectionView = () => {
   };
 
   useEffect(() => {
-    const sortByType = state.collection.filter((c) =>
+    const sortByType = collection.filter((c) =>
       typeValue.id === 'alltype' ? c : c.type === typeValue.id,
     );
 
     const sortByCategories = sortByType.filter((c) =>
-      categoryValue.id === 'all'
-        ? c
-        : categoryValue.id === c.customData?.category?.id,
+      categoryValue.id === 'all' ? c : categoryValue.id === c.customData?.category?.id,
     );
 
     switch (sortValue.id) {
@@ -111,7 +106,7 @@ const CollectionView = () => {
         setSortData(sortByCategories);
         break;
     }
-  }, [sortValue, typeValue, state.collection, categoryValue]);
+  }, [sortValue, typeValue, collection, categoryValue]);
 
   const handleSubmit = (values) => {
     setSortValue(values.sort);
@@ -121,7 +116,7 @@ const CollectionView = () => {
 
   return (
     <>
-      {!isLoggedIn && <Redirect to={routes.login} />}
+      {!user.isAuth && <Redirect to={routes.login} />}
       <MainTemplate>
         <PageTitle>My collection</PageTitle>
         <Sort

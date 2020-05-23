@@ -32,11 +32,21 @@ router.post('/signup', (req, res, next) => {
               .save()
               .then((result) => {
                 console.log(result);
+                const token = jwt.sign(
+                  {
+                    email: user.email,
+                    userId: user._id.toString(),
+                  },
+                  config.JWT_KEY,
+                  {
+                    expiresIn: '1h',
+                  }
+                );
 
                 return res.status(201).json({
                   message: 'User created',
-                  email: user.email,
-                  _id: user._id,
+                  userID: user._id.toString(),
+                  token,
                 });
               })
               .catch((err) => {
@@ -82,8 +92,7 @@ router.post('/login', (req, res, next) => {
 
           return res.status(200).json({
             message: 'Auth successful',
-            email: user[0].email,
-            _id: user[0]._id.toString(),
+            userID: user[0]._id.toString(),
             token: token,
           });
         }

@@ -6,16 +6,14 @@ import Button from 'components/Button/Button';
 import { routes } from 'routes';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
-import { useUserContext } from 'hooks';
 import { authenticate } from 'actions/user';
 
 const LoginView = () => {
-  const state = useContext(AppContext);
-  const isLoggedIn = useUserContext();
+  const { user, userDispatch } = useContext(AppContext);
 
   return (
     <div>
-      {isLoggedIn && <Redirect to="/" />}
+      {user.isAuth && <Redirect to="/" />}
       <UserAuthentication
         title="Login"
         description="Please enter your data to log in."
@@ -37,9 +35,7 @@ const LoginView = () => {
             ],
             password: [
               {
-                correct: values.password
-                  .split('')
-                  .some((i) => i === i.toUpperCase()),
+                correct: values.password.split('').some((i) => i === i.toUpperCase()),
                 errorMessage: 'One uppercase needed',
               },
               {
@@ -53,7 +49,7 @@ const LoginView = () => {
             ],
           })}
           onSubmit={(values) => {
-            authenticate(state.userDispatch, {
+            authenticate(userDispatch, {
               email: values.email,
               password: values.password,
             });

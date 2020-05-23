@@ -12,7 +12,6 @@ import { ADD_TO_COLLECTION } from 'reducers/collection';
 import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
-import { getCategories } from 'actions/categories';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
 import Close from './Close/Close';
@@ -29,18 +28,11 @@ const Modal = ({ selected }) => {
   const [prodData, prodError, prodLoading] = useFetch(productionURL);
 
   useEffect(() => {
-    getCategories(state.categoriesDispatch, state.user.id);
-  }, [state.categoriesDispatch, state.user.id]);
-
-  useEffect(() => {
     if (prodLoading) return;
     if (prodData.status_code === 34) setError(true);
 
     const output = {
-      title:
-        selected.productionType === FETCH_TYPE.MOVIE
-          ? prodData.title
-          : prodData.name,
+      title: selected.productionType === FETCH_TYPE.MOVIE ? prodData.title : prodData.name,
       genres: prodData.genres.map((i) => i.name),
       tagline: prodData.tagline || null,
       rate: prodData.vote_average,
@@ -51,8 +43,7 @@ const Modal = ({ selected }) => {
           : prodData.first_air_date,
       image: prodData.backdrop_path
         ? `http://image.tmdb.org/t/p/w500/${prodData.backdrop_path}`
-        : prodData.poster_path &&
-          `http://image.tmdb.org/t/p/w500/${prodData.poster_path}`,
+        : prodData.poster_path && `http://image.tmdb.org/t/p/w500/${prodData.poster_path}`,
     };
     setSelectedData(output);
 

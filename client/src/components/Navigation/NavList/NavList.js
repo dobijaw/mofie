@@ -1,17 +1,16 @@
 import React, { useContext } from 'react';
 import { routes } from 'routes';
-import { useUserContext } from 'hooks';
 import { AppContext } from 'context';
 import { logout } from 'actions/user';
+import Button from 'components/Button/Button';
 import NavItem from './NavItem/NavItem';
 import styles from './NavList.module.scss';
 
 const NavList = ({ isOpen }) => {
-  const isLoggedIn = useUserContext();
-  const state = useContext(AppContext);
+  const { user, userDispatch } = useContext(AppContext);
 
   const handleLogOut = () => {
-    logout(state.userDispatch);
+    logout(userDispatch);
   };
 
   return (
@@ -20,11 +19,13 @@ const NavList = ({ isOpen }) => {
         <ul className={styles.navListItem}>
           <NavItem name="Movies" link={routes.movies} />
           <NavItem name="Shows" link={routes.shows} />
-          {isLoggedIn && <NavItem name="Collection" link={routes.collection} />}
-          {isLoggedIn ? (
-            <button type="button" onClick={handleLogOut}>
-              log out
-            </button>
+          {user.isAuth && <NavItem name="Collection" link={routes.collection} />}
+          {user.isAuth ? (
+            <li>
+              <Button handleClick={handleLogOut} className={styles.navListButton}>
+                LOG OUT
+              </Button>
+            </li>
           ) : (
             <NavItem name="Login" link={routes.login} asPrimary />
           )}

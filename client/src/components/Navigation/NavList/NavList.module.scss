@@ -31,7 +31,12 @@
 
     @media (min-width: 768px) {
       display: flex;
+      align-items: center;
     }
+  }
+
+  &Button {
+    margin: 0 0 0 20px;
   }
 
   &Active {
