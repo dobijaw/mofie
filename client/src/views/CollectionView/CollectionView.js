@@ -6,6 +6,7 @@ import { FETCH_TYPE } from 'types';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { Redirect } from 'react-router';
 import { routes } from 'routes';
+import { getCollection } from 'actions/collection';
 import styles from './CollectionView.module.scss';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -52,7 +53,7 @@ const typeOptions = [
 ];
 
 const CollectionView = () => {
-  const { collection, categories, user } = useContext(AppContext);
+  const { collection, categories, user, collectionDispatch } = useContext(AppContext);
   const categoryOptions = [
     {
       value: 'All',
@@ -78,8 +79,12 @@ const CollectionView = () => {
   };
 
   useEffect(() => {
+    getCollection(collectionDispatch, user.id);
+  }, [collectionDispatch, user.id]);
+
+  useEffect(() => {
     const sortByType = collection.filter((c) =>
-      typeValue.id === 'alltype' ? c : c.type === typeValue.id,
+      typeValue.id === 'alltype' ? c : c.productionType === typeValue.id,
     );
 
     const sortByCategories = sortByType.filter((c) =>
@@ -132,13 +137,14 @@ const CollectionView = () => {
           <ul className={styles.collectionList}>
             {sortData.map((c) => (
               <ProductionItem
-                key={c.id}
-                id={c.id}
+                _id={c._id}
+                key={c.productionID}
+                id={c.productionID}
                 title={c.data.title}
                 genres={c.data.genres}
-                releaseDate={c.releaseDate}
+                releaseDate={c.data.releaseDate}
                 image={c.data.image}
-                productionType={c.type}
+                productionType={c.productionType}
                 tagline={c.data.tagline}
                 rate={c.data.rate}
                 customRate={c.customData?.rate?.value}

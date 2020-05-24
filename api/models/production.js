@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const productionSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  addedBy: { type: String, required: true },
-  type: { type: String, enum: ['movie', 'tv'], required: true },
+  creator: { type: String, required: true },
+  productionType: { type: String, enum: ['movie', 'tv'], required: true },
   productionID: { type: Number, required: true },
   data: {
     genres: [{ type: String }],
@@ -22,7 +22,11 @@ const productionSchema = new Schema({
       key: { type: String },
     },
     comment: { type: String },
-    rate: { value: { type: String }, id: { type: String } },
+    rate: {
+      value: { type: String },
+      id: { type: String },
+      key: { type: String },
+    },
   },
 });
 

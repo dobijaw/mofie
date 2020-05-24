@@ -7,7 +7,7 @@ import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import Title from 'components/Production/Title/Title';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
-import { ADD_TO_COLLECTION } from 'reducers/collection';
+import { addToCllection } from 'actions/collection';
 import { useFetch } from 'hooks';
 import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
@@ -17,7 +17,7 @@ import Button from '../Button/Button';
 import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
-  const { categories, collectionDispatch } = useContext(AppContext);
+  const { user, categories, collectionDispatch } = useContext(AppContext);
   const rootContext = useContext(RootContext);
   const [selectedData, setSelectedData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -51,17 +51,35 @@ const Modal = ({ selected }) => {
   }, [prodData, prodLoading, selected]);
 
   const handleSubmit = (values) => {
-    collectionDispatch({
-      type: ADD_TO_COLLECTION,
-      payload: {
-        data: selectedData,
-        id: selected.id,
-        type: selected.productionType,
-        customData: values,
+    const data = {
+      creator: user.id,
+      productionType: selected.productionType,
+      productionID: selected.id,
+      data: {
+        genres: selectedData.genres,
+        image: selectedData.image,
+        overview: selectedData.overview,
+        rate: selectedData.rate,
+        releaseDate: selectedData.releaseDate,
+        tagline: selectedData.tagline,
+        title: selectedData.title,
       },
-    });
+      customData: {
+        category: {
+          value: values.category.value,
+          key: values.category.key,
+          id: values.category.id,
+        },
+        comment: values.comment,
+        rate: {
+          value: values.rate.value,
+          key: values.rate.key,
+          id: values.rate.id,
+        },
+      },
+    };
 
-    console.log(values);
+    addToCllection(collectionDispatch, data);
 
     rootContext.handleCloseModal();
   };

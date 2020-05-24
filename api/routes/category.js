@@ -6,7 +6,7 @@ const Category = require('../models/category');
 
 router.get('/:userID', (req, res, next) => {
   Category.find({
-    userID: req.params.userID,
+    creator: req.params.userID,
   })
     .exec()
     .then((categories) => {
@@ -35,7 +35,7 @@ router.post('/add', (req, res, next) => {
       } else {
         const category = new Category({
           _id: new mongoose.Types.ObjectId(),
-          userID: req.body.userID,
+          creator: req.body.userID,
           value: req.body.value,
           key: req.body.key,
         });

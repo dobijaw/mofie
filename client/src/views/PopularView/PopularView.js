@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useFetch, useDataProduction } from 'hooks';
 import { API_KEY } from 'config';
 import PageTitle from 'components/PageTitle/PageTitle';
@@ -36,41 +36,41 @@ const NowPlaying = () => {
     selectProductionData,
   );
 
-  useEffect(() => {
-    fetch('http://localhost:9000/production/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        addedBy: '1234',
-        type: 'movie',
-        productionID: '123',
-        data: {
-          genres: ['Action'],
-          image: '/image/124',
-          overview: 'nice',
-          rate: 7.6,
-          releaseDate: '2019-09-09',
-          tagline: 'Tagline',
-          title: 'Nice movie',
-        },
-        customData: {
-          category: {
-            value: 'love it',
-            id: '123467564',
-            key: 'LOVE_IT',
-          },
-          comment: 'Realy nice',
-          rate: { value: '10', id: '365etrgdfs' },
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:9000/production/add', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       addedBy: '1234',
+  //       type: 'movie',
+  //       productionID: '123',
+  //       data: {
+  //         genres: ['Action'],
+  //         image: '/image/124',
+  //         overview: 'nice',
+  //         rate: 7.6,
+  //         releaseDate: '2019-09-09',
+  //         tagline: 'Tagline',
+  //         title: 'Nice movie',
+  //       },
+  //       customData: {
+  //         category: {
+  //           value: 'love it',
+  //           id: '123467564',
+  //           key: 'LOVE_IT',
+  //         },
+  //         comment: 'Realy nice',
+  //         rate: { value: '10', id: '365etrgdfs' },
+  //       },
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // }, []);
 
   return (
     <MainTemplate>

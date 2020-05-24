@@ -11,10 +11,11 @@ import Tagline from 'components/Production/Tagline/Tagline';
 import CustomRating from 'components/Production/CustomRating/CustomRating';
 import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
 import { FETCH_TYPE, ROUTE_TYPE } from 'types';
-import { REMOVE_FROM_COLLECTION } from 'reducers/collection';
+import { removeFromCollection } from 'actions/collection';
 import styles from './ProductionItem.module.scss';
 
 const ProductionItem = ({
+  _id,
   productionType,
   customCategory,
   releaseDate,
@@ -34,10 +35,11 @@ const ProductionItem = ({
   }/${id}`;
 
   const handleClick = () => {
-    collectionDispatch({
-      type: REMOVE_FROM_COLLECTION,
-      id,
-    });
+    removeFromCollection(collectionDispatch, _id);
+    // collectionDispatch({
+    //   type: REMOVE_FROM_COLLECTION,
+    //   id,
+    // });
   };
 
   return (
