@@ -6,7 +6,6 @@ import { FETCH_TYPE } from 'types';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { Redirect } from 'react-router';
 import { routes } from 'routes';
-import { getCollection } from 'actions/collection';
 import styles from './CollectionView.module.scss';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -53,7 +52,7 @@ const typeOptions = [
 ];
 
 const CollectionView = () => {
-  const { collection, categories, user, collectionDispatch } = useContext(AppContext);
+  const { collection, categories, user } = useContext(AppContext);
   const categoryOptions = [
     {
       value: 'All',
@@ -77,10 +76,6 @@ const CollectionView = () => {
 
     return 0;
   };
-
-  useEffect(() => {
-    getCollection(collectionDispatch, user.id);
-  }, [collectionDispatch, user.id]);
 
   useEffect(() => {
     const sortByType = collection.filter((c) =>

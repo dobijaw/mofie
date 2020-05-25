@@ -26,9 +26,7 @@ const ProductionView = ({ location, match }) => {
   const state = useContext(AppContext);
   const { pathname } = location;
   const { id } = match.params;
-  const prodType = pathname.includes(ROUTE_TYPE.MOVIES)
-    ? FETCH_TYPE.MOVIE
-    : FETCH_TYPE.TV;
+  const prodType = pathname.includes(ROUTE_TYPE.MOVIES) ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV;
 
   const detailsURL = `https://api.themoviedb.org/3/${prodType}/${id}?api_key=${API_KEY}&language=en-US`;
   const keywordsURL = `https://api.themoviedb.org/3/${prodType}/${id}/keywords?api_key=${API_KEY}&language=en-US`;
@@ -67,21 +65,17 @@ const ProductionView = ({ location, match }) => {
           videoType: i.type,
           videoKey: i.key,
         })),
-        image:
-          `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}` || null,
+        image: `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}` || null,
         releaseDate:
           prodType === FETCH_TYPE.MOVIE
             ? detailsData.release_date
             : detailsData.first_air_date,
-        title:
-          prodType === FETCH_TYPE.MOVIE ? detailsData.title : detailsData.name,
+        title: prodType === FETCH_TYPE.MOVIE ? detailsData.title : detailsData.name,
         tagline: detailsData.tagline || null,
         genres: detailsData.genres.map((i) => i.name),
         overview: detailsData.overview,
         keywords:
-          prodType === FETCH_TYPE.MOVIE
-            ? keywordsData?.keywords
-            : keywordsData?.results,
+          prodType === FETCH_TYPE.MOVIE ? keywordsData?.keywords : keywordsData?.results,
         crew: creditsData?.crew.map(({ job, name, credit_id }) => ({
           id: credit_id,
           job,
@@ -92,15 +86,11 @@ const ProductionView = ({ location, match }) => {
           creditID: i.credit_id,
           name: i.name,
           character: i.character,
-          avatar: i.profile_path
-            ? `http://image.tmdb.org/t/p/w500${i.profile_path}`
-            : '',
+          avatar: i.profile_path ? `http://image.tmdb.org/t/p/w500${i.profile_path}` : '',
         })),
         mainCrew: creditsData?.crew
           .filter(
-            (i) =>
-              i.job.toLowerCase() === 'director' ||
-              i.job.toLowerCase() === 'screenplay',
+            (i) => i.job.toLowerCase() === 'director' || i.job.toLowerCase() === 'screenplay',
           )
           .sort((a, b) => {
             if (a.job < b.job) return -1;
@@ -131,14 +121,14 @@ const ProductionView = ({ location, match }) => {
   ]);
 
   useEffect(() => {
-    setInCollection(state.collection.find((item) => item.id === +id));
+    if (state.collection) {
+      setInCollection(state.collection.find((item) => item.productionID === +id));
+    }
   }, [state.collection, id]);
 
   return (
     <MainTemplate>
-      {(detailsError !== null || detailsData?.status_code) && (
-        <Redirect to={routes.page404} />
-      )}
+      {(detailsError !== null || detailsData?.status_code) && <Redirect to={routes.page404} />}
       {isAllDataLoaded ? (
         <>
           <section className={styles.movieWrapper}>
@@ -148,9 +138,7 @@ const ProductionView = ({ location, match }) => {
             <div className={styles.movieWrapperItem}>
               <ReleaseDate>{renderedData.releaseDate}</ReleaseDate>
               <Title>{renderedData.title}</Title>
-              {renderedData.tagline && (
-                <Tagline>{renderedData.tagline}</Tagline>
-              )}
+              {renderedData.tagline && <Tagline>{renderedData.tagline}</Tagline>}
               <Genres genres={renderedData.genres} />
               <Overview>{renderedData.overview}</Overview>
               {(!creditsError || renderedData.mainCrew) && (
@@ -164,19 +152,15 @@ const ProductionView = ({ location, match }) => {
           </section>
           {isInCollection && (
             <Comments
-              rate={isInCollection.customData.rate.name}
-              category={isInCollection.customData.category.name}
+              rate={isInCollection.customData.rate.value}
+              category={isInCollection.customData.category.value}
               comment={isInCollection.customData.comment}
             />
           )}
           {!creditsError && (
             <section className={styles.cast}>
               <SubHeadline>Cast</SubHeadline>
-              <Cast
-                cast={
-                  isClose ? renderedData.cast.slice(0, 5) : renderedData.cast
-                }
-              />
+              <Cast cast={isClose ? renderedData.cast.slice(0, 5) : renderedData.cast} />
               <Button
                 type="button"
                 handleClick={() => setClose(!isClose)}

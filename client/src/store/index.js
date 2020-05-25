@@ -5,6 +5,7 @@ import categoriesReducer from 'reducers/categories';
 import collectionReducer from 'reducers/collection';
 import { getCategories } from 'actions/categories';
 import { localAuthenticate } from 'actions/user';
+import { getCollection } from 'actions/collection';
 import { AppContext } from 'context';
 
 const Store = ({ children }) => {
@@ -19,6 +20,10 @@ const Store = ({ children }) => {
   useEffect(() => {
     getCategories(categoriesDispatch, user.id);
   }, [categoriesDispatch, user.id]);
+
+  useEffect(() => {
+    getCollection(collectionDispatch, user.id);
+  }, [collectionDispatch, user.id]);
 
   const state = {
     user,
