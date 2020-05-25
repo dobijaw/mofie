@@ -15,10 +15,6 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
   return (
     <section className={styles.comments}>
       <SubHeadline>My comments</SubHeadline>
-      {/* <p>{rate}</p>
-    <p>{category}</p>
-    <p>{comment}</p>
-    <button>edit</button> */}
       <Form
         initialValues={{
           category,

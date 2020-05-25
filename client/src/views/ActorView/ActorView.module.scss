@@ -1,10 +1,16 @@
 .actor {
-  display: flex;
-  align-items: center;
-  margin: 100px 0;
+  margin: 40px 0;
+
+  @media (min-width: 1200px) {
+    display: flex;
+    align-items: center;
+    margin: 100px 0;
+  }
 
   &Data {
-    margin-left: 50px;
+    @media (min-width: 1200px) {
+      margin-left: 50px;
+    }
   }
 }
 

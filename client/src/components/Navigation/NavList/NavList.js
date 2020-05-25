@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { routes } from 'routes';
 import { AppContext } from 'context';
-import { logout } from 'actions/user';
 import Button from 'components/Button/Button';
+import Settings from 'components/Settings/Settings';
+import { useOutsideClosing } from 'hooks';
 import NavItem from './NavItem/NavItem';
 import styles from './NavList.module.scss';
 
 const NavList = ({ isOpen }) => {
-  const { user, userDispatch } = useContext(AppContext);
+  const { user } = useContext(AppContext);
+  const [isSettingsOpen, toggleSettingsVisibility] = useState(false);
 
-  const handleLogOut = () => {
-    logout(userDispatch);
-  };
+  const settingsRef = useOutsideClosing(toggleSettingsVisibility);
 
   return (
     <>
@@ -21,10 +21,14 @@ const NavList = ({ isOpen }) => {
           <NavItem name="Shows" link={routes.shows} />
           {user.isAuth && <NavItem name="Collection" link={routes.collection} />}
           {user.isAuth ? (
-            <li>
-              <Button handleClick={handleLogOut} className={styles.navListButton}>
-                LOG OUT
+            <li className={styles.navListSettings} ref={settingsRef}>
+              <Button
+                handleClick={() => toggleSettingsVisibility(!isSettingsOpen)}
+                className={styles.navListButton}
+              >
+                SETTINGS
               </Button>
+              {isSettingsOpen && <Settings className={styles.navListSettingsList} />}
             </li>
           ) : (
             <NavItem name="Login" link={routes.login} asPrimary />

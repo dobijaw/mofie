@@ -5,3 +5,28 @@
   line-height: $lh;
   letter-spacing: $ls;
 }
+
+@mixin backgroundSettings($color, $repeat, $position, $size) {
+  background-color: $color;
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin square($length) {
+  width: $length;
+  height: $length;
+  border-radius: 50%;
+}
+
+@mixin blockReset {
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin listReset {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}

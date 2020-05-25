@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ReleaseDate.module.scss';
+import DateFormat from 'components/DateFormat/DateFormat';
 
-const ReleaseDate = ({ children }) => (
-  <span className={styles.releaseDate}>{children}</span>
-);
+const ReleaseDate = ({ children }) => <DateFormat isSmall>{children}</DateFormat>;
 
 ReleaseDate.propTypes = {
   children: PropTypes.string.isRequired,

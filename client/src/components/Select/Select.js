@@ -1,10 +1,11 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AppContext } from 'context';
 import Label from 'components/Label/Label';
 import Input from 'components/Input/Input';
 import FormError from 'components/FormError/FormError';
 import Button from 'components/Button/Button';
 import { addCategory } from 'actions/categories';
+import { useOutsideClosing } from 'hooks';
 import styles from './Select.module.scss';
 import SelectList from './SelectList/SelectList';
 
@@ -27,19 +28,7 @@ const Select = ({
   const [newCategoryValue, setNewCategoryValue] = useState('');
   const [isPlaceholder, setPlaceholder] = useState(!value?.value);
   const [newCategoryError, setNewCategoryError] = useState('');
-  const selectRef = useRef(null);
-
-  useEffect(() => {
-    const handleClick = (e) => {
-      if (selectRef.current && !selectRef.current.contains(e.target)) {
-        toggleListVisibility(false);
-      }
-    };
-
-    document.addEventListener('click', handleClick);
-
-    return () => document.removeEventListener('click', handleClick);
-  }, [selectRef, toggleListVisibility]);
+  const selectRef = useOutsideClosing(toggleListVisibility);
 
   const checkIfErrors = (categoryValue) => {
     const regPunction = new RegExp(/[.,?!<>"'[\]/#$@%^&+\\*;:{}=\-_`~()|]/);

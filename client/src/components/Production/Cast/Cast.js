@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import defaultAvatar from 'assets/img/avatar.svg';
 import { Link } from 'react-router-dom';
+import Avatar from 'components/Actor/Avatar/Avatar';
 import styles from './Cast.module.scss';
 
 const Cast = ({ cast }) => (
@@ -9,12 +9,7 @@ const Cast = ({ cast }) => (
     {cast.map((c) => (
       <li key={c.id} className={styles.castItem}>
         <Link to={`/actor/${c.id}`} className={styles.castLink}>
-          <div
-            className={c.avatar ? styles.castAvatar : styles.castAvatarDefault}
-            style={{
-              backgroundImage: `url(${c.avatar || defaultAvatar})`,
-            }}
-          />
+          <Avatar image={c.avatar} isSmall />
           <h3 className={styles.castName}>{c.name}</h3>
           <span className={styles.castCharacter}>{c.character}</span>
         </Link>

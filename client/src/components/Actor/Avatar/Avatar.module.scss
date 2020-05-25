@@ -1,11 +1,20 @@
 @import '../../../theme/colors';
+@import '../../../theme/mixins';
 
 .avatar {
-  width: 15vw;
-  height: 15vw;
-  border-radius: 50%;
-  background-color: $light-black;
-  background-position: center;
-  background-size: cover;
   flex-shrink: 0;
+  @include square(100px);
+  @include backgroundSettings($light-black, no-repeat, center, cover);
+
+  @media (min-width: 960px) {
+    @include square(15vw);
+  }
+
+  &___small {
+    @include square(10vw);
+  }
+
+  &___default {
+    background-size: 50%;
+  }
 }

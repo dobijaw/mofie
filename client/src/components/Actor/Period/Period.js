@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Period.module.scss';
+import DateFormat from 'components/DateFormat/DateFormat';
 
 const Period = ({ birthday, deathday }) => (
-  <div>
-    <span className={styles.date}>{birthday}</span>
-    {deathday && <span className={styles.date}> to {deathday}</span>}
-  </div>
+  <DateFormat>{deathday ? `${birthday} to ${deathday}` : birthday}</DateFormat>
 );
 
 Period.propTypes = {

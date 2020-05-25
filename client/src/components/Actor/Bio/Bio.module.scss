@@ -2,5 +2,10 @@
 @import '../../../theme/mixins';
 
 .bio {
-  @include fontStyle($white, 16px, 300, 1.5, 0.05em);
+  margin: 30px 0 0;
+  @include fontStyle($white, 16px, 300, 1.6, 0);
+
+  @media (min-width: 960px) {
+    letter-spacing: 0.05em;
+  }
 }

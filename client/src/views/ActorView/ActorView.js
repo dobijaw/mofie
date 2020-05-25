@@ -26,12 +26,7 @@ const ActorView = ({ match }) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (
-      !creditsLoading &&
-      !creditsErr &&
-      context?.movieGenres &&
-      context?.showGenres
-    ) {
+    if (!creditsLoading && !creditsErr && context?.movieGenres && context?.showGenres) {
       const data = credits?.cast.map((p) => ({
         id: p.id,
         image: p.backdrop_path
@@ -76,7 +71,11 @@ const ActorView = ({ match }) => {
         <div className={styles.actor}>
           <div className={styles.actorData}>
             <Avatar
-              image={`http://image.tmdb.org/t/p/w500${details.profile_path}`}
+              image={
+                details.profile_path
+                  ? `http://image.tmdb.org/t/p/w500${details.profile_path}`
+                  : ''
+              }
             />
           </div>
           <div className={styles.actorData}>
@@ -88,10 +87,7 @@ const ActorView = ({ match }) => {
       )}
       <SubHedline>Productions</SubHedline>
       {loaded && (
-        <ProductionList
-          className={styles.actorProductionList}
-          productionData={production}
-        />
+        <ProductionList className={styles.actorProductionList} productionData={production} />
       )}
     </MainTemplate>
   );

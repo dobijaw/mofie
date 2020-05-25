@@ -1,8 +1,0 @@
-@import '../../../theme/colors';
-@import '../../../theme/mixins';
-
-.date {
-  padding: 0;
-  margin: 0;
-  @include fontStyle($gray, 16px, 300, 1.4, 0.05em);
-}

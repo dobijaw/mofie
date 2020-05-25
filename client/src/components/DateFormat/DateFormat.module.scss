@@ -1,0 +1,11 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.dateFormat {
+  @include blockReset;
+  @include fontStyle($gray, 16px, 300, 1.4, 0.05em);
+
+  &___small {
+    font-size: 13px;
+  }
+}

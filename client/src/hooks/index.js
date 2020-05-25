@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export const useFetch = (url, options) => {
   const [response, setResponse] = useState(null);
@@ -52,4 +52,25 @@ export const useDataProduction = (allLoaded, response, genres, type, callback) =
   }, [allLoaded, callback, response, genres, type]);
 
   return [output, dataLoaded];
+};
+
+export const useOutsideClosing = (setFn) => {
+  const ref = useRef(null);
+
+  const handleClick = useCallback(
+    (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setFn(false);
+      }
+    },
+    [setFn],
+  );
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+
+    return () => document.removeEventListener('click', handleClick);
+  }, [handleClick]);
+
+  return ref;
 };
