@@ -46,6 +46,7 @@ const ProductionView = ({ location, match }) => {
   const [renderedData, setRenderedData] = useState({});
 
   const [isInCollection, setInCollection] = useState({});
+  console.log(isInCollection);
 
   useEffect(() => {
     if (
@@ -152,9 +153,10 @@ const ProductionView = ({ location, match }) => {
           </section>
           {isInCollection && (
             <Comments
-              rate={isInCollection.customData.rate.value}
-              category={isInCollection.customData.category.value}
+              rate={isInCollection.customData.rate}
+              category={isInCollection.customData.category}
               comment={isInCollection.customData.comment}
+              collectionItemID={isInCollection._id}
             />
           )}
           {!creditsError && (

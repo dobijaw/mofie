@@ -36,7 +36,8 @@ const Store = ({ children }) => {
 
   return (
     <AppContext.Provider value={state}>
-      {/* {console.log(categories) */}
+      {console.log('wyswietlamy teraz collection')}
+      {console.log(collection)}
       {children}
     </AppContext.Provider>
   );

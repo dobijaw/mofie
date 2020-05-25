@@ -103,4 +103,28 @@ router.delete('/:id', (req, res, next) => {
     });
 });
 
+router.put('/:id', (req, res, next) => {
+  Production.findOne({
+    _id: req.params.id,
+  })
+    .exec()
+    .then((production) => {
+      production.customData = req.body;
+
+      production
+        .save()
+        .then((result) => {
+          return res.status(201).json({
+            message: 'Updated.',
+            _id: req.params.id,
+            data: production,
+          });
+        })
+        .catch();
+    })
+    .catch((err) => {
+      res.json('err');
+    });
+});
+
 module.exports = router;
