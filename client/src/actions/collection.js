@@ -28,7 +28,7 @@ export const getCollection = (dispatch, userID) => {
   fetch(`http://localhost:9000/production/${userID}`)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: GET_COLLECTION,
         payload: res.collection,

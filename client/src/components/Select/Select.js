@@ -98,12 +98,15 @@ const Select = ({
     if (!isRepeat && !newCategoryError) {
       setPlaceholder(false);
       toggleListVisibility(false);
-      onChange(selectName, {
-        value: optionValue,
-        id: convertedValue,
-      });
 
       addCategory(state.categoriesDispatch, {
+        id: state.user.id,
+        value: optionValue,
+        key: convertedValue,
+      });
+
+      // change to get categories from state, not from input. IMPROVE
+      onChange(selectName, {
         id: state.user.id,
         value: optionValue,
         key: convertedValue,

@@ -59,7 +59,7 @@ const Modal = ({ selected }) => {
   }, [collection, selected.id, selected.productionType]);
 
   const handleSubmit = (values) => {
-    const data = {
+    const requestData = {
       creator: user.id,
       productionType: selected.productionType,
       productionID: selected.id,
@@ -78,16 +78,19 @@ const Modal = ({ selected }) => {
           key: values.category.key,
           id: values.category.id,
         },
-        comment: values.comment,
         rate: {
           value: values.rate.value,
           key: values.rate.key,
           id: values.rate.id,
         },
+        comment: values.comment,
       },
     };
 
-    addToCllection(collectionDispatch, data);
+    console.log(values);
+    console.log(requestData);
+
+    addToCllection(collectionDispatch, requestData);
 
     rootContext.handleCloseModal();
   };

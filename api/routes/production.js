@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Production = require('../models/production');
 
 router.post('/add', (req, res, next) => {
+  console.log('to co przychodzi w request');
   console.log(req.body);
 
   Production.find({
@@ -50,7 +51,7 @@ router.post('/add', (req, res, next) => {
         production
           .save()
           .then((result) => {
-            console.log(result);
+            // console.log(result);
 
             return res.status(200).json({
               message: 'Production added',
@@ -74,7 +75,7 @@ router.get('/:userID', (req, res, next) => {
   })
     .exec()
     .then((prod) => {
-      console.log(prod);
+      // console.log(prod);
 
       return res.status(200).json({
         message: 'Great',
