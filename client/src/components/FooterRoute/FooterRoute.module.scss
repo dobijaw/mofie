@@ -2,29 +2,22 @@
 @import '../../theme/mixins';
 
 .footerRoute {
-  margin: 60px 0 0;
+  margin: 46px 0 26px;
+  display: block;
   text-align: center;
 
-  &_copy {
+  @media (min-width: 960px) {
+    margin: 60px 0 0;
+  }
+
+  &_link {
     padding: 0;
-  }
-
-  &_copy,
-  &_link {
-    margin: 0;
-    display: inline-block;
-    @include fontStyle($white, 15px, 300, 1.5, 0.1em);
-  }
-
-  &_link {
-    padding: 0 0 0 5px;
     color: $primary;
     text-decoration: none;
-    opacity: 1;
-    transition: opacity 0.15s;
+    transition: color 0.15s ease-in-out;
 
     &:hover {
-      opacity: 0.5;
+      color: $focus;
     }
   }
 }

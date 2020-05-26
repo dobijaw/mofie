@@ -96,7 +96,9 @@ const SignUpView = () => {
                 label="Repeat password"
                 error={errors.repeatPassword}
               />
-              <Button type="submit">Sign Up</Button>
+              <Button type="submit" inForm>
+                Sign Up
+              </Button>
             </>
           )}
         />

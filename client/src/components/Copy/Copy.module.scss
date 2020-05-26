@@ -1,0 +1,20 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.copy {
+  padding: 0;
+  margin: 10px 0 0;
+  @include fontStyle($white, 17px, 300, 1.65, 0.05em);
+
+  @media (min-width: 960px) {
+    font-size: 18px;
+  }
+
+  &___small {
+    font-size: 15px;
+
+    @media (min-width: 960px) {
+      font-size: 16px;
+    }
+  }
+}

@@ -78,7 +78,9 @@ const LoginView = () => {
                 label="Password"
                 error={errors.password}
               />
-              <Button type="submit">login</Button>
+              <Button type="submit" inForm>
+                login
+              </Button>
             </>
           )}
         />

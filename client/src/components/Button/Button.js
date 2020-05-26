@@ -10,6 +10,7 @@ const Button = ({
   lightTheme,
   disabled,
   asDelete,
+  inForm,
   asAdd,
   type,
   to,
@@ -33,6 +34,7 @@ const Button = ({
           lightTheme && styles.button___light,
           asDelete && styles.button___delete,
           asAdd && styles.button___add,
+          inForm && styles.button___form,
           className,
         ].join(' ')}
         onClick={handleClick}
@@ -55,6 +57,7 @@ Button.propTypes = {
   asAdd: PropTypes.bool,
   asDelete: PropTypes.bool,
   disabled: PropTypes.bool,
+  inForm: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -68,6 +71,7 @@ Button.defaultProps = {
   asDelete: false,
   children: '',
   disabled: false,
+  inForm: false,
 };
 
 export default Button;
