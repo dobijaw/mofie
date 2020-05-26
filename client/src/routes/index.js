@@ -10,4 +10,5 @@ export const routes = {
   page404: '/404',
   signup: '/signup',
   login: '/login',
+  categories: '/categories',
 };

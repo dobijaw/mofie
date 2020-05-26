@@ -5,22 +5,26 @@ import styles from './Button.module.scss';
 
 const Button = ({
   children,
-  handleClick,
   className,
+  handleClick,
   lightTheme,
+  disabled,
+  asDelete,
+  asAdd,
   type,
   to,
   id,
-  asAdd,
-  asDelete,
-  disabled,
 }) => (
   <>
     {to ? (
       <Link
         to={to}
         type={type}
-        className={`${lightTheme ? styles.btnLight : styles.btn} ${className}`}
+        className={
+          lightTheme
+            ? [styles.button, styles.button___light].join(' ')
+            : [styles.button, className].join(' ')
+        }
         data-id={id}
       >
         {children}
@@ -28,9 +32,13 @@ const Button = ({
     ) : (
       <button
         type={type}
-        className={`${lightTheme ? styles.btnLight : styles.btn} ${className} ${
-          asDelete && styles.btnDelete
-        } ${asAdd && styles.btnIcon}`}
+        className={[
+          styles.button,
+          lightTheme && styles.button___light,
+          asDelete && styles.button___delete,
+          asAdd && styles.button___add,
+          className,
+        ].join(' ')}
         onClick={handleClick}
         data-id={id}
         data-type={type}

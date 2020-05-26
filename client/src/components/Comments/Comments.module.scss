@@ -1,3 +1,24 @@
 .comments {
-  color: white;
+  position: relative;
+
+  &_data {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+  }
+
+  &_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &_button {
+    margin-top: 30px;
+  }
+
+  &_formData {
+    width: 100%;
+    background: red;
+  }
 }

@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const Form = ({
-  render,
-  initialValues,
-  className,
-  onSubmit,
-  validate,
-  submitOnChange,
-}) => {
+const Form = ({ render, initialValues, className, onSubmit, validate, submitOnChange }) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [curName, setCurName] = useState('');
@@ -39,8 +32,7 @@ const Form = ({
     const data = validate(values);
     const anyError = data[curName] && data[curName].find((i) => !i.correct);
 
-    if (currentError)
-      setErrors((e) => ({ ...e, [curName]: anyError?.errorMessage }));
+    if (currentError) setErrors((e) => ({ ...e, [curName]: anyError?.errorMessage }));
   }, [values, curName, validate, currentError]);
 
   const handleBlur = (name) => {
@@ -59,7 +51,14 @@ const Form = ({
   };
 
   return (
-    <form className={className} onSubmit={handleSubmit} noValidate>
+    <form
+      style={{
+        width: '100%',
+      }}
+      className={className}
+      onSubmit={handleSubmit}
+      noValidate
+    >
       {render(values, errors, handleChange, handleBlur)}
     </form>
   );

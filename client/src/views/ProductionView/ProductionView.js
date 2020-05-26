@@ -15,15 +15,17 @@ import Keywords from 'components/Production/Keywords/Keywords';
 import Tagline from 'components/Production/Tagline/Tagline';
 import Button from 'components/Button/Button';
 import { API_KEY } from 'config';
-import { AppContext } from 'context';
+import { AppContext, RootContext } from 'context';
 import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { routes } from 'routes';
 import Loading from 'components/Loading/Loading';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import { removeFromCollection } from 'actions/collection';
 import styles from './ProductionView.module.scss';
 
 const ProductionView = ({ location, match }) => {
-  const state = useContext(AppContext);
+  const { collection, collectionDispatch } = useContext(AppContext);
+  const rootContext = useContext(RootContext);
   const { pathname } = location;
   const { id } = match.params;
   const prodType = pathname.includes(ROUTE_TYPE.MOVIES) ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV;
@@ -122,13 +124,14 @@ const ProductionView = ({ location, match }) => {
   ]);
 
   useEffect(() => {
-    if (state.collection) {
-      setInCollection(state.collection.find((item) => item.productionID === +id));
+    if (collection) {
+      setInCollection(collection.find((item) => item.productionID === +id));
     }
-  }, [state.collection, id]);
+  }, [collection, id]);
 
   return (
     <MainTemplate>
+      {console.log(videosError)}
       {(detailsError !== null || detailsData?.status_code) && <Redirect to={routes.page404} />}
       {isAllDataLoaded ? (
         <>
@@ -137,6 +140,23 @@ const ProductionView = ({ location, match }) => {
               <Poster image={renderedData.image} asPoster />
             </div>
             <div className={styles.movieWrapperItem}>
+              <div className={styles.buttonsCTA}>
+                {isInCollection ? (
+                  <Button
+                    asDelete
+                    type="button"
+                    handleClick={() =>
+                      removeFromCollection(collectionDispatch, isInCollection._id)
+                    }
+                  />
+                ) : (
+                  <Button
+                    asAdd
+                    type="button"
+                    handleClick={() => rootContext.handleOpenModal(prodType, id)}
+                  />
+                )}
+              </div>
               <ReleaseDate>{renderedData.releaseDate}</ReleaseDate>
               <Title>{renderedData.title}</Title>
               {renderedData.tagline && <Tagline>{renderedData.tagline}</Tagline>}
@@ -170,12 +190,6 @@ const ProductionView = ({ location, match }) => {
               >
                 {isClose ? 'more' : 'less'}
               </Button>
-            </section>
-          )}
-          {!videosError && (
-            <section>
-              <SubHeadline>Videos</SubHeadline>
-              <div className={styles.videoGroup}>video</div>
             </section>
           )}
           {!creditsError && (

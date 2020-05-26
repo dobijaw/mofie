@@ -30,3 +30,10 @@
   margin: 0;
   list-style: none;
 }
+
+@mixin flex($align-items, $justify-content, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}

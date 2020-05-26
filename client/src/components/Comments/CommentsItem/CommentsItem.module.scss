@@ -1,0 +1,16 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.commentsItem {
+  display: block;
+  width: 33%;
+
+  &_title {
+    @include fontStyle($gray, 12px, 300, 1, 0.2em);
+    text-transform: uppercase;
+  }
+
+  &_data {
+    @include fontStyle($white, 16px, 300, 1.5, 0.02em);
+  }
+}

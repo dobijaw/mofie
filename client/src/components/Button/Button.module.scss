@@ -1,32 +1,63 @@
 @import '../../theme/colors';
 @import '../../theme/mixins';
 
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.button {
+  @include flex(center, center);
   width: 100%;
   padding: 12px 24px;
   border: 1px solid $white;
   margin: 10px 0 0;
   background: none;
-  text-decoration: none;
-  transition: all 0.35s ease-in-out;
-  cursor: pointer;
   @include fontStyle($white, 14px, 300, 1, 0.2em);
+  text-decoration: none;
+  transition: background 0.35s ease-in-out, color 0.35s ease-in-out;
+  cursor: pointer;
 
   @media (min-width: 600px) {
     width: auto;
   }
 
-  &:focus {
-    outline: 0;
+  &:hover {
+    background: $white;
+    color: $black;
   }
 
-  &Icon {
-    position: relative;
+  &:focus {
+    outline: 1px solid $primary;
+  }
+
+  &[disabled] {
+    opacity: 0.2;
+  }
+
+  &___light {
+    border-color: $black;
+    color: $black;
 
     &:hover {
+      background: $black;
+      color: $white;
+    }
+
+    &.button___add {
+      background: none;
+
+      &:hover {
+        background: $black;
+      }
+    }
+  }
+
+  &___add {
+    position: relative;
+    display: block;
+    @include square(35px);
+    padding: 0;
+    background: $white;
+
+    &:hover {
+      background: none;
+
       &::after,
       &::before {
         background: $white;
@@ -56,23 +87,9 @@
     }
   }
 
-  &Delete {
-    @extend .btnIcon;
+  &___delete {
+    @extend .button___add;
+
     transform: rotate(45deg);
-  }
-
-  &Light {
-    @extend .btn;
-    color: $black;
-    border-color: $black;
-
-    &:hover {
-      background: $black;
-      color: $white;
-    }
-  }
-
-  &[disabled] {
-    opacity: 0.2;
   }
 }

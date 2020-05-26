@@ -16,6 +16,7 @@ import { API_KEY } from 'config';
 import ActorView from 'views/ActorView/ActorView';
 import LoginView from 'views/LoginView/LoginView';
 import SignUpView from 'views/SignUpView/SignUpView';
+import CategoriesView from 'views/CategoriesView/CategoriesView';
 
 const Root = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
@@ -72,6 +73,7 @@ const Root = () => {
             <Route path={routes.singleActor} component={ActorView} />
             <Route path={routes.signup} component={SignUpView} />
             <Route path={routes.login} component={LoginView} />
+            <Route path={routes.categories} component={CategoriesView} />
           </Switch>
           {isModalVisible && <Modal selected={selectedProduction} />}
         </RootContext.Provider>
