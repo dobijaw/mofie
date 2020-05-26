@@ -6,14 +6,14 @@
   align-items: center;
   margin-right: 10px;
 
-  &Item {
+  &_item {
     display: inline-block;
     padding: 6px 6px;
     @include fontStyle($primary, 15px, 300, 1, 0.05em);
     text-align: center;
   }
 
-  &Icon {
+  &_icon {
     display: block;
   }
 }

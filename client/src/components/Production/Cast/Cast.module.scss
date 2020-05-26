@@ -2,53 +2,22 @@
 @import '../../../theme/mixins';
 
 .cast {
-  list-style: none;
+  @include listReset;
   display: flex;
   flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
   color: $white;
 
-  &Link {
+  &_link,
+  &_item {
+    @include flex(center, center, column);
+  }
+
+  &_link {
     text-decoration: none;
   }
 
-  &Item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  &_item {
     width: 20%;
     padding: 20px 10px;
-  }
-
-  &Name {
-    padding: 0;
-    margin: 20px 0 0;
-    @include fontStyle($white, 18px, 500, 1.4, 0.02em);
-    text-align: center;
-  }
-
-  &Character {
-    display: block;
-    padding: 0;
-    margin: 5px 0 0;
-    @include fontStyle($white, 16px, 300, 1.4, 0.02em);
-    text-align: center;
-    opacity: 0.4;
-  }
-
-  &Avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: center;
-    background-color: $light-black;
-    background-repeat: no-repeat;
-
-    &Default {
-      @extend .castAvatar;
-      background-size: 50%;
-    }
   }
 }

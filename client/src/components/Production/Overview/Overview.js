@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Overview.module.scss';
 
 const Overview = ({ lightTheme, children }) => (
-  <p className={lightTheme ? styles.overviewLight : styles.overview}>
+  <p className={[styles.overview, lightTheme && styles.overview___light].join(' ')}>
     {children}
   </p>
 );

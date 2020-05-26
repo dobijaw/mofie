@@ -3,8 +3,8 @@ import { AppContext, RootContext } from 'context';
 import { API_KEY } from 'config';
 import Select from 'components/Select/Select';
 import Loading from 'components/Loading/Loading';
-import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
-import Title from 'components/Production/Title/Title';
+import DateFormat from 'components/DateFormat/DateFormat';
+import Headline from 'components/Headline/Headline';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
 import { addToCllection } from 'actions/collection';
@@ -18,7 +18,7 @@ import Close from './Close/Close';
 
 const Modal = ({ selected }) => {
   const { user, categories, collection, collectionDispatch } = useContext(AppContext);
-  const rootContext = useContext(RootContext);
+  const { ratingScale, handleCloseModal } = useContext(RootContext);
   const [selectedData, setSelectedData] = useState({});
   const [isInCollection, setInCollection] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,7 @@ const Modal = ({ selected }) => {
 
     addToCllection(collectionDispatch, requestData);
 
-    rootContext.handleCloseModal();
+    handleCloseModal();
   };
 
   return (
@@ -106,8 +106,10 @@ const Modal = ({ selected }) => {
               <p>Something went Wrong!</p>
             ) : (
               <>
-                <ReleaseDate>{selectedData.releaseDate}</ReleaseDate>
-                <Title lightTheme>{selectedData.title}</Title>
+                <DateFormat isSmall>{selectedData.releaseDate}</DateFormat>
+                <Headline tag="h2" lightTheme asTitle>
+                  {selectedData.title}
+                </Headline>
                 <Genres lightTheme genres={selectedData.genres} />
                 <Overview lightTheme>{selectedData.overview}</Overview>
                 {isInCollection ? (
@@ -169,7 +171,7 @@ const Modal = ({ selected }) => {
                           name="rate"
                           label="Rate"
                           error={errors.rate}
-                          options={rootContext.ratingScale}
+                          options={ratingScale}
                           placeholder="Choose a rate"
                           lightTheme
                         />

@@ -1,39 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import defaultPoster from 'assets/img/defaultPoster.svg';
 import styles from './Poster.module.scss';
 
-const Poster = ({ image, asPoster, asBackgroundImage, alt }) => (
+const Poster = ({ image, poster, asBackgroundImage, alt }) => (
   <>
     {asBackgroundImage ? (
       <div
-        className={`${styles.posterBackground} ${
-          asPoster && styles.posterBackgroundPoster
-        }`}
-        style={{ backgroundImage: `url(${image})` }}
+        className={[
+          styles.poster,
+          styles.poster___background,
+          poster ? styles.poster___vertical : styles.poster___horizontal,
+          !image && styles.poster___default,
+        ].join(' ')}
+        style={{ backgroundImage: `url(${image || defaultPoster})` }}
       />
     ) : (
       <div
         className={
-          asPoster ? styles.posterContainerPoster : styles.posterContainer
+          poster
+            ? [styles.poster, styles.poster___vertical].join(' ')
+            : [styles.poster, styles.poster___horizontal].join(' ')
         }
       >
-        <img className={styles.posterImage} src={image} alt={alt} />
+        <img
+          className={
+            image
+              ? styles.poster_image
+              : [styles.poster_image, styles.poster_image___default].join(' ')
+          }
+          src={image || defaultPoster}
+          alt={alt}
+        />
       </div>
     )}
   </>
 );
 
 Poster.propTypes = {
-  image: PropTypes.string,
+  image: PropTypes.string.isRequired,
   asBackgroundImage: PropTypes.bool,
-  asPoster: PropTypes.bool,
+  poster: PropTypes.bool,
   alt: PropTypes.string,
 };
 
 Poster.defaultProps = {
-  image: '',
   asBackgroundImage: false,
-  asPoster: false,
+  poster: false,
   alt: '',
 };
 

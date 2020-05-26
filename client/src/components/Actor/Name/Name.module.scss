@@ -1,0 +1,19 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.name {
+  display: block;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+
+  &___actor {
+    margin: 20px 0 0;
+    @include fontStyle($white, 18px, 500, 1.4, 0.02em);
+  }
+
+  &___character {
+    margin: 5px 0 0;
+    @include fontStyle($gray, 16px, 200, 1.4, 0.02em);
+  }
+}

@@ -1,0 +1,29 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.position {
+  &_item {
+    display: inline-block;
+    padding: 0;
+    @include fontStyle($light-gray, 9px, 300, 1.5, 0.04em);
+
+    &___name {
+      padding: 0 0 0 6px;
+      font-size: 12px;
+    }
+
+    &___main {
+      font-size: 12px;
+
+      &.position_item___name {
+        padding-left: 10px;
+        color: $white;
+        font-size: 16px;
+      }
+
+      &.position_item___job {
+        text-transform: uppercase;
+      }
+    }
+  }
+}

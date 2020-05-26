@@ -4,7 +4,6 @@ import { API_KEY } from 'config';
 import { RootContext } from 'context';
 import { useFetch } from 'hooks';
 import Avatar from 'components/Actor/Avatar/Avatar';
-import Title from 'components/Production/Title/Title';
 import PageTitle from 'components/PageTitle/PageTitle';
 import Period from 'components/Actor/Period/Period';
 import Bio from 'components/Actor/Bio/Bio';
@@ -65,7 +64,6 @@ const ActorView = ({ match }) => {
 
   return (
     <MainTemplate>
-      <PageTitle>Actor</PageTitle>
       {detailsErr && <Redirect to="/404" />}
       {!detailsLoading && (
         <div className={styles.actor}>
@@ -79,7 +77,7 @@ const ActorView = ({ match }) => {
             />
           </div>
           <div className={styles.actorData}>
-            <Title>{details.name}</Title>
+            <PageTitle small>{details.name}</PageTitle>
             <Period birthday={details.birthday} deathday={details.deathday} />
             <Bio>{details.biography}</Bio>
           </div>

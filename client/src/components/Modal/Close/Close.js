@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { RootContext } from 'context';
 import styles from './Close.module.scss';
-import { RootContext } from '../../../context';
 
-const Close = () => (
-  <RootContext.Consumer>
-    {(context) => (
-      <button
-        type="button"
-        className={styles.btn}
-        onClick={context.handleCloseModal}
-      >
-        <span className={styles.btnItem} />
-        <span className={styles.btnItem} />
-      </button>
-    )}
-  </RootContext.Consumer>
-);
+const Close = () => {
+  const { handleCloseModal } = useContext(RootContext);
+
+  return (
+    <button
+      type="button"
+      className={styles.close}
+      onClick={handleCloseModal}
+      aria-label="Close modal"
+    />
+  );
+};
 
 export default Close;

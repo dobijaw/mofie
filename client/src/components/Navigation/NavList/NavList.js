@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { routes } from 'routes';
 import { AppContext } from 'context';
 import Button from 'components/Button/Button';
-import Settings from 'components/Settings/Settings';
 import { useOutsideClosing } from 'hooks';
-import NavItem from './NavItem/NavItem';
+import Settings from '../Settings/Settings';
+import NavItem from '../NavItem/NavItem';
 import styles from './NavList.module.scss';
 
 const NavList = ({ isOpen }) => {

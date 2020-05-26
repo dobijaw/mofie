@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import defaultAvatar from 'assets/img/avatar.svg';
+import defaultAvatar from 'assets/img/defaultAvatar.svg';
 import styles from './Avatar.module.scss';
 
 const Avatar = ({ image, isSmall }) => (

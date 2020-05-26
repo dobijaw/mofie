@@ -7,7 +7,7 @@ const Keywords = ({ keywords }) => (
     {keywords.length && (
       <ul className={styles.keywords}>
         {keywords.map((k) => (
-          <li className={styles.keywordsItem} key={k.id}>
+          <li className={styles.keywords_item} key={k.id}>
             {k.name}
           </li>
         ))}

@@ -3,15 +3,15 @@
 
 .avatar {
   flex-shrink: 0;
-  @include square(100px);
+  @include circle(100px);
   @include backgroundSettings($light-black, no-repeat, center, cover);
 
   @media (min-width: 960px) {
-    @include square(15vw);
+    @include circle(15vw);
   }
 
   &___small {
-    @include square(10vw);
+    @include circle(10vw);
   }
 
   &___default {

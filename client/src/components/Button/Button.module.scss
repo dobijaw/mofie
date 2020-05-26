@@ -51,7 +51,7 @@
   &___add {
     position: relative;
     display: block;
-    @include square(35px);
+    @include circle(35px);
     padding: 0;
     background: $white;
 

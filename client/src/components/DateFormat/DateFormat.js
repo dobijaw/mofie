@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './DateFormat.module.scss';
 
 const DateFormat = ({ children, isSmall }) => (
-  <span
-    className={
-      isSmall ? [styles.dateFormat, styles.dateFormat___small].join(' ') : styles.dateFormat
-    }
-  >
+  <span className={[styles.dateFormat, isSmall && styles.dateFormat___small].join(' ')}>
     {children}
   </span>
 );

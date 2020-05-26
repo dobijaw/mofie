@@ -5,18 +5,18 @@
   margin: 60px 0 0;
   text-align: center;
 
-  &Copy {
+  &_copy {
     padding: 0;
   }
 
-  &Copy,
-  &Link {
+  &_copy,
+  &_link {
     margin: 0;
     display: inline-block;
     @include fontStyle($white, 15px, 300, 1.5, 0.1em);
   }
 
-  &Link {
+  &_link {
     padding: 0 0 0 5px;
     color: $primary;
     text-decoration: none;

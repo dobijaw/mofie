@@ -5,7 +5,11 @@ import styles from './Tagline.module.scss';
 const Tagline = ({ children, lightTheme }) => (
   <>
     {children && (
-      <p className={lightTheme ? styles.taglineLight : styles.tagline}>
+      <p
+        className={
+          lightTheme ? [styles.tagline, styles.tagline___light].join(' ') : styles.tagline
+        }
+      >
         {children}
       </p>
     )}

@@ -23,11 +23,7 @@ const Input = ({
         onChange={(e) => onChange(name, e.target.value)}
         onBlur={() => onBlur(name)}
         value={value}
-        className={
-          lightTheme
-            ? `${styles.input} ${styles.inputLight}`
-            : `${styles.input}`
-        }
+        className={[styles.input, lightTheme && styles.input___light].join(' ')}
         disabled={disabled}
       />
     ) : (
@@ -39,11 +35,7 @@ const Input = ({
         onChange={onChange ? (e) => onChange(name, e.target.value) : null}
         onBlur={onBlur ? () => onBlur(name) : null}
         value={value}
-        className={
-          lightTheme
-            ? `${styles.input} ${styles.inputLight}`
-            : `${styles.input}`
-        }
+        className={[styles.input, lightTheme && styles.input___light].join(' ')}
         disabled={disabled}
         onClick={onClick}
       />

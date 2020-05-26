@@ -3,11 +3,9 @@
 
 .tagline {
   margin: -4px 0 26px;
-  @include fontStyle($white, 18px, 300, 1.4, 0.05em);
-  opacity: 0.3;
+  @include fontStyle($gray, 18px, 300, 1.4, 0.05em);
 
-  &Light {
-    @extend .tagline;
-    color: $black;
+  &___light {
+    color: $light-gray;
   }
 }

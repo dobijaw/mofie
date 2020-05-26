@@ -5,8 +5,7 @@
   margin: 20px 0 30px;
   @include fontStyle($white, 16px, 300, 1.8, 0.05em);
 
-  &Light {
-    @extend .overview;
+  &___light {
     color: $black;
   }
 }

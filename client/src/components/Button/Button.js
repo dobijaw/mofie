@@ -18,19 +18,15 @@ const Button = ({
   <>
     {to ? (
       <Link
+        id={id}
         to={to}
-        type={type}
-        className={
-          lightTheme
-            ? [styles.button, styles.button___light].join(' ')
-            : [styles.button, className].join(' ')
-        }
-        data-id={id}
+        className={[styles.button, className, lightTheme && styles.button___light].join(' ')}
       >
         {children}
       </Link>
     ) : (
       <button
+        id={id}
         type={type}
         className={[
           styles.button,
@@ -40,8 +36,6 @@ const Button = ({
           className,
         ].join(' ')}
         onClick={handleClick}
-        data-id={id}
-        data-type={type}
         disabled={disabled}
       >
         {children}

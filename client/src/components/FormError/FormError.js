@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './FormError.module.scss';
 
 const FormError = ({ error, className }) => (
-  <span className={[styles.error, className].join(' ')}>{error}</span>
+  <span className={[styles.formError, className].join(' ')}>{error}</span>
 );
 
 FormError.propTypes = {

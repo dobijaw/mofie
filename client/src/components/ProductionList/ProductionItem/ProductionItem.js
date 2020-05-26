@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { AppContext, RootContext } from 'context';
 import Button from 'components/Button/Button';
 import Rate from 'components/Production/Rate/Rate';
-import Title from 'components/Production/Title/Title';
+import Headline from 'components/Headline/Headline';
 import Poster from 'components/Production/Poster/Poster';
 import Genres from 'components/Production/Genres/Genres';
 import Tagline from 'components/Production/Tagline/Tagline';
 import CustomRating from 'components/Production/CustomRating/CustomRating';
-import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
+import DateFormat from 'components/DateFormat/DateFormat';
 import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { removeFromCollection } from 'actions/collection';
 import styles from './ProductionItem.module.scss';
@@ -51,7 +51,7 @@ const ProductionItem = ({
         <div className={styles.productionTopDetails}>
           <div className={styles.productionTopDetailsColumn}>
             <Rate>{rate}</Rate>
-            <ReleaseDate>{releaseDate}</ReleaseDate>
+            <DateFormat isSmall>{releaseDate}</DateFormat>
           </div>
           <div>
             {customRate && <CustomRating custom>{customRate}</CustomRating>}
@@ -59,7 +59,9 @@ const ProductionItem = ({
           </div>
         </div>
         <Link className={styles.productionLink} to={URL}>
-          <Title>{title}</Title>
+          <Headline tag="h3" asTitle>
+            {title}
+          </Headline>
           {tagline && <Tagline>{tagline}</Tagline>}
         </Link>
         <Genres genres={genres} />

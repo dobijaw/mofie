@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useFetch } from 'hooks';
 import { withRouter, Redirect } from 'react-router';
-import ReleaseDate from 'components/Production/ReleaseDate/ReleaseDate';
-import Title from 'components/Production/Title/Title';
+import DateFormat from 'components/DateFormat/DateFormat';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
 import Comments from 'components/Comments/Comments';
 import Poster from 'components/Production/Poster/Poster';
 import Crew from 'components/Production/Crew/Crew';
-import MainCrew from 'components/Production/MainCrew/MainCrew';
 import SubHeadline from 'components/SubHeadline/SubHeadline';
 import Cast from 'components/Production/Cast/Cast';
 import Keywords from 'components/Production/Keywords/Keywords';
@@ -22,6 +20,7 @@ import Loading from 'components/Loading/Loading';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { removeFromCollection } from 'actions/collection';
 import styles from './ProductionView.module.scss';
+import PageTitle from '../../components/PageTitle/PageTitle';
 
 const ProductionView = ({ location, match }) => {
   const { collection, collectionDispatch } = useContext(AppContext);
@@ -68,7 +67,9 @@ const ProductionView = ({ location, match }) => {
           videoType: i.type,
           videoKey: i.key,
         })),
-        image: `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}` || null,
+        image: detailsData.poster_path
+          ? `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`
+          : '',
         releaseDate:
           prodType === FETCH_TYPE.MOVIE
             ? detailsData.release_date
@@ -137,7 +138,7 @@ const ProductionView = ({ location, match }) => {
         <>
           <section className={styles.movieWrapper}>
             <div className={styles.movieWrapperItem}>
-              <Poster image={renderedData.image} asPoster />
+              <Poster image={renderedData.image} poster />
             </div>
             <div className={styles.movieWrapperItem}>
               <div className={styles.buttonsCTA}>
@@ -157,13 +158,13 @@ const ProductionView = ({ location, match }) => {
                   />
                 )}
               </div>
-              <ReleaseDate>{renderedData.releaseDate}</ReleaseDate>
-              <Title>{renderedData.title}</Title>
+              <DateFormat isSmall>{renderedData.releaseDate}</DateFormat>
+              <PageTitle small>{renderedData.title}</PageTitle>
               {renderedData.tagline && <Tagline>{renderedData.tagline}</Tagline>}
               <Genres genres={renderedData.genres} />
               <Overview>{renderedData.overview}</Overview>
               {(!creditsError || renderedData.mainCrew) && (
-                <MainCrew crew={renderedData.mainCrew} />
+                <Crew crew={renderedData.mainCrew} isMain />
               )}
               {(!keywordsError || renderedData.keywords) && (
                 <Keywords keywords={renderedData.keywords} />

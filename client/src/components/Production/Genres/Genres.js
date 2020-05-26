@@ -4,9 +4,11 @@ import styles from './Genres.module.scss';
 
 const Genres = ({ genres, lightTheme }) => {
   return (
-    <ul className={lightTheme ? styles.genresLight : styles.genres}>
+    <ul
+      className={lightTheme ? [styles.genres, styles.genres___light].join(' ') : styles.genres}
+    >
       {genres.map((item) => (
-        <li key={item} className={styles.genresItem}>
+        <li key={item} className={styles.genres_item}>
           {item}
         </li>
       ))}

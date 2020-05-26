@@ -49,18 +49,14 @@ const NowPlaying = () => {
             render={() => (
               <>
                 <section className={styles.section}>
-                  <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                    Popular movies
-                  </Headline>
+                  <Headline tag="h2">Popular movies</Headline>
                   <ProductionList
                     productionData={movies.slice(0, 15)}
                     className={styles.popularList}
                   />
                 </section>
                 <section className={styles.section}>
-                  <Headline tag="h2" additionalClass={styles.popularHeadline}>
-                    Popular TV shows
-                  </Headline>
+                  <Headline tag="h2">Popular TV shows</Headline>
                   <ProductionList
                     productionData={shows.slice(0, 15)}
                     className={styles.popularList}

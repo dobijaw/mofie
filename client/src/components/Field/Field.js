@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import FormError from 'components/FormError/FormError';
 import Input from 'components/Input/Input';
 import Label from 'components/Label/Label';
-import FormError from 'components/FormError/FormError';
 import styles from './Field.module.scss';
 
 const Field = ({
   id,
   type,
-  placeholder,
   value,
+  lightTheme,
+  placeholder,
   onChange,
   onBlur,
   name,
   label,
-  lightTheme,
   error,
 }) => (
   <div className={styles.field}>
@@ -31,5 +32,28 @@ const Field = ({
     {error && <FormError error={error} />}
   </div>
 );
+
+Field.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  value: PropTypes.string,
+  lightTheme: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  error: PropTypes.string,
+};
+
+Field.defaultProps = {
+  error: '',
+  type: '',
+  value: '',
+  placeholder: '',
+  lightTheme: false,
+  onBlur: null,
+  onChange: null,
+};
 
 export default Field;

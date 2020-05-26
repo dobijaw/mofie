@@ -2,29 +2,38 @@
 @import '../../../theme/mixins';
 
 .crew {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   padding: 0;
-  margin: 0;
   list-style: none;
+  margin: 0;
 
-  &Item {
-    display: block;
-    padding: 0 0 0 10px;
-    @include fontStyle($white, 9px, 300, 1.5, 0.04em);
-    text-transform: uppercase;
-    opacity: 0.5;
+  &___all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
-    &:not(:first-child)::before {
-      content: '|';
-      display: inline-block;
-      margin-right: 10px;
-      opacity: 0.3;
+    > .crew_item {
+      display: block;
+      padding: 0 0 0 10px;
+      text-transform: uppercase;
+      opacity: 0.5;
+
+      &:not(:first-child)::before {
+        content: '|';
+        display: inline-block;
+        margin-right: 10px;
+        @include fontStyle($white, 9px, 300, 1.5, 0.04em);
+        opacity: 0.3;
+      }
     }
   }
 
-  &Name {
-    font-size: 12px;
+  &___main {
+    display: block;
+    margin: 0 0 50px 0;
+    list-style: none;
+
+    > .crew_item {
+      margin: 0 0 5px 0;
+    }
   }
 }

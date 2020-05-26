@@ -11,8 +11,8 @@ import CommentsItem from './CommentsItem/CommentsItem';
 
 const Comments = ({ category, rate, comment, collectionItemID }) => {
   const { categories, collectionDispatch } = useContext(AppContext);
-  const rootContext = useContext(RootContext);
   const [visible, setVisible] = useState(false);
+  const { ratingScale } = useContext(RootContext);
 
   return (
     <section className={styles.comments}>
@@ -47,7 +47,6 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                 ],
               })}
               onSubmit={(values) => {
-                // handleSubmit(values);
                 updateInCollection(collectionDispatch, collectionItemID, values);
                 setVisible(false);
               }}
@@ -74,7 +73,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                     name="rate"
                     label="Rate"
                     error={errors.rate}
-                    options={rootContext.ratingScale}
+                    options={ratingScale}
                     placeholder="Choose a rate"
                     className={styles.comments_formItem}
                   />

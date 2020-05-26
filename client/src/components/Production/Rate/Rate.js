@@ -5,8 +5,8 @@ import styles from './Rate.module.scss';
 
 const Rate = ({ children }) => (
   <div className={styles.rate}>
-    <img src={star} alt="star" className={styles.rateIcon} />
-    <span className={styles.rateItem}>{children}</span>
+    <img src={star} alt="star" className={styles.rate_icon} />
+    <span className={styles.rate_item}>{children}</span>
   </div>
 );
 

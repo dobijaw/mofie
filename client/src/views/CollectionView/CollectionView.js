@@ -118,7 +118,7 @@ const CollectionView = () => {
     <>
       {!user.isAuth && <Redirect to={routes.login} />}
       <MainTemplate>
-        <PageTitle>My collection</PageTitle>
+        <PageTitle center>My collection</PageTitle>
         <Sort
           setValues={handleSubmit}
           sortOptions={sortOptions}

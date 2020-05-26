@@ -1,16 +1,10 @@
 import React from 'react';
 import FooterRoute from 'components/FooterRoute/FooterRoute';
+import PageTitle from 'components/PageTitle/PageTitle';
 import Logo from 'components/Navigation/Logo/Logo';
 import styles from './UserAuthentication.module.scss';
 
-const UserAuthentication = ({
-  title,
-  description,
-  children,
-  copy,
-  route,
-  routeName,
-}) => (
+const UserAuthentication = ({ title, description, children, copy, route, routeName }) => (
   <div className={styles.authentication}>
     <aside className={styles.authenticationSidebar}>
       <Logo isMiddle />
@@ -18,7 +12,9 @@ const UserAuthentication = ({
     <div className={styles.authenticationColumn}>
       <div className={styles.authenticationBox}>
         <header className={styles.authenticationHeader}>
-          <h1 className={styles.authenticationTitle}>{title}</h1>
+          <PageTitle asHeadline center>
+            {title}
+          </PageTitle>
           <p className={styles.authenticationDescription}>{description}</p>
         </header>
         <main className={styles.authenticationForm}>{children}</main>

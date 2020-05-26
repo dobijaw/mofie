@@ -55,7 +55,7 @@ const SearchProduction = ({ title, fetchType }) => {
 
   return (
     <div className={styles.wrapper}>
-      <PageTitle>{title}</PageTitle>
+      <PageTitle center>{title}</PageTitle>
       <Form
         className={styles.form}
         initialValues={{
@@ -101,10 +101,7 @@ const SearchProduction = ({ title, fetchType }) => {
         loaded={!loading && !error}
         render={() => (
           <>
-            <ProductionList
-              productionData={production}
-              className={styles.movies}
-            />
+            <ProductionList productionData={production} className={styles.movies} />
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
