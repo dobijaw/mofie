@@ -2,7 +2,7 @@
 @import '../../theme/mixins';
 
 .button {
-  @include flex(center, center);
+  display: inline-block;
   width: 100%;
   padding: 16px 34px;
   border: 1px solid $white;

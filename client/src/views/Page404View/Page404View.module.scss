@@ -1,3 +1,13 @@
-.wrapper {
-  color: white;
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.notFound {
+  @include flex(center, center, column);
+  height: 100vh;
+  padding: 30px;
+  text-align: center;
+
+  &_footer {
+    margin: 40px 0 0;
+  }
 }

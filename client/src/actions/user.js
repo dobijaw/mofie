@@ -77,6 +77,7 @@ export const authenticate = (dispatch, data) => {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log('authen res then');
       console.log(res);
       if (res.warning) {
         dispatch({

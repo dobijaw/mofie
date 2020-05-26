@@ -26,6 +26,10 @@
     font-size: 30px;
   }
 
+  &___noMargin {
+    margin: 0;
+  }
+
   &___hidden {
     @include sreenReaderOnly;
   }
