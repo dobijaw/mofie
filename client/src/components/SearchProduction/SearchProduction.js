@@ -90,6 +90,7 @@ const SearchProduction = ({ title, fetchType }) => {
               onBlur={handleBlur}
               label="Search"
               error={errors.search}
+              className={styles.form_input}
             />
             <Button type="submit">Search</Button>
           </>

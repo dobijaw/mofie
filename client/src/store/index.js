@@ -34,13 +34,7 @@ const Store = ({ children }) => {
     userDispatch,
   };
 
-  return (
-    <AppContext.Provider value={state}>
-      {console.log('wyswietlamy teraz collection')}
-      {console.log(collection)}
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
 };
 
 export default Store;

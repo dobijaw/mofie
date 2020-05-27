@@ -26,15 +26,27 @@ const Production = ({
   crew,
 }) => (
   <section className={styles.production}>
-    <div className={styles.production_column}>
+    <div className={[styles.production_column, styles.production_column___poster].join(' ')}>
       <Poster image={image} poster />
     </div>
-    <div className={styles.production_column}>
+    <div className={[styles.production_column, styles.production_column___data].join(' ')}>
       <div className={styles.production_buttons}>
         {isInCollection ? (
-          <Button asDelete type="button" handleClick={handleRemoveFromCollection} />
+          <Button
+            asDelete
+            type="button"
+            handleClick={handleRemoveFromCollection}
+            className={styles.production_singleButton}
+          />
         ) : (
-          isAuth && <Button asAdd type="button" handleClick={handleModalOpen} />
+          isAuth && (
+            <Button
+              asAdd
+              type="button"
+              handleClick={handleModalOpen}
+              className={styles.production_singleButton}
+            />
+          )
         )}
       </div>
       <div className={styles.production_data}>

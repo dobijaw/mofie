@@ -14,5 +14,11 @@
 
   &Button {
     margin: 0;
+
+    @media (max-width: 960px) {
+      padding-left: 18px;
+      padding-right: 18px;
+      letter-spacing: 0;
+    }
   }
 }

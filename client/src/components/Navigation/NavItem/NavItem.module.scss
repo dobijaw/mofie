@@ -2,17 +2,25 @@
 @import '../../../theme/mixins';
 
 .navItem {
-  padding: 0 10px;
+  padding: 5px 10px;
   margin: 0;
+
+  @media (min-width: 960px) {
+    padding: 0 10px;
+  }
 
   &Link {
     display: block;
     padding: 10px;
-    @include fontStyle($white, 14px, 300, 1.5, 0.2em);
+    @include fontStyle($white, 17px, 300, 1.5, 0.2em);
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
     transition: 0.25s;
+
+    @media (min-width: 960px) {
+      font-size: 14px;
+    }
 
     &Primary {
       color: $focus;

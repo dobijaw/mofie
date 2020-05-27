@@ -25,16 +25,21 @@
 }
 
 .form {
-  display: flex;
-  align-items: center;
   margin-bottom: 40px;
 
-  > div {
-    width: 100%;
-    margin-right: 40px;
+  @media (min-width: 960px) {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 60px;
   }
 
-  > button {
-    margin-top: 24px;
+  &_input {
+    width: 100%;
+    margin-bottom: 20px;
+
+    @media (min-width: 960px) {
+      margin-right: 40px;
+      margin-bottom: 0;
+    }
   }
 }

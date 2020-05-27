@@ -10,7 +10,7 @@ const AllCast = ({ cast }) => {
   return (
     <section className={styles.allCast}>
       <SubHeadline>Cast</SubHeadline>
-      <Cast cast={isClose ? cast.slice(0, 5) : cast} />
+      <Cast cast={isClose ? cast.slice(0, 6) : cast} />
       <Button
         type="button"
         className={styles.allCast_button}

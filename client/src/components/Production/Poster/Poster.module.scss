@@ -24,7 +24,11 @@
   }
 
   &___vertical {
-    height: 800px;
+    height: 60vh;
+
+    @media (min-width: 960px) {
+      height: 80vh;
+    }
   }
 
   &_image {

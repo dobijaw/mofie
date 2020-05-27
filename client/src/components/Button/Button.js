@@ -11,6 +11,7 @@ const Button = ({
   disabled,
   asDelete,
   inForm,
+  noMargin,
   isCenter,
   asAdd,
   type,
@@ -27,6 +28,7 @@ const Button = ({
           className,
           lightTheme && styles.button___light,
           isCenter && styles.button___center,
+          noMargin && styles.button___nomargin,
         ].join(' ')}
       >
         {children}

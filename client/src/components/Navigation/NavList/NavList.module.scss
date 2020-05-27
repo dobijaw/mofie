@@ -43,7 +43,12 @@
   &Settings {
     position: relative;
     z-index: 40;
-    margin-left: 20px;
+    margin-top: 40px;
+
+    @media (min-width: 960px) {
+      margin-top: 0;
+      margin-left: 20px;
+    }
   }
 
   &SettingsList {

@@ -5,6 +5,7 @@ import PaginationItem from './PaginationItem/PaginationItem';
 
 const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
   const [paginationItems, setPaginationItems] = useState([]);
+  const [windowSize, setWindowSize] = useState({});
 
   useEffect(() => {
     const arr = [];
@@ -21,8 +22,7 @@ const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
       for (let i = 1; i <= 5; i++) {
         arr.push({
           key: i,
-          value:
-            totalPages - 5 + i === totalPages - 3 ? '...' : totalPages - 5 + i,
+          value: totalPages - 5 + i === totalPages - 3 ? '...' : totalPages - 5 + i,
           isNumber: totalPages - 5 + i !== totalPages - 3,
         });
       }
@@ -66,6 +66,21 @@ const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
     setPaginationItems(arr);
   }, [currentPage, totalPages]);
 
+  const getScreenParameters = () => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    getScreenParameters();
+
+    window.addEventListener('resize', getScreenParameters);
+
+    return () => getScreenParameters();
+  }, []);
+
   return (
     <div className={styles.pagination}>
       <Button
@@ -76,7 +91,7 @@ const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
         disabled={currentPage <= 1}
         className={styles.paginationButton}
       >
-        prev
+        {windowSize.width < 960 ? '<' : 'prev'}
       </Button>
       <ul className={styles.paginationList}>
         {paginationItems.map((item) => (
@@ -98,7 +113,7 @@ const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
         disabled={currentPage >= totalPages}
         className={styles.paginationButton}
       >
-        next
+        {windowSize.width < 960 ? '>' : 'next'}
       </Button>
     </div>
   );

@@ -21,9 +21,11 @@
   margin: 0 0 60px;
   animation: itemIn 0.35s;
 
-  &:hover {
-    .productionButtonContainer {
-      transform: scale(1);
+  @media (hover: hover) {
+    &:hover {
+      .productionButtonContainer {
+        transform: scale(1);
+      }
     }
   }
 
@@ -70,9 +72,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    transform: scale(0);
     padding: 15px;
     transition: all 0.15s ease-in-out;
+
+    @media (hover: hover) {
+      transform: scale(0);
+    }
   }
 
   &Button {

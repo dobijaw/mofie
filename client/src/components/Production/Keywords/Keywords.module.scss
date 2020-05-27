@@ -7,11 +7,17 @@
 
   &_item {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 4px 8px;
     border-radius: 20px;
     margin: 0 10px 10px 0;
     background-color: $dark-white;
-    @include fontStyle($black, 12px, 500, 1.4, 0.03em);
+    @include fontStyle($black, 9.5px, 500, 1.5, 0);
     text-transform: uppercase;
+
+    @media (min-width: 960px) {
+      padding: 6px 12px;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+    }
   }
 }

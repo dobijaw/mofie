@@ -11,13 +11,14 @@ const Field = ({
   value,
   lightTheme,
   placeholder,
+  className,
   onChange,
   onBlur,
   name,
   label,
   error,
 }) => (
-  <div className={styles.field}>
+  <div className={[styles.field, className].join(' ')}>
     <Label id={id} name={label} />
     <Input
       id={id}
@@ -44,6 +45,7 @@ Field.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   error: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Field.defaultProps = {
@@ -54,6 +56,7 @@ Field.defaultProps = {
   lightTheme: false,
   onBlur: null,
   onChange: null,
+  className: '',
 };
 
 export default Field;

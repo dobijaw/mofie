@@ -33,19 +33,18 @@
   &_section {
     flex-shrink: 0;
     width: 100%;
-    // width: 320px;
-    // flex-shrink: 1;
 
-    // @media (min-width: 960px) {
-    //   width: 50%;
+    @media (min-width: 960px) {
+      flex-shrink: 1;
+      width: 50%;
 
-    //   &:first-child {
-    //     margin-right: 40px;
-    //   }
+      &:first-child {
+        margin-right: 40px;
+      }
 
-    //   &:last-child {
-    //     margin-left: 40px;
-    //   }
-    // }
+      &:last-child {
+        margin-left: 40px;
+      }
+    }
   }
 }

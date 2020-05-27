@@ -11,7 +11,11 @@
   }
 
   &___small {
-    @include circle(8vw);
+    @include circle(80px);
+
+    @media (min-width: 960px) {
+      @include circle(7vw);
+    }
   }
 
   &___default {
