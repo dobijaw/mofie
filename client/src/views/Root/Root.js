@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProductionView from 'views/ProductionView/ProductionView';
 
@@ -44,6 +44,11 @@ const Root = () => {
     });
   };
 
+  useEffect(() => {
+    document.body.style.overflowY = 'scroll';
+    if (isModalVisible) document.body.style.overflowY = 'hidden';
+  }, [isModalVisible]);
+
   const handleCloseModal = () => {
     setModalVisibility(false);
   };
@@ -51,6 +56,7 @@ const Root = () => {
   const contextElements = {
     handleOpenModal,
     handleCloseModal,
+    isModalVisible,
     movieGenres,
     showGenres,
     movieGenresErrors,

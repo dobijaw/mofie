@@ -8,13 +8,14 @@ import Headline from 'components/Headline/Headline';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
 import { addToCllection } from 'actions/collection';
-import { useFetch } from 'hooks';
+import { useFetch , useOutsideClosing } from 'hooks';
 import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
 import Close from './Close/Close';
+
 
 const Modal = ({ selected }) => {
   const { user, categories, collection, collectionDispatch } = useContext(AppContext);
@@ -27,6 +28,8 @@ const Modal = ({ selected }) => {
   const productionURL = `https://api.themoviedb.org/3/${selected.productionType}/${selected.id}?api_key=${API_KEY}&language=en-US`;
 
   const [prodData, prodError, prodLoading] = useFetch(productionURL);
+
+  const modalRef = useOutsideClosing(handleCloseModal);
 
   useEffect(() => {
     if (prodLoading) return;
@@ -96,109 +99,111 @@ const Modal = ({ selected }) => {
   };
 
   return (
-    <div className={`${styles.modal} ${loading && styles.modalLoading}`}>
-      <Close />
-      <Loading
-        loaded={!loading}
-        render={() => (
-          <>
-            {prodError || error ? (
-              <p>Something went Wrong!</p>
-            ) : (
-              <>
-                <DateFormat isSmall>{selectedData.releaseDate}</DateFormat>
-                <Headline tag="h2" lightTheme asTitle>
-                  {selectedData.title}
-                </Headline>
-                <Genres lightTheme genres={selectedData.genres} />
-                <Overview lightTheme>{selectedData.overview}</Overview>
-                {isInCollection ? (
-                  <p>
-                    This production is already added to your collection. If you want to change
-                    it, go to the collection and click the edit button next to the specific
-                    item.
-                  </p>
-                ) : (
-                  <Form
-                    initialValues={{
-                      category: {},
-                      rate: {},
-                      comment: '',
-                    }}
-                    validate={(values) => ({
-                      category: [
-                        {
-                          correct: values.category.value,
-                          errorMessage: 'Category required!',
-                        },
-                      ],
-                      rate: [
-                        {
-                          correct: values.rate.value,
-                          errorMessage: 'Rate required!',
-                        },
-                      ],
-                      comment: [
-                        {
-                          correct: values.comment.length,
-                          errorMessage: 'Comment required!',
-                        },
-                      ],
-                    })}
-                    onSubmit={(values) => {
-                      handleSubmit(values);
-                    }}
-                    render={(values, errors, handleChange, handleBlur) => (
-                      <>
-                        <Select
-                          id="category"
-                          value={values.category}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="category"
-                          label="Category"
-                          error={errors.category}
-                          options={categories}
-                          placeholder="Choose a category"
-                          lightTheme
-                          withButton
-                        />
-                        <Select
-                          id="rate"
-                          value={values.rate}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="rate"
-                          label="Rate"
-                          error={errors.rate}
-                          options={ratingScale}
-                          placeholder="Choose a rate"
-                          lightTheme
-                        />
-                        <Field
-                          id="comment"
-                          type="textarea"
-                          placeholder="Enter your name"
-                          value={values.comment}
-                          name="comment"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          label="Comment"
-                          error={errors.comment}
-                          lightTheme
-                        />
-                        <Button type="submit" lightTheme>
-                          add to collection +
-                        </Button>
-                      </>
-                    )}
-                  />
-                )}
-              </>
-            )}
-          </>
-        )}
-      />
+    <div className={styles.modalBack}>
+      <div className={`${styles.modal} ${loading && styles.modalLoading}`} ref={modalRef}>
+        <Close />
+        <Loading
+          loaded={!loading}
+          render={() => (
+            <>
+              {prodError || error ? (
+                <p>Something went Wrong!</p>
+              ) : (
+                <>
+                  <DateFormat isSmall>{selectedData.releaseDate}</DateFormat>
+                  <Headline tag="h2" lightTheme asTitle>
+                    {selectedData.title}
+                  </Headline>
+                  <Genres lightTheme genres={selectedData.genres} />
+                  <Overview lightTheme>{selectedData.overview}</Overview>
+                  {isInCollection ? (
+                    <p>
+                      This production is already added to your collection. If you want to
+                      change it, go to the collection and click the edit button next to the
+                      specific item.
+                    </p>
+                  ) : (
+                    <Form
+                      initialValues={{
+                        category: {},
+                        rate: {},
+                        comment: '',
+                      }}
+                      validate={(values) => ({
+                        category: [
+                          {
+                            correct: values.category.value,
+                            errorMessage: 'Category required!',
+                          },
+                        ],
+                        rate: [
+                          {
+                            correct: values.rate.value,
+                            errorMessage: 'Rate required!',
+                          },
+                        ],
+                        comment: [
+                          {
+                            correct: values.comment.length,
+                            errorMessage: 'Comment required!',
+                          },
+                        ],
+                      })}
+                      onSubmit={(values) => {
+                        handleSubmit(values);
+                      }}
+                      render={(values, errors, handleChange, handleBlur) => (
+                        <>
+                          <Select
+                            id="category"
+                            value={values.category}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="category"
+                            label="Category"
+                            error={errors.category}
+                            options={categories}
+                            placeholder="Choose a category"
+                            lightTheme
+                            withButton
+                          />
+                          <Select
+                            id="rate"
+                            value={values.rate}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="rate"
+                            label="Rate"
+                            error={errors.rate}
+                            options={ratingScale}
+                            placeholder="Choose a rate"
+                            lightTheme
+                          />
+                          <Field
+                            id="comment"
+                            type="textarea"
+                            placeholder="Enter your name"
+                            value={values.comment}
+                            name="comment"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            label="Comment"
+                            error={errors.comment}
+                            lightTheme
+                          />
+                          <Button type="submit" lightTheme>
+                            add to collection +
+                          </Button>
+                        </>
+                      )}
+                    />
+                  )}
+                </>
+              )}
+            </>
+          )}
+        />
+      </div>
     </div>
   );
 };

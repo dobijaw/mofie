@@ -1,14 +1,35 @@
 @import '../../theme//colors';
 
+@keyframes load {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.modalBack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 800;
+  background: rgba(0, 0, 0, 0.8);
+}
+
 .modal {
   position: fixed;
-  z-index: 4;
+  z-index: 800;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   width: 90%;
   max-width: 768px;
-  max-height: 94vh;
+  min-height: 70vh;
+  max-height: 70vh;
   padding: 30px;
   background: $white;
   overflow-y: scroll;
@@ -29,15 +50,5 @@
     justify-content: center;
     align-items: center;
     min-height: 400px;
-  }
-}
-
-@keyframes load {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(1);
   }
 }
