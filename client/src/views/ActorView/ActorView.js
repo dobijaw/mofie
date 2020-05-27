@@ -12,6 +12,7 @@ import ProductionList from 'components/ProductionList/ProductionList';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { FETCH_TYPE } from 'types';
 import { routes } from 'routes';
+import Pagination from 'components/Pagination/Pagination';
 import styles from './ActorView.module.scss';
 // import Loading from 'components/Loading/Loading';
 
@@ -25,6 +26,9 @@ const ActorView = ({ match }) => {
   const [credits, creditsErr, creditsLoading] = useFetch(creditsURL);
   const [production, setProduction] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const sliceProduction = (prod, cur) => prod.slice(cur === 1 ? 0 : (cur - 1) * 10, cur * 10);
 
   useEffect(() => {
     if (!creditsLoading && !creditsErr && context?.movieGenres && context?.showGenres) {
@@ -89,11 +93,18 @@ const ActorView = ({ match }) => {
       <main>
         <SubHedline>Productions</SubHedline>
         {loaded && (
-          <ProductionList
-            asBasic
-            className={styles.actorProductionList}
-            productionData={production}
-          />
+          <>
+            <ProductionList
+              asBasic
+              className={styles.actorProductionList}
+              productionData={sliceProduction(production, currentPage)}
+            />
+            <Pagination
+              initialPage={1}
+              totalPages={Math.ceil(production.length / 10)}
+              getCurrentPage={setCurrentPage}
+            />
+          </>
         )}
       </main>
     </MainTemplate>

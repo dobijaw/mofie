@@ -15,7 +15,7 @@
   transform: translateX(100%);
   transition: transform 0.35s;
 
-  @media (min-width: 768px) {
+  @media (min-width: 960px) {
     position: static;
     display: block;
     width: auto;
@@ -29,7 +29,7 @@
     margin: 0;
     list-style: none;
 
-    @media (min-width: 768px) {
+    @media (min-width: 960px) {
       display: flex;
       align-items: center;
     }

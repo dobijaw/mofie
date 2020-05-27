@@ -1,122 +1,109 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 import styles from './Pagination.module.scss';
 import PaginationItem from './PaginationItem/PaginationItem';
 
-const Pagination = ({ currentPage, totalPages, handleCurrentPage }) => {
+const Pagination = ({ initialPage, totalPages, getCurrentPage }) => {
   const [paginationItems, setPaginationItems] = useState([]);
-  const [windowSize, setWindowSize] = useState({});
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
-  useEffect(() => {
-    const arr = [];
-
-    if (currentPage <= 2) {
-      for (let i = 1; i <= 5; i++) {
-        arr.push({
-          key: i,
-          value: i !== 4 ? i : '...',
-          isNumber: i !== 4,
-        });
-      }
-    } else if (currentPage >= totalPages - 1) {
-      for (let i = 1; i <= 5; i++) {
-        arr.push({
-          key: i,
-          value: totalPages - 5 + i === totalPages - 3 ? '...' : totalPages - 5 + i,
-          isNumber: totalPages - 5 + i !== totalPages - 3,
-        });
-      }
-    } else if (currentPage === 3) {
-      for (let i = 1; i <= 6; i++) {
-        arr.push({
-          key: i,
-          value: i !== 5 ? i : '...',
-          isNumber: i !== 5,
-        });
-      }
-    } else if (currentPage === totalPages - 2) {
-      for (let i = 1; i <= 6; i++) {
-        arr.push({
-          key: i,
-          value: i === 1 ? 1 : i === 2 ? '...' : totalPages - 6 + i,
-          isNumber: i !== 2,
-        });
-      }
-    } else {
-      for (let i = 1; i <= 7; i++) {
-        arr.push({
-          key: i,
-          value:
-            i === 2 || i === 6
-              ? '...'
-              : i === 1
-              ? 1
-              : i === 7
-              ? totalPages
-              : i === 3
-              ? currentPage - 1
-              : i === 4
-              ? currentPage
-              : currentPage + 1,
-          isNumber: !(i === 2 || i === 6),
-        });
-      }
-    }
-
-    setPaginationItems(arr);
-  }, [currentPage, totalPages]);
-
-  const getScreenParameters = () => {
-    setWindowSize({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
+  const handlePageChange = (page) => {
+    getCurrentPage(page);
+    setCurrentPage(page);
   };
 
+  const getFirst = useCallback(
+    (total, array) =>
+      array.map((item, index, arr) =>
+        arr.length - 1 === index ? total : arr.length - 2 === index ? item : index + 1,
+      ),
+    [],
+  );
+
+  const getMiddle = useCallback(
+    (total, array, initial) =>
+      array.map((item, index, arr) =>
+        index === 0 ? initial : index === 1 ? item : total - arr.length + index + 1,
+      ),
+    [],
+  );
+
+  const getLast = useCallback(
+    (page, total, array, initial) =>
+      array.map((item, index, arr) =>
+        index === initial || index === arr.length - 2
+          ? item
+          : index === 0
+          ? initial
+          : index === arr.length - 1
+          ? total
+          : index === 2
+          ? page - 1
+          : index === arr.length - 3
+          ? page + 1
+          : page,
+      ),
+    [],
+  );
+
+  const createPages = useCallback(
+    (page, total) => {
+      const initialArray = Array(total > 7 ? 7 : total).fill(null);
+
+      if (totalPages <= 7) {
+        return initialArray.map((_, index) => index + 1);
+      } if (page < 4) {
+        return getFirst(total, initialArray);
+      } if (page > total - 3) {
+        return getMiddle(total, initialArray, initialPage);
+      } 
+        return getLast(page, total, initialArray, initialPage);
+      
+    },
+    [getLast, getFirst, getMiddle, totalPages, initialPage],
+  );
+
   useEffect(() => {
-    getScreenParameters();
-
-    window.addEventListener('resize', getScreenParameters);
-
-    return () => getScreenParameters();
-  }, []);
+    setPaginationItems(createPages(currentPage, totalPages));
+  }, [createPages, currentPage, totalPages]);
 
   return (
     <div className={styles.pagination}>
       <Button
         type="button"
-        handleClick={() => {
-          handleCurrentPage(currentPage - 1);
-        }}
-        disabled={currentPage <= 1}
-        className={styles.paginationButton}
+        handleClick={() => handlePageChange(currentPage - 1)}
+        className={[styles.pagination_button, styles.pagination_button___prev].join(' ')}
+        disabled={currentPage - 1 < initialPage}
       >
-        {windowSize.width < 960 ? '<' : 'prev'}
+        prev
       </Button>
-      <ul className={styles.paginationList}>
-        {paginationItems.map((item) => (
+      <ul className={styles.pagination_list}>
+        {paginationItems.map((p, idx) => (
           <PaginationItem
-            key={item.key}
-            number={item.isNumber}
-            handleClick={() => handleCurrentPage(item.value)}
-            active={currentPage === item.value}
-          >
-            {item.value}
-          </PaginationItem>
+            key={p || idx * 99999}
+            handleClick={() => handlePageChange(p)}
+            active={currentPage === p}
+            value={p}
+          />
         ))}
       </ul>
       <Button
         type="button"
-        handleClick={() => {
-          handleCurrentPage(currentPage + 1);
-        }}
-        disabled={currentPage >= totalPages}
-        className={styles.paginationButton}
+        handleClick={() => handlePageChange(currentPage + 1)}
+        className={[styles.pagination_button, styles.pagination_button___next].join(' ')}
+        disabled={currentPage + 1 > totalPages}
       >
-        {windowSize.width < 960 ? '>' : 'next'}
+        next
       </Button>
     </div>
   );
+};
+
+Pagination.propTypes = {
+  initialPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  getCurrentPage: PropTypes.func.isRequired,
 };
 
 export default Pagination;

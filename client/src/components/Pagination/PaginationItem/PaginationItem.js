@@ -1,20 +1,20 @@
 import React from 'react';
 import styles from './PaginationItem.module.scss';
 
-const PaginationItem = ({ children, number, handleClick, active }) => (
+const PaginationItem = ({ value, handleClick, active }) => (
   <li className={styles.paginationItem}>
-    {number ? (
-      <input
-        type="button"
-        className={`${styles.paginationItemButton} ${
-          active && styles.paginationItemButtonActive
-        }`}
-        value={children}
+    {value ? (
+      <button
         onClick={handleClick}
-        disabled={active}
-      />
+        className={[
+          styles.paginationItem_button,
+          active && styles.paginationItem_button___active,
+        ].join(' ')}
+      >
+        {value}
+      </button>
     ) : (
-      children
+      <span className={styles.paginationItem_nodata}>...</span>
     )}
   </li>
 );

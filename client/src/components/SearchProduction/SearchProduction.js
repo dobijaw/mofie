@@ -15,8 +15,9 @@ import styles from './SearchProduction.module.scss';
 
 const SearchProduction = ({ title, fetchType }) => {
   const context = useContext(RootContext);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(null);
+  const initialPage = 1;
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(0);
 
   const baseURL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${currentPage}`;
 
@@ -102,14 +103,14 @@ const SearchProduction = ({ title, fetchType }) => {
         loaded={!loading && !error}
         render={() => (
           <>
-            <ProductionList productionData={production} className={styles.movies} />
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              handleCurrentPage={setCurrentPage}
-            />
+            <ProductionList productionData={production} asBasic />
           </>
         )}
+      />
+      <Pagination
+        initialPage={initialPage}
+        totalPages={totalPages}
+        getCurrentPage={setCurrentPage}
       />
     </div>
   );

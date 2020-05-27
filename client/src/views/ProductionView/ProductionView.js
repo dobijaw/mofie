@@ -60,7 +60,7 @@ const ProductionView = ({ location, match }) => {
           ? `http://image.tmdb.org/t/p/w500${p.poster_path}`
           : '',
         releaseDate: p.release_date || p.first_air_date,
-        title: p.title || p.name,
+        title: p.title || p.name || '',
         genres: p.title
           ? rootContext?.movieGenres.genres
               .filter((i) => p.genre_ids.includes(i.id))
