@@ -11,6 +11,7 @@ const Button = ({
   disabled,
   asDelete,
   inForm,
+  isCenter,
   asAdd,
   type,
   to,
@@ -21,7 +22,12 @@ const Button = ({
       <Link
         id={id}
         to={to}
-        className={[styles.button, className, lightTheme && styles.button___light].join(' ')}
+        className={[
+          styles.button,
+          className,
+          lightTheme && styles.button___light,
+          isCenter && styles.button___center,
+        ].join(' ')}
       >
         {children}
       </Link>
@@ -35,6 +41,7 @@ const Button = ({
           asDelete && styles.button___delete,
           asAdd && styles.button___add,
           inForm && styles.button___form,
+          isCenter && styles.button___center,
           className,
         ].join(' ')}
         onClick={handleClick}

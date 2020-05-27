@@ -6,7 +6,7 @@ import styles from './MainTemplate.module.scss';
 const MainTemplate = ({ children }) => (
   <div className={styles.wrapper}>
     <Navigation />
-    <div className={styles.wrapperInside}>{children}</div>
+    <main className={styles.wrapperInside}>{children}</main>
   </div>
 );
 

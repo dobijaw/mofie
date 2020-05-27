@@ -27,24 +27,43 @@
     }
   }
 
-  &Link {
+  &_link {
     text-decoration: none;
     display: block;
   }
 
-  &TopDetails {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  &_data {
+    margin-top: 20px;
+  }
 
-    &Column {
-      display: flex;
+  &_details {
+    display: flex;
+    flex-direction: column-reverse;
+
+    @media (min-width: 500px) {
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
     }
   }
 
-  &Details {
-    margin-top: 20px;
+  &_column {
+    display: flex;
+    align-items: baseline;
+
+    &___custom {
+      margin-bottom: 10px;
+      justify-content: space-between;
+      align-items: stretch;
+
+      @media (min-width: 500px) {
+        align-items: center;
+      }
+    }
+
+    @media (min-width: 500px) {
+      align-items: center;
+    }
   }
 
   &ButtonContainer {

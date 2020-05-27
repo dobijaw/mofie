@@ -1,37 +1,23 @@
 .actor {
   margin: 40px 0;
 
-  @media (min-width: 1200px) {
+  @media (min-width: 960px) {
     display: flex;
     align-items: center;
     margin: 100px 0;
   }
 
-  &Data {
-    @media (min-width: 1200px) {
-      margin-left: 50px;
+  &_avatar {
+    margin-bottom: 20px;
+
+    @media (min-width: 960px) {
+      margin: 0;
     }
   }
-}
 
-.movie {
-  color: white;
-}
-
-.actorProductionList {
-  @media (min-width: 960px) {
-    display: flex;
-
-    > li {
-      width: calc(50% - 20px);
-
-      &:nth-child(even) {
-        margin-left: 20px;
-      }
-
-      &:nth-child(odd) {
-        margin-right: 20px;
-      }
+  &_data {
+    @media (min-width: 960px) {
+      margin-left: 50px;
     }
   }
 }

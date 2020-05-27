@@ -4,8 +4,14 @@
 .subHeadline {
   position: relative;
   display: block;
-  padding: 100px 0 60px;
+  height: 100px;
+  padding: 20px 0 80px;
   margin: 0;
+
+  @media (min-width: 960px) {
+    padding: 100px 0 60px;
+    height: auto;
+  }
 
   &::before {
     content: '';
@@ -21,12 +27,18 @@
   &_text {
     @include absolute(50%, auto, auto, 50%);
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px;
     margin: 0 auto;
     background: $black;
-    @include fontStyle($white, 26px, 500, 1, 0.2em);
+    @include fontStyle($white, 18px, 500, 1, 0.02em);
     text-align: center;
     text-transform: uppercase;
     transform: translate(-50%, -50%);
+
+    @media (min-width: 960px) {
+      padding: 10px 20px;
+      font-size: 26px;
+      letter-spacing: 0.2em;
+    }
   }
 }

@@ -1,9 +1,15 @@
 .sort {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  @media (min-width: 960px) {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
 
   &Select {
-    width: 30%;
+    width: 100%;
+
+    @media (min-width: 960px) {
+      width: 30%;
+    }
   }
 }

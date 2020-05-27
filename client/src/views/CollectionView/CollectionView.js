@@ -6,6 +6,7 @@ import { FETCH_TYPE } from 'types';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { Redirect } from 'react-router';
 import { routes } from 'routes';
+import NoData from 'components/NoData/NoData';
 import styles from './CollectionView.module.scss';
 import PageTitle from '../../components/PageTitle/PageTitle';
 
@@ -117,6 +118,7 @@ const CollectionView = () => {
   return (
     <>
       {!user.isAuth && <Redirect to={routes.login} />}
+
       <MainTemplate>
         <PageTitle center>My collection</PageTitle>
         <Sort
@@ -129,7 +131,7 @@ const CollectionView = () => {
           initalTypeValue={typeValue}
         />
         {sortData.length ? (
-          <ul className={styles.collectionList}>
+          <ul className={styles.collection_list}>
             {sortData.map((c) => (
               <ProductionItem
                 _id={c._id}
@@ -149,7 +151,7 @@ const CollectionView = () => {
             ))}
           </ul>
         ) : (
-          <span className={styles.collectionNoData}>No data yet!</span>
+          <NoData>No data yet!</NoData>
         )}
       </MainTemplate>
     </>

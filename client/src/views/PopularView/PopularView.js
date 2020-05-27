@@ -9,9 +9,10 @@ import { FETCH_TYPE } from 'types';
 import Loading from 'components/Loading/Loading';
 import { selectProductionData } from 'universal';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import NoData from 'components/NoData/NoData';
 import styles from './PopularView.module.scss';
 
-const NowPlaying = () => {
+const PopularView = () => {
   const context = useContext(RootContext);
 
   const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -38,37 +39,34 @@ const NowPlaying = () => {
 
   return (
     <MainTemplate>
-      <div className={styles.wrapper}>
-        <PageTitle isHidden>Popular</PageTitle>
-        {(moviesErr || showsErr) && <p>Something went wrong, sorry :(</p>}
-
-        <div className={styles.popularProductionLists}>
+      <>
+        <header>
+          <PageTitle isHidden>Popular Productions</PageTitle>
+          {(moviesErr || showsErr) && <NoData>Something went wrong, sorry :(</NoData>}
+        </header>
+        <main className={styles.popularView}>
           <Loading
-            className={styles.popularLoading}
+            className={styles.popularView_loading}
             loaded={areMoviesLoaded && areShowsLoaded}
             render={() => (
-              <>
-                <section className={styles.section}>
-                  <Headline tag="h2">Popular movies</Headline>
-                  <ProductionList
-                    productionData={movies.slice(0, 15)}
-                    className={styles.popularList}
-                  />
-                </section>
-                <section className={styles.section}>
-                  <Headline tag="h2">Popular TV shows</Headline>
-                  <ProductionList
-                    productionData={shows.slice(0, 15)}
-                    className={styles.popularList}
-                  />
-                </section>
-              </>
+              <div className={styles.popularView_columnsWrapper}>
+                <div className={styles.popularView_columns}>
+                  <section className={styles.popularView_section}>
+                    <Headline tag="h2">Popular movies</Headline>
+                    <ProductionList productionData={movies.slice(0, 15)} withMain />
+                  </section>
+                  <section className={styles.popularView_section}>
+                    <Headline tag="h2">Popular TV shows</Headline>
+                    <ProductionList productionData={shows.slice(0, 15)} withMain />
+                  </section>
+                </div>
+              </div>
             )}
           />
-        </div>
-      </div>
+        </main>
+      </>
     </MainTemplate>
   );
 };
 
-export default NowPlaying;
+export default PopularView;

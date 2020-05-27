@@ -22,8 +22,19 @@
   }
 
   &___small {
-    margin: 0 0 10px;
-    font-size: 30px;
+    margin: 0 0 4px;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+
+    @media (min-width: 960px) {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    @media (min-width: 1200px) {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
   }
 
   &___noMargin {

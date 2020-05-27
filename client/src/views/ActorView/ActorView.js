@@ -11,7 +11,9 @@ import SubHedline from 'components/SubHeadline/SubHeadline';
 import ProductionList from 'components/ProductionList/ProductionList';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { FETCH_TYPE } from 'types';
+import { routes } from 'routes';
 import styles from './ActorView.module.scss';
+// import Loading from 'components/Loading/Loading';
 
 const ActorView = ({ match }) => {
   const context = useContext(RootContext);
@@ -64,10 +66,11 @@ const ActorView = ({ match }) => {
 
   return (
     <MainTemplate>
-      {detailsErr && <Redirect to="/404" />}
+      {detailsErr && <Redirect to={routes.page404} />}
+
       {!detailsLoading && (
-        <div className={styles.actor}>
-          <div className={styles.actorData}>
+        <header className={styles.actor}>
+          <div className={styles.actor_avatar}>
             <Avatar
               image={
                 details.profile_path
@@ -76,17 +79,23 @@ const ActorView = ({ match }) => {
               }
             />
           </div>
-          <div className={styles.actorData}>
+          <div className={styles.actor_data}>
             <PageTitle small>{details.name}</PageTitle>
             <Period birthday={details.birthday} deathday={details.deathday} />
             <Bio>{details.biography}</Bio>
           </div>
-        </div>
+        </header>
       )}
-      <SubHedline>Productions</SubHedline>
-      {loaded && (
-        <ProductionList className={styles.actorProductionList} productionData={production} />
-      )}
+      <main>
+        <SubHedline>Productions</SubHedline>
+        {loaded && (
+          <ProductionList
+            asBasic
+            className={styles.actorProductionList}
+            productionData={production}
+          />
+        )}
+      </main>
     </MainTemplate>
   );
 };

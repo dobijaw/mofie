@@ -2,19 +2,15 @@
 @import '../../theme/mixins';
 
 .collection {
-  &List {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+  &_list {
     padding: 0;
     margin: 80px 0 0;
-  }
+    list-style: none;
 
-  &NoData {
-    display: block;
-    margin: 120px 0 0;
-    text-align: center;
-    text-transform: uppercase;
-    @include fontStyle($dark-gray, 16px, 400, 1, 0.4em);
+    @media (min-width: 960px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
   }
 }

@@ -102,4 +102,11 @@
 
     transform: rotate(45deg);
   }
+
+  &___center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
 }

@@ -2,11 +2,18 @@
 @import '../../../theme/mixins';
 
 .customRating {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 6px 12px;
   border: 1px solid $white;
-  margin-left: 10px;
-  @include fontStyle($white, 15px, 300, 1, 0.2em);
+  margin: 0;
+  @include fontStyle($white, 15px, 300, 1, 0.05em);
   text-transform: uppercase;
   text-align: center;
+
+  @media (min-width: 500px) {
+    margin-left: 10px;
+    letter-spacing: 0.2em;
+  }
 }

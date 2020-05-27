@@ -7,11 +7,11 @@
   @include backgroundSettings($light-black, no-repeat, center, cover);
 
   @media (min-width: 960px) {
-    @include circle(15vw);
+    @include circle(10vw);
   }
 
   &___small {
-    @include circle(10vw);
+    @include circle(8vw);
   }
 
   &___default {

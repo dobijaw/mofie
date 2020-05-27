@@ -16,7 +16,11 @@
   }
 
   &___horizontal {
-    height: 280px;
+    height: 170px;
+
+    @media (min-height: 700px) {
+      height: 280px;
+    }
   }
 
   &___vertical {

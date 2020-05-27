@@ -36,55 +36,57 @@ const ProductionItem = ({
 
   const handleClick = () => {
     removeFromCollection(collectionDispatch, _id);
-    // collectionDispatch({
-    //   type: REMOVE_FROM_COLLECTION,
-    //   id,
-    // });
   };
 
   return (
     <li className={styles.production}>
-      <Link className={styles.productionLink} to={URL}>
-        <Poster image={image} asBackgroundImage />
-      </Link>
-      <div className={styles.productionDetails}>
-        <div className={styles.productionTopDetails}>
-          <div className={styles.productionTopDetailsColumn}>
-            <Rate>{rate}</Rate>
-            <DateFormat isSmall>{releaseDate}</DateFormat>
-          </div>
-          <div>
-            {customRate && <CustomRating custom>{customRate}</CustomRating>}
-            {customCategory && <CustomRating>{customCategory}</CustomRating>}
-          </div>
-        </div>
-        <Link className={styles.productionLink} to={URL}>
-          <Headline tag="h3" asTitle>
-            {title}
-          </Headline>
-          {tagline && <Tagline>{tagline}</Tagline>}
+      <section>
+        <Link className={styles.production_link} to={URL}>
+          <Poster image={image} asBackgroundImage />
         </Link>
-        <Genres genres={genres} />
-      </div>
-      {user.isAuth && (
-        <div className={styles.productionButtonContainer}>
-          {!noModal ? (
-            <Button
-              asAdd
-              type="button"
-              className={styles.productionButton}
-              handleClick={() => rootContext.handleOpenModal(productionType, id)}
-            />
-          ) : (
-            <Button
-              asDelete
-              type="button"
-              className={styles.productionButton}
-              handleClick={handleClick}
-            />
-          )}
+        <div className={styles.production_data}>
+          <div className={styles.production_details}>
+            <div className={styles.production_column}>
+              <Rate>{rate}</Rate>
+              <DateFormat isSmall>{releaseDate}</DateFormat>
+            </div>
+            <div
+              className={[styles.production_column, styles.production_column___custom].join(
+                ' ',
+              )}
+            >
+              {customRate && <CustomRating custom>{customRate}</CustomRating>}
+              {customCategory && <CustomRating>{customCategory}</CustomRating>}
+            </div>
+          </div>
+          <Link className={styles.production_link} to={URL}>
+            <Headline tag="h3" asTitle>
+              {title}
+            </Headline>
+            {tagline && <Tagline>{tagline}</Tagline>}
+          </Link>
+          <Genres genres={genres} />
         </div>
-      )}
+        {user.isAuth && (
+          <div className={styles.productionButtonContainer}>
+            {!noModal ? (
+              <Button
+                asAdd
+                type="button"
+                className={styles.productionButton}
+                handleClick={() => rootContext.handleOpenModal(productionType, id)}
+              />
+            ) : (
+              <Button
+                asDelete
+                type="button"
+                className={styles.productionButton}
+                handleClick={handleClick}
+              />
+            )}
+          </div>
+        )}
+      </section>
     </li>
   );
 };
