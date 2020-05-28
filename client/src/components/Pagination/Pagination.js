@@ -13,11 +13,7 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
     getCurrentPage(page);
   };
 
-  useEffect(() => setCurrentPage(initialPage), [
-    valueRequiringReset,
-    initialPage,
-    getCurrentPage,
-  ]);
+  useEffect(() => setCurrentPage(initialPage), [valueRequiringReset, initialPage]);
 
   const getMinimalTheme = (array) => array.map((_, index) => index + 1);
 
@@ -56,13 +52,14 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
 
     if (totalPages <= 7) {
       return getMinimalThemeCallback(initialArray);
-    } if (page < 4) {
+    }
+    if (page < 4) {
       return getFirstThemeCallback(total, initialArray);
-    } if (page > total - 3) {
+    }
+    if (page > total - 3) {
       return getMiddleThemeCallback(total, initialArray, initialPage);
-    } 
-      return getLastThemeCallback(page, total, initialArray, initialPage);
-    
+    }
+    return getLastThemeCallback(page, total, initialArray, initialPage);
   };
 
   const createPagesCallback = useCallback(createPages, [
@@ -70,13 +67,15 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
     getFirstThemeCallback,
     getMiddleThemeCallback,
     getLastThemeCallback,
-    totalPages,
     initialPage,
+    totalPages,
   ]);
 
-  useEffect(() => {
-    setPaginationItems(createPagesCallback(currentPage, totalPages));
-  }, [createPagesCallback, currentPage, totalPages]);
+  useEffect(() => setPaginationItems(createPagesCallback(currentPage, totalPages)), [
+    createPagesCallback,
+    currentPage,
+    totalPages,
+  ]);
 
   return (
     <div className={styles.pagination}>
@@ -89,11 +88,11 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
         prev
       </Button>
       <ul className={styles.pagination_list}>
-        {paginationItems.map((p, idx) => (
+        {paginationItems.map((p, idx, { length }) => (
           <PaginationItem
-            key={p || idx * 99999}
+            key={p || idx * length}
             handleClick={() => handlePageChange(p)}
-            active={currentPage === p}
+            isActive={currentPage === p}
             value={p}
           />
         ))}

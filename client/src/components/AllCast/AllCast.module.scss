@@ -1,5 +1,7 @@
 .allCast {
-  margin-top: 60px;
+  @media (min-width: 960px) {
+    margin-top: 60px;
+  }
 
   &_button {
     margin-top: 60px;
