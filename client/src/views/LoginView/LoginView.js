@@ -49,11 +49,13 @@ const LoginView = () => {
               },
             ],
           })}
-          onSubmit={(values) => {
+          onSubmit={(values, clearInputs) => {
             authenticate(userDispatch, {
               email: values.email,
               password: values.password,
             });
+
+            clearInputs(['password']);
           }}
           render={(values, errors, handleChange, handleBlur) => (
             <>

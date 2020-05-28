@@ -66,11 +66,13 @@ const SignUpView = () => {
               },
             ],
           })}
-          onSubmit={(values) => {
+          onSubmit={(values, clearInputs) => {
             registration(userDispatch, {
               email: values.email,
               password: values.password,
             });
+
+            clearInputs();
           }}
           render={(values, errors, handleChange, handleBlur) => (
             <>

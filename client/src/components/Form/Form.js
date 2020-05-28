@@ -40,6 +40,20 @@ const Form = ({ render, initialValues, className, onSubmit, validate, submitOnCh
     setErrors({ ...errors, [name]: validateErrors[name] || '' });
   };
 
+  const clearInputs = (inputs) => {
+    if (!inputs) {
+      setValues(initialValues);
+      return;
+    }
+
+    const clearedInputs = Object.entries(values).map((item) =>
+      inputs.includes(item[0]) ? [item[0], ''] : item,
+    );
+    const newObjectValues = Object.fromEntries(clearedInputs);
+
+    setValues(newObjectValues);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -47,7 +61,9 @@ const Form = ({ render, initialValues, className, onSubmit, validate, submitOnCh
     setErrors(validateErrors);
 
     const submitPossible = Object.values(validateErrors).some((i) => !!i);
-    if (!submitPossible) onSubmit(values);
+    if (!submitPossible) {
+      onSubmit(values, clearInputs);
+    }
   };
 
   return (
