@@ -19,8 +19,10 @@
   }
 
   &:hover {
-    background: $white;
-    color: $black;
+    &:not([disabled]) {
+      background: $white;
+      color: $black;
+    }
   }
 
   &:focus {

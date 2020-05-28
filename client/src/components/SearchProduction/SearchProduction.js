@@ -11,6 +11,7 @@ import { FETCH_TYPE } from 'types';
 import { RootContext } from 'context';
 import { selectProductionData } from 'universal';
 import Loading from 'components/Loading/Loading';
+import NoData from 'components/NoData/NoData';
 import styles from './SearchProduction.module.scss';
 
 const SearchProduction = ({ title, fetchType }) => {
@@ -75,6 +76,8 @@ const SearchProduction = ({ title, fetchType }) => {
           const query = encodeURIComponent(values.search);
           const URL = generateLink(1, query);
 
+          if (query === saveQuery) return;
+
           setSaveQuery(query);
           setCurrentPage(1);
           setQueryURL(URL);
@@ -103,14 +106,20 @@ const SearchProduction = ({ title, fetchType }) => {
         loaded={!loading && !error}
         render={() => (
           <>
-            <ProductionList productionData={production} asBasic />
+            {production.length ? (
+              <ProductionList productionData={production} asBasic />
+            ) : (
+              <NoData>No production was found</NoData>
+            )}
           </>
         )}
       />
+
       <Pagination
         initialPage={initialPage}
         totalPages={totalPages}
         getCurrentPage={setCurrentPage}
+        valueRequiringReset={saveQuery}
       />
     </div>
   );

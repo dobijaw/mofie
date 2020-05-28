@@ -4,69 +4,79 @@ import Button from 'components/Button/Button';
 import styles from './Pagination.module.scss';
 import PaginationItem from './PaginationItem/PaginationItem';
 
-const Pagination = ({ initialPage, totalPages, getCurrentPage }) => {
+const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringReset }) => {
   const [paginationItems, setPaginationItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(initialPage);
 
   const handlePageChange = (page) => {
-    getCurrentPage(page);
     setCurrentPage(page);
+    getCurrentPage(page);
   };
 
-  const getFirst = useCallback(
-    (total, array) =>
-      array.map((item, index, arr) =>
-        arr.length - 1 === index ? total : arr.length - 2 === index ? item : index + 1,
-      ),
-    [],
-  );
+  useEffect(() => setCurrentPage(initialPage), [
+    valueRequiringReset,
+    initialPage,
+    getCurrentPage,
+  ]);
 
-  const getMiddle = useCallback(
-    (total, array, initial) =>
-      array.map((item, index, arr) =>
-        index === 0 ? initial : index === 1 ? item : total - arr.length + index + 1,
-      ),
-    [],
-  );
+  const getMinimalTheme = (array) => array.map((_, index) => index + 1);
 
-  const getLast = useCallback(
-    (page, total, array, initial) =>
-      array.map((item, index, arr) =>
-        index === initial || index === arr.length - 2
-          ? item
-          : index === 0
-          ? initial
-          : index === arr.length - 1
-          ? total
-          : index === 2
-          ? page - 1
-          : index === arr.length - 3
-          ? page + 1
-          : page,
-      ),
-    [],
-  );
+  const getFirstTheme = (total, array) =>
+    array.map((item, index, arr) =>
+      arr.length - 1 === index ? total : arr.length - 2 === index ? item : index + 1,
+    );
 
-  const createPages = useCallback(
-    (page, total) => {
-      const initialArray = Array(total > 7 ? 7 : total).fill(null);
+  const getMiddleTheme = (total, array, initial) =>
+    array.map((item, index, arr) =>
+      index === 0 ? initial : index === 1 ? item : total - arr.length + index + 1,
+    );
 
-      if (totalPages <= 7) {
-        return initialArray.map((_, index) => index + 1);
-      } if (page < 4) {
-        return getFirst(total, initialArray);
-      } if (page > total - 3) {
-        return getMiddle(total, initialArray, initialPage);
-      } 
-        return getLast(page, total, initialArray, initialPage);
-      
-    },
-    [getLast, getFirst, getMiddle, totalPages, initialPage],
-  );
+  const getLastTheme = (page, total, array, initial) =>
+    array.map((item, index, arr) =>
+      index === initial || index === arr.length - 2
+        ? item
+        : index === 0
+        ? initial
+        : index === arr.length - 1
+        ? total
+        : index === 2
+        ? page - 1
+        : index === arr.length - 3
+        ? page + 1
+        : page,
+    );
+
+  const getMinimalThemeCallback = useCallback(getMinimalTheme, []);
+  const getFirstThemeCallback = useCallback(getFirstTheme, []);
+  const getMiddleThemeCallback = useCallback(getMiddleTheme, []);
+  const getLastThemeCallback = useCallback(getLastTheme, []);
+
+  const createPages = (page, total) => {
+    const initialArray = Array(total > 7 ? 7 : total).fill(null);
+
+    if (totalPages <= 7) {
+      return getMinimalThemeCallback(initialArray);
+    } if (page < 4) {
+      return getFirstThemeCallback(total, initialArray);
+    } if (page > total - 3) {
+      return getMiddleThemeCallback(total, initialArray, initialPage);
+    } 
+      return getLastThemeCallback(page, total, initialArray, initialPage);
+    
+  };
+
+  const createPagesCallback = useCallback(createPages, [
+    getMinimalThemeCallback,
+    getFirstThemeCallback,
+    getMiddleThemeCallback,
+    getLastThemeCallback,
+    totalPages,
+    initialPage,
+  ]);
 
   useEffect(() => {
-    setPaginationItems(createPages(currentPage, totalPages));
-  }, [createPages, currentPage, totalPages]);
+    setPaginationItems(createPagesCallback(currentPage, totalPages));
+  }, [createPagesCallback, currentPage, totalPages]);
 
   return (
     <div className={styles.pagination}>
@@ -104,6 +114,11 @@ Pagination.propTypes = {
   initialPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   getCurrentPage: PropTypes.func.isRequired,
+  valueRequiringReset: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+Pagination.defaultProps = {
+  valueRequiringReset: null,
 };
 
 export default Pagination;

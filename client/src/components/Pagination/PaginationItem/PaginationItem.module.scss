@@ -33,6 +33,10 @@
     cursor: pointer;
     transition: all 0.25s ease-in-out;
 
+    &:focus {
+      outline: 0;
+    }
+
     &:hover {
       background: $black;
     }
