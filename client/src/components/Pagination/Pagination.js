@@ -47,19 +47,18 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
   const getMiddleThemeCallback = useCallback(getMiddleTheme, []);
   const getLastThemeCallback = useCallback(getLastTheme, []);
 
-  const createPages = (page, total) => {
+  const createPages = (page, total, initial) => {
     const initialArray = Array(total > 7 ? 7 : total).fill(null);
 
-    if (totalPages <= 7) {
+    if (total <= 7) {
       return getMinimalThemeCallback(initialArray);
-    }
-    if (page < 4) {
+    } if (page < 4) {
       return getFirstThemeCallback(total, initialArray);
-    }
-    if (page > total - 3) {
-      return getMiddleThemeCallback(total, initialArray, initialPage);
-    }
-    return getLastThemeCallback(page, total, initialArray, initialPage);
+    } if (page > total - 3) {
+      return getMiddleThemeCallback(total, initialArray, initial);
+    } 
+      return getLastThemeCallback(page, total, initialArray, initial);
+    
   };
 
   const createPagesCallback = useCallback(createPages, [
@@ -67,15 +66,12 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
     getFirstThemeCallback,
     getMiddleThemeCallback,
     getLastThemeCallback,
-    initialPage,
-    totalPages,
   ]);
 
-  useEffect(() => setPaginationItems(createPagesCallback(currentPage, totalPages)), [
-    createPagesCallback,
-    currentPage,
-    totalPages,
-  ]);
+  useEffect(
+    () => setPaginationItems(createPagesCallback(currentPage, totalPages, initialPage)),
+    [createPagesCallback, initialPage, currentPage, totalPages],
+  );
 
   return (
     <div className={styles.pagination}>
