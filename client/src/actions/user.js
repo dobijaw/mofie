@@ -2,6 +2,7 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
 export const REGI_SUCCESS = 'REGI_SUCCESS';
 export const REGI_FAILURE = 'REGI_FAILURE';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 
 export const AUTH_LOCAL_SUCCESS = 'AUTH_LOCAL_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -102,6 +103,12 @@ export const authenticate = (dispatch, data) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const clearErrors = (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };
 
 export const logout = (dispatch) => {

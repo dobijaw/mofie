@@ -8,14 +8,13 @@ import Headline from 'components/Headline/Headline';
 import Genres from 'components/Production/Genres/Genres';
 import Overview from 'components/Production/Overview/Overview';
 import { addToCllection } from 'actions/collection';
-import { useFetch , useOutsideClosing } from 'hooks';
+import { useFetch, useOutsideClosing } from 'hooks';
 import { FETCH_TYPE } from 'types';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
+import Close from 'components/Close/Close';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
-import Close from './Close/Close';
-
 
 const Modal = ({ selected }) => {
   const { user, categories, collection, collectionDispatch } = useContext(AppContext);
@@ -101,7 +100,7 @@ const Modal = ({ selected }) => {
   return (
     <div className={styles.modalBack}>
       <div className={`${styles.modal} ${loading && styles.modalLoading}`} ref={modalRef}>
-        <Close />
+        <Close handleClose={handleCloseModal} />
         <Loading
           loaded={!loading}
           render={() => (

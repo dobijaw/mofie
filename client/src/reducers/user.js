@@ -5,6 +5,7 @@ import {
   REGI_FAILURE,
   LOGOUT_SUCCESS,
   AUTH_LOCAL_SUCCESS,
+  CLEAR_ERRORS,
 } from 'actions/user';
 
 const userReducer = (state, { type, payload }) => {
@@ -23,6 +24,9 @@ const userReducer = (state, { type, payload }) => {
       return { ...state, error: payload.error };
     case LOGOUT_SUCCESS:
       return { id: undefined, token: undefined, error: undefined, isAuth: false };
+    case CLEAR_ERRORS: {
+      return { ...state, error: undefined };
+    }
     default:
       return state;
   }

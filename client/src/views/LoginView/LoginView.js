@@ -13,7 +13,7 @@ const LoginView = () => {
 
   return (
     <div>
-      {user.isAuth && <Redirect to="/" />}
+      {user.isAuth && <Redirect to={routes.home} />}
       <UserAuthentication
         title="Login"
         description="Please enter your data to log in."

@@ -1,23 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
 import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import { routes } from 'routes';
-import { registration } from 'actions/user';
+import { registration , clearErrors } from 'actions/user';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
 
+
 const SignUpView = () => {
   const { user, userDispatch } = useContext(AppContext);
+  const [authErrors, toggleAuthErrors] = useState(false);
+
+  useEffect(() => () => clearErrors(userDispatch), [userDispatch]);
+  useEffect(() => toggleAuthErrors(!!user.error), [user]);
+
+  const isAnyCapitalLetter = (value) =>
+    value.split('').some((chart) => isNaN(chart * 1) && chart === chart.toUpperCase());
+
+  const isAnyNumber = (value) => value.split('').some((chart) => !isNaN(chart * 1));
 
   return (
     <>
-      {user.isAuth && <Redirect to="/" />}
+      {user.isAuth && <Redirect to={routes.home} />}
       <UserAuthentication
         title="Sign up"
-        description="Enter your email to create an account."
         copy="Already have an account?"
+        description="Enter your email to create an account."
+        errorMessage="Sorry, the account with the given address already exists. Enter a different email address."
+        isAnyError={authErrors}
+        clearErrorsAfterClose={() => clearErrors(userDispatch)}
         route={routes.login}
         routeName="Login"
       >
@@ -31,21 +44,25 @@ const SignUpView = () => {
             email: [
               {
                 correct: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email),
-                errorMessage: "It's not an email",
+                errorMessage: "Opps, it doesn't look like e-mail.",
               },
             ],
             password: [
               {
-                correct: values.password.split('').some((i) => i === i.toUpperCase()),
-                errorMessage: 'One uppercase needed',
+                correct: isAnyCapitalLetter(values.password),
+                errorMessage: 'Enter at least one upper case letter.',
               },
               {
-                correct: values.password.length > 8,
-                errorMessage: 'Username is to short',
+                correct: isAnyNumber(values.password),
+                errorMessage: 'Enter at least one number.',
               },
               {
-                correct: values.password.length <= 15,
-                errorMessage: 'Username is to long',
+                correct: values.password.length >= 6,
+                errorMessage: 'The password is too short.',
+              },
+              {
+                correct: values.password.length <= 18,
+                errorMessage: 'No exaggeration :) 18 characters are enough for sure.',
               },
             ],
             repeatPassword: [

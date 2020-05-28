@@ -1,5 +1,5 @@
-@import '../../../theme/colors';
-@import '../../../theme/mixins';
+@import '../../theme/colors';
+@import '../../theme/mixins';
 
 .close {
   @include absolute(10px, 10px, auto, auto);
@@ -36,5 +36,15 @@
 
   &::after {
     transform: translateY(-1px) rotate(-45deg);
+  }
+
+  &___white {
+    top: 50%;
+    transform: translateY(-50%);
+
+    &::after,
+    &::before {
+      background: $white;
+    }
   }
 }
