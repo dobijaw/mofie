@@ -1,20 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
 import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import { routes } from 'routes';
-import { registration , clearErrors } from 'actions/user';
+import { registration } from 'actions/user';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
 
-
 const SignUpView = () => {
   const { user, userDispatch } = useContext(AppContext);
-  const [authErrors, toggleAuthErrors] = useState(false);
-
-  useEffect(() => () => clearErrors(userDispatch), [userDispatch]);
-  useEffect(() => toggleAuthErrors(!!user.error), [user]);
 
   const isAnyCapitalLetter = (value) =>
     value.split('').some((chart) => isNaN(chart * 1) && chart === chart.toUpperCase());
@@ -24,13 +19,12 @@ const SignUpView = () => {
   return (
     <>
       {user.isAuth && <Redirect to={routes.home} />}
+
       <UserAuthentication
         title="Sign up"
         copy="Already have an account?"
         description="Enter your email to create an account."
         errorMessage="Sorry, the account with the given address already exists. Enter a different email address."
-        isAnyError={authErrors}
-        clearErrorsAfterClose={() => clearErrors(userDispatch)}
         route={routes.login}
         routeName="Login"
       >

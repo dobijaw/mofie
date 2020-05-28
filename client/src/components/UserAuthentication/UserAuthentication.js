@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import FooterRoute from 'components/FooterRoute/FooterRoute';
 import PageTitle from 'components/PageTitle/PageTitle';
 import Logo from 'components/Navigation/Logo/Logo';
 import Copy from 'components/Copy/Copy';
 import Bar from 'components/Bar/Bar';
+import { AppContext } from 'context';
+import { clearErrors } from 'actions/user';
 import styles from './UserAuthentication.module.scss';
 
 const UserAuthentication = ({
@@ -14,21 +16,18 @@ const UserAuthentication = ({
   route,
   routeName,
   errorMessage,
-  isAnyError,
-  clearErrorsAfterClose,
 }) => {
-  const [isWarningVisible, toggleWarningVisibility] = useState(isAnyError);
+  const { user, userDispatch } = useContext(AppContext);
+  const [isErrorVisible, toggleErrorVisibility] = useState(false);
 
-  useEffect(() => toggleWarningVisibility(isAnyError), [isAnyError]);
-
-  const handleClose = () => {
-    toggleWarningVisibility(false);
-    clearErrorsAfterClose(false);
-  };
+  useEffect(() => toggleErrorVisibility(!!user.error), [user]);
+  useEffect(() => () => clearErrors(userDispatch), [userDispatch]);
 
   return (
     <div className={styles.authentication}>
-      {isWarningVisible && <Bar message={errorMessage} handleClose={handleClose} />}
+      {isErrorVisible && (
+        <Bar message={errorMessage} handleClose={() => clearErrors(userDispatch)} />
+      )}
       <aside className={styles.authentication_sidebar}>
         <Logo isMiddle />
       </aside>

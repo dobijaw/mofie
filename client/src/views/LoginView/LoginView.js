@@ -17,6 +17,7 @@ const LoginView = () => {
       <UserAuthentication
         title="Login"
         description="Please enter your data to log in."
+        errorMessage="Incorrect password or email. Please enter again."
         copy="Don't have an account?"
         route={routes.signup}
         routeName="Sign Up"
