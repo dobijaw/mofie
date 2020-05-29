@@ -72,6 +72,8 @@ const ProductionView = ({ location, match }) => {
         rate: p.vote_average || 0,
       }));
 
+      console.log(simillarData);
+
       setSimillarProductions(data);
     }
   }, [simillarData, simillarLoading, rootContext, simillarError]);
@@ -94,7 +96,7 @@ const ProductionView = ({ location, match }) => {
             ? detailsData.release_date
             : detailsData.first_air_date,
         title: prodType === FETCH_TYPE.MOVIE ? detailsData.title : detailsData.name,
-        tagline: detailsData.tagline || null,
+        tagline: detailsData.tagline || '',
         genres: detailsData.genres.map((i) => i.name),
         overview: detailsData.overview,
         keywords:

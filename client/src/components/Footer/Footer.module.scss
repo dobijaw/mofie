@@ -1,0 +1,24 @@
+@import '../../theme/mixins';
+@import '../../theme/colors';
+
+.footer {
+  display: block;
+  width: 100%;
+  padding: 0 0 40px;
+
+  &_copy {
+    display: block;
+    @include fontStyle($gray, 12px, 300, 1.5, 0);
+    text-align: center;
+  }
+
+  &_link {
+    color: $light-gray;
+    text-decoration: none;
+    transition: color 0.35s ease-in-out;
+
+    &:hover {
+      color: $gray;
+    }
+  }
+}

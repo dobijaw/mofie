@@ -1,17 +1,13 @@
-.wrapper {
+.mainTemplate {
   max-width: 1200px;
-  margin: 0 auto;
   padding: 20px 30px;
+  margin: 0 auto;
 
-  &Inside {
+  &_body {
     margin: 40px 0;
 
     @media (min-width: 768px) {
       margin: 80px 0;
     }
-  }
-
-  &___hidden {
-    overflow: hidden;
   }
 }
