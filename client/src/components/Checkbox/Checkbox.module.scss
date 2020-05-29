@@ -1,0 +1,66 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.checkbox {
+  position: relative;
+  display: block;
+  padding: 10px 0 10px 50px;
+  margin: 0;
+  @include fontStyle($white, 16px, 300, 1, 0);
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    .checkbox_mark {
+      background: $dark-graphite;
+    }
+  }
+
+  &_label {
+    display: block;
+  }
+
+  &_input {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked {
+      + .checkbox_mark {
+        background: $primary;
+
+        &::after {
+          transform: translate(calc(100% - 4px), -50%);
+        }
+      }
+    }
+  }
+
+  &_mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 40px;
+    display: block;
+    border-radius: 40px;
+    margin-top: 8px;
+    background-color: $dark-gray;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      top: 50%;
+      left: 0;
+      background: $dark-white;
+      transform: translate(0, -50%);
+      transition: all 0.35s ease-in-out;
+    }
+  }
+}
