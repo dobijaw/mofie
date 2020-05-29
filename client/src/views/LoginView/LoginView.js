@@ -7,6 +7,7 @@ import { routes } from 'routes';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
 import { authenticate } from 'actions/user';
+import Checkbox from 'components/Checkbox/Checkbox';
 
 const LoginView = () => {
   const { user, userDispatch } = useContext(AppContext);
@@ -31,6 +32,7 @@ const LoginView = () => {
           initialValues={{
             email: '',
             password: '',
+            stayLogIn: '',
           }}
           validate={(values) => ({
             email: [
@@ -49,11 +51,13 @@ const LoginView = () => {
                 errorMessage: 'Oh, surely the password was shorter.',
               },
             ],
+            stayLogIn: [],
           })}
           onSubmit={(values) => {
             authenticate(userDispatch, {
               email: values.email,
               password: values.password,
+              stayLogIn: values.stayLogIn,
             });
           }}
           render={(values, errors, handleChange, handleBlur, disabledSubmit) => (
@@ -80,6 +84,16 @@ const LoginView = () => {
                 onBlur={handleBlur}
                 label="Password"
                 error={errors.password}
+              />
+              <Checkbox
+                id="stayLogIn"
+                type="checkbox"
+                value={values.stayLogIn}
+                name="stayLogIn"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                label="Don't log me out"
+                error={errors.stayLogIn}
               />
               <Button type="submit" inForm disabled={disabledSubmit}>
                 login

@@ -6,7 +6,7 @@
   display: block;
   padding: 10px 0 10px 50px;
   margin: 0;
-  @include fontStyle($white, 16px, 300, 1, 0);
+  @include fontStyle($white, 13px, 300, 1.5, 0);
   cursor: pointer;
   user-select: none;
 
@@ -46,7 +46,7 @@
     width: 40px;
     display: block;
     border-radius: 40px;
-    margin-top: 8px;
+    margin-top: 10px;
     background-color: $dark-gray;
 
     &::after {

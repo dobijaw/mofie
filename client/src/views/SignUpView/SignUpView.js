@@ -7,6 +7,7 @@ import { routes } from 'routes';
 import { registration } from 'actions/user';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
+import Checkbox from 'components/Checkbox/Checkbox';
 
 const SignUpView = () => {
   const { user, userDispatch } = useContext(AppContext);
@@ -38,6 +39,7 @@ const SignUpView = () => {
             email: '',
             password: '',
             repeatPassword: '',
+            accept: false,
           }}
           validate={(values) => ({
             email: [
@@ -68,6 +70,12 @@ const SignUpView = () => {
               {
                 correct: values.repeatPassword === values.password,
                 errorMessage: 'Sorry! Please provide correct password',
+              },
+            ],
+            accept: [
+              {
+                correct: values.accept,
+                errorMessage: 'To set up an account, accept the terms.',
               },
             ],
           })}
@@ -113,6 +121,16 @@ const SignUpView = () => {
                 onBlur={handleBlur}
                 label="Repeat password"
                 error={errors.repeatPassword}
+              />
+              <Checkbox
+                id="accept"
+                type="checkbox"
+                value={values.accept}
+                name="accept"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                label="I understand that this is just a demo of the application."
+                error={errors.accept}
               />
               <Button type="submit" inForm disabled={disabledSubmit}>
                 Sign Up
