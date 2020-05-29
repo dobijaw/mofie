@@ -33,7 +33,7 @@ const SignUpView = () => {
         routeName="Login"
       >
         <Form
-          inputRequiringCleaning={['email', 'password', 'repeatPassword']}
+          inputRequiringCleaning={['email', 'password', 'repeatPassword', 'accept']}
           checkChanges={user}
           initialValues={{
             email: '',

@@ -52,8 +52,9 @@ const Form = ({
     if (!inputs) return;
 
     const clearedInputs = Object.entries(values).map((item) =>
-      inputs.includes(item[0]) ? [item[0], ''] : item,
+      inputs.includes(item[0]) ? [item[0], initialValues[item[0]]] : item,
     );
+    console.log(clearedInputs);
     const newObjectValues = Object.fromEntries(clearedInputs);
 
     setValues(newObjectValues);
