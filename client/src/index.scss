@@ -19,13 +19,13 @@ body {
   width: 3px;
 
   @media (min-width: 768px) {
-    width: 8px;
+    width: 9px;
   }
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: $light-black;
+  background: $dark-gray;
 }
 
 /* Handle */
@@ -35,5 +35,5 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: $light-gray;
+  background: $focus;
 }
