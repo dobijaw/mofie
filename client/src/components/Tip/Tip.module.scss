@@ -1,0 +1,60 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.tip {
+  &_mark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    @include circle(24px);
+    background: $dark-graphite;
+    cursor: help;
+
+    &:hover {
+      background: $light-gray;
+
+      > .tip_icon {
+        color: $dark-graphite;
+      }
+
+      + .tip_message {
+        opacity: 1;
+      }
+    }
+  }
+
+  &_icon {
+    display: block;
+    @include fontStyle($light-gray, 12px, 500, 24px, 0);
+    text-align: center;
+  }
+
+  &_message {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    width: 50%;
+    opacity: 0;
+    padding: 6px;
+    background: $dark-gray;
+    text-align: center;
+
+    &___visible {
+      opacity: 1;
+    }
+
+    @media (min-width: 960px) {
+      padding: 6px 10px;
+    }
+  }
+
+  &_copy {
+    @include fontStyle($light-gray, 11px, 300, 1, 0);
+
+    @media (min-width: 960px) {
+      font-size: 13px;
+      line-height: 1.2;
+    }
+  }
+}

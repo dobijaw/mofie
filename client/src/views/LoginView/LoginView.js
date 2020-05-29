@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
@@ -10,6 +10,11 @@ import { authenticate } from 'actions/user';
 
 const LoginView = () => {
   const { user, userDispatch } = useContext(AppContext);
+  const emailRef = useRef(null);
+
+  useEffect(() => {
+    emailRef.current.focus();
+  }, [user]);
 
   return (
     <div>
@@ -31,21 +36,17 @@ const LoginView = () => {
             email: [
               {
                 correct: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email),
-                errorMessage: "It's not an email",
+                errorMessage: 'The login must be an email.',
               },
             ],
             password: [
               {
-                correct: values.password.split('').some((i) => i === i.toUpperCase()),
-                errorMessage: 'One uppercase needed',
+                correct: values.password.length >= 6,
+                errorMessage: 'Your password was probably longer?',
               },
               {
-                correct: values.password.length > 8,
-                errorMessage: 'Username is to short',
-              },
-              {
-                correct: values.password.length <= 15,
-                errorMessage: 'Username is to long',
+                correct: values.password.length <= 18,
+                errorMessage: 'Oh, surely the password was shorter.',
               },
             ],
           })}
@@ -69,6 +70,7 @@ const LoginView = () => {
                 onBlur={handleBlur}
                 label="Email"
                 error={errors.email}
+                fieldRef={emailRef}
               />
               <Field
                 id="password"

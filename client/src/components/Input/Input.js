@@ -13,6 +13,8 @@ const Input = ({
   lightTheme,
   disabled,
   onClick,
+  inputRef,
+  onFocus,
 }) => (
   <>
     {type === 'textarea' ? (
@@ -20,11 +22,13 @@ const Input = ({
         id={id}
         name={name}
         placeholder={placeholder}
-        onChange={(e) => onChange(name, e.target.value)}
-        onBlur={() => onBlur(name)}
+        onChange={onChange ? (e) => onChange(name, e.target.value) : null}
+        onBlur={onBlur && onBlur}
         value={value}
         className={[styles.input, lightTheme && styles.input___light].join(' ')}
         disabled={disabled}
+        ref={inputRef}
+        onFocus={onFocus}
       />
     ) : (
       <input
@@ -33,11 +37,13 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         onChange={onChange ? (e) => onChange(name, e.target.value) : null}
-        onBlur={onBlur ? () => onBlur(name) : null}
+        onBlur={onBlur && onBlur}
         value={value}
         className={[styles.input, lightTheme && styles.input___light].join(' ')}
         disabled={disabled}
         onClick={onClick}
+        ref={inputRef}
+        onFocus={onFocus}
       />
     )}
   </>

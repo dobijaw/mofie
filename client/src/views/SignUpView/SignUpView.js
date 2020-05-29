@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
@@ -10,6 +10,9 @@ import { Redirect } from 'react-router';
 
 const SignUpView = () => {
   const { user, userDispatch } = useContext(AppContext);
+  const emailRef = useRef(null);
+
+  useEffect(() => emailRef.current.focus(), [user]);
 
   const isAnyCapitalLetter = (value) =>
     value.split('').some((chart) => isNaN(chart * 1) && chart === chart.toUpperCase());
@@ -86,6 +89,7 @@ const SignUpView = () => {
                 onBlur={handleBlur}
                 label="Email"
                 error={errors.email}
+                fieldRef={emailRef}
               />
               <Field
                 id="password"
@@ -97,6 +101,7 @@ const SignUpView = () => {
                 onBlur={handleBlur}
                 label="New password"
                 error={errors.password}
+                message="Between 6 and 18 characters, at least one upper case letter and one number."
               />
               <Field
                 id="repeatPassword"
