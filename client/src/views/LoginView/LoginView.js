@@ -28,6 +28,8 @@ const LoginView = () => {
         routeName="Sign Up"
       >
         <Form
+          inputRequiringCleaning={['password']}
+          checkChanges={user}
           initialValues={{
             email: '',
             password: '',
@@ -50,15 +52,13 @@ const LoginView = () => {
               },
             ],
           })}
-          onSubmit={(values, clearInputs) => {
+          onSubmit={(values) => {
             authenticate(userDispatch, {
               email: values.email,
               password: values.password,
             });
-
-            clearInputs(['password']);
           }}
-          render={(values, errors, handleChange, handleBlur) => (
+          render={(values, errors, handleChange, handleBlur, disabledSubmit) => (
             <>
               <Field
                 id="email"
@@ -83,7 +83,7 @@ const LoginView = () => {
                 label="Password"
                 error={errors.password}
               />
-              <Button type="submit" inForm>
+              <Button type="submit" inForm disabled={disabledSubmit}>
                 login
               </Button>
             </>

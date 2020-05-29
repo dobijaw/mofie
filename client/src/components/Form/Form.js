@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const Form = ({ render, initialValues, className, onSubmit, validate, submitOnChange }) => {
+const Form = ({
+  render,
+  initialValues,
+  className,
+  onSubmit,
+  validate,
+  submitOnChange,
+  checkChanges,
+  inputRequiringCleaning,
+}) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [curName, setCurName] = useState('');
   const [currentError, setCurrentError] = useState('');
+  const [disabledSubmit, toggleSubmitDisabled] = useState(false);
 
-  useEffect(() => {
-    setCurrentError(errors[curName] || '');
-  }, [errors, curName]);
+  useEffect(() => setCurrentError(errors[curName] || ''), [errors, curName]);
 
   const getAllErrors = useCallback((validateRules) => {
     const validateErrors = {};
@@ -41,10 +49,7 @@ const Form = ({ render, initialValues, className, onSubmit, validate, submitOnCh
   };
 
   const clearInputs = (inputs) => {
-    if (!inputs) {
-      setValues(initialValues);
-      return;
-    }
+    if (!inputs) return;
 
     const clearedInputs = Object.entries(values).map((item) =>
       inputs.includes(item[0]) ? [item[0], ''] : item,
@@ -54,17 +59,28 @@ const Form = ({ render, initialValues, className, onSubmit, validate, submitOnCh
     setValues(newObjectValues);
   };
 
+  const clearInputsCallback = useCallback(clearInputs, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (disabledSubmit) return;
 
     const validateErrors = getAllErrors(validate(values));
     setErrors(validateErrors);
 
     const submitPossible = Object.values(validateErrors).some((i) => !!i);
     if (!submitPossible) {
-      onSubmit(values, clearInputs);
+      onSubmit(values);
+      if (checkChanges) toggleSubmitDisabled(true);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (checkChanges) toggleSubmitDisabled(false);
+      if (inputRequiringCleaning) clearInputsCallback(inputRequiringCleaning);
+    }, 500);
+  }, [checkChanges, inputRequiringCleaning, clearInputsCallback]);
 
   return (
     <form
@@ -75,7 +91,7 @@ const Form = ({ render, initialValues, className, onSubmit, validate, submitOnCh
       onSubmit={handleSubmit}
       noValidate
     >
-      {render(values, errors, handleChange, handleBlur)}
+      {render(values, errors, handleChange, handleBlur, disabledSubmit)}
     </form>
   );
 };

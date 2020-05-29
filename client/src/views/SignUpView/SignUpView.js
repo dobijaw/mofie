@@ -32,6 +32,8 @@ const SignUpView = () => {
         routeName="Login"
       >
         <Form
+          inputRequiringCleaning={['email', 'password', 'repeatPassword']}
+          checkChanges={user}
           initialValues={{
             email: '',
             password: '',
@@ -69,15 +71,13 @@ const SignUpView = () => {
               },
             ],
           })}
-          onSubmit={(values, clearInputs) => {
+          onSubmit={(values) => {
             registration(userDispatch, {
               email: values.email,
               password: values.password,
             });
-
-            clearInputs();
           }}
-          render={(values, errors, handleChange, handleBlur) => (
+          render={(values, errors, handleChange, handleBlur, disabledSubmit) => (
             <>
               <Field
                 id="email"
@@ -114,7 +114,7 @@ const SignUpView = () => {
                 label="Repeat password"
                 error={errors.repeatPassword}
               />
-              <Button type="submit" inForm>
+              <Button type="submit" inForm disabled={disabledSubmit}>
                 Sign Up
               </Button>
             </>
