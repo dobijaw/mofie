@@ -76,10 +76,12 @@ const Form = ({
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (checkChanges) toggleSubmitDisabled(false);
       if (inputRequiringCleaning) clearInputsCallback(inputRequiringCleaning);
-    }, 500);
+    }, 250);
+
+    return () => clearTimeout(timeout);
   }, [checkChanges, inputRequiringCleaning, clearInputsCallback]);
 
   return (

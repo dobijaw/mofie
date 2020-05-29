@@ -12,9 +12,7 @@ const LoginView = () => {
   const { user, userDispatch } = useContext(AppContext);
   const emailRef = useRef(null);
 
-  useEffect(() => {
-    emailRef.current.focus();
-  }, [user]);
+  useEffect(() => emailRef.current.focus(), [user]);
 
   return (
     <div>

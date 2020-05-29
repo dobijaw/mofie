@@ -8,6 +8,9 @@ export const AUTH_LOCAL_SUCCESS = 'AUTH_LOCAL_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const registration = (dispatch, data) => {
+  const controller = new window.AbortController();
+  const { signal } = controller;
+
   fetch('http://localhost:9000/user/signup', {
     method: 'POST',
     headers: {
@@ -20,33 +23,37 @@ export const registration = (dispatch, data) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.warning) {
-        dispatch({
-          type: REGI_FAILURE,
-          payload: {
-            error: res.warning,
-          },
-        });
-      } else {
-        dispatch({
-          type: REGI_SUCCESS,
-          payload: {
-            userID: res.userID,
-            token: res.token,
-          },
-        });
+      if (!signal.aborted) {
+        if (res.warning) {
+          dispatch({
+            type: REGI_FAILURE,
+            payload: {
+              error: res.warning,
+            },
+          });
+        } else {
+          dispatch({
+            type: REGI_SUCCESS,
+            payload: {
+              userID: res.userID,
+              token: res.token,
+            },
+          });
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userID', res.userID);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userID', res.userID);
+        }
       }
     })
     .catch((err) => {
-      dispatch({
-        type: REGI_FAILURE,
-        payload: {
-          message: err.error,
-        },
-      });
+      if (!signal.aborted) {
+        dispatch({
+          type: REGI_FAILURE,
+          payload: {
+            message: err.error,
+          },
+        });
+      }
     });
 };
 
@@ -66,6 +73,9 @@ export const localAuthenticate = (dispatch) => {
 };
 
 export const authenticate = (dispatch, data) => {
+  const controller = new window.AbortController();
+  const { signal } = controller;
+
   fetch('http://localhost:9000/user/login', {
     method: 'POST',
     headers: {
@@ -78,30 +88,33 @@ export const authenticate = (dispatch, data) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log('authen res then');
-      console.log(res);
-      if (res.warning) {
-        dispatch({
-          type: AUTH_FAILURE,
-          payload: {
-            error: res.warning,
-          },
-        });
-      } else {
-        dispatch({
-          type: AUTH_SUCCESS,
-          payload: {
-            userID: res.userID,
-            token: res.token,
-          },
-        });
+      if (!signal.aborted) {
+        console.log(res);
+        if (res.warning) {
+          dispatch({
+            type: AUTH_FAILURE,
+            payload: {
+              error: res.warning,
+            },
+          });
+        } else {
+          dispatch({
+            type: AUTH_SUCCESS,
+            payload: {
+              userID: res.userID,
+              token: res.token,
+            },
+          });
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userID', res.userID);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userID', res.userID);
+        }
       }
     })
     .catch((err) => {
-      console.log(err);
+      if (!signal.aborted) {
+        console.log(err);
+      }
     });
 };
 
