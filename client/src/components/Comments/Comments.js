@@ -47,7 +47,15 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                 ],
               })}
               onSubmit={(values) => {
-                updateInCollection(collectionDispatch, collectionItemID, values);
+                const customData = {
+                  categoryId: values.category.id,
+                  comment: values.comment,
+                  rate: {
+                    id: values.rate.id,
+                    value: values.rate.value,
+                  },
+                };
+                updateInCollection(collectionDispatch, collectionItemID, customData);
                 setVisible(false);
               }}
               render={(values, errors, handleChange, handleBlur) => (
