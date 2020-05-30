@@ -84,7 +84,7 @@ const CollectionView = () => {
     );
 
     const sortByCategories = sortByType.filter((c) =>
-      categoryValue.id === 'all' ? c : categoryValue.id === c.customData?.category?.id,
+      categoryValue.id === 'all' ? c : categoryValue.id === c.customData?.categoryID,
     );
 
     switch (sortValue.id) {
@@ -145,7 +145,9 @@ const CollectionView = () => {
                 tagline={c.data.tagline}
                 rate={c.data.rate}
                 customRate={c.customData?.rate?.value}
-                customCategory={c.customData?.category?.value}
+                customCategory={
+                  categories.find((item) => item.id === c.customData?.categoryID)?.value
+                }
                 noModal
               />
             ))}

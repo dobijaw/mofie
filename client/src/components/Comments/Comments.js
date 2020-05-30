@@ -22,7 +22,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
           {visible ? (
             <Form
               initialValues={{
-                category,
+                category: categories.find((item) => item.id === category),
                 rate,
                 comment,
               }}
@@ -62,7 +62,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                     error={errors.category}
                     options={categories}
                     placeholder="Choose a category"
-                    withButton
+                    addNewItem
                     className={styles.comments_formItem}
                   />
                   <Select
@@ -96,7 +96,9 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
           ) : (
             <>
               <CommentsItem title="rate">{rate.value}</CommentsItem>
-              <CommentsItem title="category">{category.value}</CommentsItem>
+              <CommentsItem title="category">
+                {categories.find((item) => item.id === category)?.value}
+              </CommentsItem>
               <CommentsItem title="comment">{comment}</CommentsItem>
             </>
           )}

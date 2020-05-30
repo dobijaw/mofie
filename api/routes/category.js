@@ -96,7 +96,6 @@ router.post('/add', (req, res, next) => {
         category
           .save()
           .then((result) => {
-            console.log(result);
             return res.status(201).json({
               message: 'Category added.',
               id: category._id,

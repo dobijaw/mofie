@@ -181,7 +181,7 @@ const ProductionView = ({ location, match }) => {
             {isInCollection && (
               <Comments
                 rate={isInCollection.customData.rate}
-                category={isInCollection.customData.category}
+                category={isInCollection.customData.categoryID}
                 comment={isInCollection.customData.comment}
                 collectionItemID={isInCollection._id}
               />

@@ -35,16 +35,11 @@ router.post('/add', (req, res, next) => {
             title: req.body.data.title,
           },
           customData: {
-            category: {
-              value: req.body.customData.category.value,
-              id: req.body.customData.category.id,
-              key: req.body.customData.category.key,
-            },
+            categoryID: req.body.customData.categoryID,
             comment: req.body.customData.comment,
             rate: {
-              value: req.body.customData.rate.value,
               id: req.body.customData.rate.id,
-              key: req.body.customData.rate.key,
+              value: req.body.customData.rate.value,
             },
           },
         });
@@ -52,8 +47,6 @@ router.post('/add', (req, res, next) => {
         production
           .save()
           .then((result) => {
-            // console.log(result);
-
             return res.status(200).json({
               message: 'Production added',
               production,

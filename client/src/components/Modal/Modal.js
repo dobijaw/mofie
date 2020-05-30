@@ -75,14 +75,10 @@ const Modal = ({ selected }) => {
         title: selectedData.title,
       },
       customData: {
-        category: {
-          value: values.category.value,
-          key: values.category.key,
-          id: values.category.id,
-        },
+        categoryID: values.category.id,
         rate: {
-          value: values.rate.value,
           id: values.rate.id,
+          value: values.rate.value,
         },
         comment: values.comment,
       },
