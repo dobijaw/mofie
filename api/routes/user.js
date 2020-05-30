@@ -61,6 +61,28 @@ router.post('/signup', (req, res, next) => {
     });
 });
 
+router.get('/authenticate/:userId', (req, res, next) => {
+  User.findById({ _id: req.params.userId })
+    .exec()
+    .then((result) => {
+      if (result) {
+        return res.status(200).json({
+          message: 'Authenticate.',
+          userId: result._id,
+        });
+      } else {
+        return res.status(401).json({
+          warning: "User doesn't exist.",
+        });
+      }
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        error: err,
+      });
+    });
+});
+
 router.post('/login', (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()

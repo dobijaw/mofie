@@ -18,12 +18,12 @@ const Store = ({ children }) => {
   useEffect(() => localAuthenticate(userDispatch), []);
 
   useEffect(() => {
-    getCategories(categoriesDispatch, user.id);
-  }, [categoriesDispatch, user.id]);
+    if (user.id) getCategories(categoriesDispatch, user.id);
+  }, [categoriesDispatch, user]);
 
   useEffect(() => {
-    getCollection(collectionDispatch, user.id);
-  }, [collectionDispatch, user.id]);
+    if (user.id) getCollection(collectionDispatch, user.id);
+  }, [collectionDispatch, user]);
 
   const state = {
     user,

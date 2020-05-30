@@ -59,17 +59,29 @@ export const registration = (dispatch, data) => {
 
 export const localAuthenticate = (dispatch) => {
   const token = localStorage.getItem('token');
-  const userID = localStorage.getItem('userID');
+  const userId = localStorage.getItem('userID');
 
-  if (!token || !userID) return;
+  if (!token || !userId) return;
 
-  dispatch({
-    type: AUTH_LOCAL_SUCCESS,
-    payload: {
-      userID,
-      token,
-    },
-  });
+  fetch(`http://localhost:9000/user/authenticate/${userId}`)
+    .then((res) => res.json())
+    .then((res) => {
+      if (!res.warning) {
+        dispatch({
+          type: AUTH_LOCAL_SUCCESS,
+          payload: {
+            userID: res.userId,
+            token,
+          },
+        });
+      } else {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userID');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const authenticate = (dispatch, data) => {
