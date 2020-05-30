@@ -9,6 +9,7 @@ router.post('/add', (req, res, next) => {
   console.log(req.body);
 
   Production.find({
+    creator: req.body.creator,
     productionID: req.body.productionID,
     productionType: req.body.productionType,
   })
