@@ -55,7 +55,7 @@ const Modal = ({ selected }) => {
 
   useEffect(() => {
     const isAdded = collection.some(
-      (i) => i.productionID === selected.id && i.productionType === selected.productionType,
+      (i) => i.productionId === selected.id && i.productionType === selected.productionType,
     );
     setInCollection(isAdded);
   }, [collection, selected.id, selected.productionType]);
@@ -64,7 +64,7 @@ const Modal = ({ selected }) => {
     const requestData = {
       creator: user.id,
       productionType: selected.productionType,
-      productionID: selected.id,
+      productionId: selected.id,
       data: {
         genres: selectedData.genres,
         image: selectedData.image,
@@ -75,7 +75,7 @@ const Modal = ({ selected }) => {
         title: selectedData.title,
       },
       customData: {
-        categoryID: values.category.id,
+        categoryId: values.category.id,
         rate: {
           id: values.rate.id,
           value: values.rate.value,

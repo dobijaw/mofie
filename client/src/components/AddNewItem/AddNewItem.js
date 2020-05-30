@@ -7,10 +7,10 @@ import { AppContext } from 'context';
 import { addCategory, updateCategory } from 'actions/categories';
 import styles from './AddNewItem.module.scss';
 
-const AddNewItem = ({ lightTheme, categoryID, getData }) => {
+const AddNewItem = ({ lightTheme, categoryId, getData, initialValue }) => {
   const { user, categories, categoriesDispatch } = useContext(AppContext);
   const [isButtonDisabled, toggleButtonDisabling] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(initialValue || '');
   const [focus, setFocus] = useState(false);
   const [error, setError] = useState('');
 
@@ -84,10 +84,10 @@ const AddNewItem = ({ lightTheme, categoryID, getData }) => {
       .filter((item) => item !== '')
       .join(' ');
 
-    if (categoryID) {
+    if (categoryId) {
       (async () => {
         const cat = await updateCategory(categoriesDispatch, {
-          id: categoryID,
+          categoryId,
           value: categoryFormat,
         });
 
@@ -98,7 +98,7 @@ const AddNewItem = ({ lightTheme, categoryID, getData }) => {
     } else {
       (async () => {
         const cat = await addCategory(categoriesDispatch, {
-          id: user.id,
+          userId: user.id,
           value: categoryFormat,
         });
 
@@ -108,7 +108,7 @@ const AddNewItem = ({ lightTheme, categoryID, getData }) => {
         setCategory('');
       })();
     }
-  }, [categoriesDispatch, category, categoryID, user, validationCallback, getData]);
+  }, [categoriesDispatch, category, categoryId, user, validationCallback, getData]);
 
   const handleClick = () => handleSubmitItem();
   const handleKeyUp = ({ keyCode }) => focus && keyCode === 13 && handleSubmitItem();
@@ -139,7 +139,7 @@ const AddNewItem = ({ lightTheme, categoryID, getData }) => {
         handleClick={handleClick}
         disabled={isButtonDisabled}
       >
-        {categoryID ? 'Update category' : 'Add new category'}
+        {categoryId ? 'Update category' : 'Add new category'}
       </Button>
     </div>
   );
@@ -147,12 +147,12 @@ const AddNewItem = ({ lightTheme, categoryID, getData }) => {
 
 AddNewItem.propTypes = {
   lightTheme: PropTypes.bool,
-  categoryID: PropTypes.string,
+  categoryId: PropTypes.string,
 };
 
 AddNewItem.defaultProps = {
   lightTheme: false,
-  categoryID: '',
+  categoryId: '',
 };
 
 export default AddNewItem;

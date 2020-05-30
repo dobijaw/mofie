@@ -25,7 +25,7 @@ const CategoriesItem = ({ value, id, handleDeleteClick }) => {
           <span className={styles.categoriesItem_category}>{value}</span>
         </div>
       ) : (
-        <AddNewItem categoryID={id} getData={(d) => setData(d)} />
+        <AddNewItem categoryId={id} getData={(d) => setData(d)} initialValue={value} />
       )}
     </li>
   );

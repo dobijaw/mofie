@@ -5,7 +5,7 @@ const productionSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
   creator: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   productionType: { type: String, enum: ['movie', 'tv'], required: true },
-  productionID: { type: Number, required: true },
+  productionId: { type: Number, required: true },
   data: {
     genres: [{ type: String }],
     image: { type: String },
@@ -16,7 +16,7 @@ const productionSchema = new Schema({
     title: { type: String },
   },
   customData: {
-    categoryID: {
+    categoryId: {
       type: Schema.Types.ObjectId,
       ref: 'Category',
       required: true,

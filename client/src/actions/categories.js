@@ -1,16 +1,52 @@
-export const ADD_CATEGORY = 'ADD_CATEGORY';
-export const GET_CATEGORIES = 'GET_CATEGORIES';
-export const DELETE_CATEGORY = 'DELETE_CATEGORY';
-export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
+export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS';
+export const UPDATE_CATEGORY_SUCCESS = 'UPDATE_CATEGORY_SUCCESS';
+export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS';
 
-export const getCategories = (dispatch, userID) => {
-  fetch(`http://localhost:9000/category/${userID}`)
+export const addCategory = async (dispatch, { userId, value }) => {
+  const response = await fetch('http://localhost:9000/category/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      userId,
+      value,
+    }),
+  });
+
+  const res = await response.json();
+
+  try {
+    if (!res.warning) {
+      dispatch({
+        type: ADD_CATEGORY_SUCCESS,
+        payload: {
+          id: res._id,
+          value: res.value,
+        },
+      });
+
+      return {
+        id: res._id,
+        value: res.value,
+      };
+    } 
+      console.log(res.warning);
+    
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getCategories = (dispatch, userId) => {
+  fetch(`http://localhost:9000/category/${userId}`)
     .then((res) => res.json())
     .then((res) => {
       dispatch({
-        type: GET_CATEGORIES,
+        type: GET_CATEGORIES_SUCCESS,
         payload: [
-          ...res.data.reverse().map((c) => ({
+          ...res.categories.reverse().map((c) => ({
             id: c._id,
             value: c.value,
           })),
@@ -22,63 +58,8 @@ export const getCategories = (dispatch, userID) => {
     });
 };
 
-export const addCategory = async (dispatch, data) => {
-  const response = await fetch('http://localhost:9000/category/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      userID: data.id,
-      value: data.value,
-    }),
-  });
-
-  const json = await response.json();
-
-  try {
-    if (!json.warning) {
-      dispatch({
-        type: ADD_CATEGORY,
-        payload: {
-          id: json.id,
-          value: json.value,
-        },
-      });
-
-      return {
-        id: json.id,
-        value: json.value,
-      };
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const deleteCategory = (dispatch, id) => {
-  fetch(`http://localhost:9000/category/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((res) => {
-      console.log(res);
-      dispatch({
-        type: DELETE_CATEGORY,
-        payload: {
-          id,
-        },
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const updateCategory = async (dispatch, { id, value }) => {
-  const response = await fetch(`http://localhost:9000/category/${id}`, {
+export const updateCategory = async (dispatch, { categoryId, value }) => {
+  const response = await fetch(`http://localhost:9000/category/${categoryId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -88,46 +69,47 @@ export const updateCategory = async (dispatch, { id, value }) => {
     }),
   });
 
-  const json = await response.json();
+  const res = await response.json();
 
   try {
-    dispatch({
-      type: UPDATE_CATEGORY,
-      payload: {
-        id: json.id,
-        value: json.value,
-      },
-    });
+    if (!res.warning) {
+      dispatch({
+        type: UPDATE_CATEGORY_SUCCESS,
+        payload: {
+          id: res._id,
+          value: res.value,
+        },
+      });
 
-    return {
-      id: json.id,
-      value: json.value,
-    };
+      return {
+        id: res._id,
+        value: res.value,
+      };
+    } 
+      console.log(res.warning);
+    
   } catch (e) {
     console.log(e);
   }
+};
 
-  // fetch(`http://localhost:9000/category/${id}`, {
-  //   method: 'PUT',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     value,
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     console.log(res);
-  //     dispatch({
-  //       type: UPDATE_CATEGORY,
-  //       payload: {
-  //         id: res.id,
-  //         value: res.value,
-  //       },
-  //     });
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+export const deleteCategory = (dispatch, categoryId) => {
+  fetch(`http://localhost:9000/category/${categoryId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      dispatch({
+        type: DELETE_CATEGORY_SUCCESS,
+        payload: {
+          id: res._id,
+        },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

@@ -1,22 +1,22 @@
 import {
-  ADD_CATEGORY,
-  DELETE_CATEGORY,
-  GET_CATEGORIES,
-  UPDATE_CATEGORY,
+  ADD_CATEGORY_SUCCESS,
+  GET_CATEGORIES_SUCCESS,
+  UPDATE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_SUCCESS,
 } from 'actions/categories';
 
 const categoriesReducer = (state, action) => {
   switch (action.type) {
-    case ADD_CATEGORY:
+    case ADD_CATEGORY_SUCCESS:
       return [action.payload, ...state];
-    case DELETE_CATEGORY:
-      return state.filter((item) => item.id !== action.payload.id);
-    case GET_CATEGORIES:
+    case GET_CATEGORIES_SUCCESS:
       return action.payload;
-    case UPDATE_CATEGORY:
+    case UPDATE_CATEGORY_SUCCESS:
       return state.map((item) =>
         item.id === action.payload.id ? { ...item, value: action.payload.value } : item,
       );
+    case DELETE_CATEGORY_SUCCESS:
+      return state.filter((item) => item.id !== action.payload.id);
     default:
       return state;
   }

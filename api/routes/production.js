@@ -10,7 +10,7 @@ router.post('/add', (req, res, next) => {
 
   Production.find({
     creator: req.body.creator,
-    productionID: req.body.productionID,
+    productionId: req.body.productionId,
     productionType: req.body.productionType,
   })
     .exec()
@@ -24,7 +24,7 @@ router.post('/add', (req, res, next) => {
           _id: new mongoose.Types.ObjectId(),
           creator: req.body.creator,
           productionType: req.body.productionType,
-          productionID: req.body.productionID,
+          productionId: req.body.productionId,
           data: {
             genres: req.body.data.genres,
             image: req.body.data.image,
@@ -35,7 +35,7 @@ router.post('/add', (req, res, next) => {
             title: req.body.data.title,
           },
           customData: {
-            categoryID: req.body.customData.categoryID,
+            categoryId: req.body.customData.categoryId,
             comment: req.body.customData.comment,
             rate: {
               id: req.body.customData.rate.id,

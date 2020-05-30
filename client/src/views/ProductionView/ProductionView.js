@@ -146,7 +146,7 @@ const ProductionView = ({ location, match }) => {
 
   useEffect(() => {
     if (collection) {
-      const isData = collection.find((item) => item.productionID === +id);
+      const isData = collection.find((item) => item.productionId === +id);
       setInCollection(isData || false);
     }
   }, [collection, id]);
@@ -181,7 +181,7 @@ const ProductionView = ({ location, match }) => {
             {isInCollection && (
               <Comments
                 rate={isInCollection.customData.rate}
-                category={isInCollection.customData.categoryID}
+                category={isInCollection.customData.categoryId}
                 comment={isInCollection.customData.comment}
                 collectionItemID={isInCollection._id}
               />
