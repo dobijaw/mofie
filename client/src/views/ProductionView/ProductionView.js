@@ -178,7 +178,7 @@ const ProductionView = ({ location, match }) => {
               title={renderedData.title}
               crew={renderedData.mainCrew}
             />
-            {isInCollection && (
+            {isInCollection && user.isAuth && (
               <Comments
                 rate={isInCollection.customData.rate}
                 category={isInCollection.customData.categoryId}

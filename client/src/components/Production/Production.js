@@ -31,7 +31,7 @@ const Production = ({
     </div>
     <div className={[styles.production_column, styles.production_column___data].join(' ')}>
       <div className={styles.production_buttons}>
-        {isInCollection ? (
+        {isInCollection && isAuth ? (
           <Button
             asDelete
             type="button"
