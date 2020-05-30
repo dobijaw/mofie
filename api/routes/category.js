@@ -77,6 +77,7 @@ router.put('/:id', (req, res, next) => {
 
 router.post('/add', (req, res, next) => {
   Category.find({
+    creator: req.body.userID,
     value: req.body.value,
   })
     .exec()
