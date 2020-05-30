@@ -15,6 +15,7 @@ import Field from 'components/Field/Field';
 import Close from 'components/Close/Close';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
+// import AddNewItem from 'components/AddNewItem/AddNewItem';
 
 const Modal = ({ selected }) => {
   const { user, categories, collection, collectionDispatch } = useContext(AppContext);
@@ -164,7 +165,6 @@ const Modal = ({ selected }) => {
                             options={categories}
                             placeholder="Choose a category"
                             lightTheme
-                            withButton
                           />
                           <Select
                             id="rate"

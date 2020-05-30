@@ -1,0 +1,24 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.categoriesItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  height: 200px;
+  padding: 30px;
+  border: 1px solid $dark-graphite;
+  margin: 20px 0;
+
+  &_buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_category {
+    display: block;
+    margin: 20px 0 0;
+    @include fontStyle($white, 21px, 400, 1.6, 0);
+  }
+}

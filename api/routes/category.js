@@ -22,9 +22,62 @@ router.get('/:userID', (req, res, next) => {
     });
 });
 
+router.delete('/:id', (req, res, next) => {
+  Category.remove({
+    _id: req.params.id,
+  })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        message: 'Category deleted',
+      });
+    })
+    .catch();
+
+  res.json({
+    message: req.params.id,
+  });
+});
+
+router.put('/:id', (req, res, next) => {
+  Category.findOne({
+    _id: req.params.id,
+  })
+    .exec()
+    .then((category) => {
+      if (!category) {
+        return res.status(409).json({
+          warning: 'Category not found.',
+        });
+      }
+
+      category.value = req.body.value;
+
+      category
+        .save()
+        .then((result) => {
+          console.log(result);
+
+          res.status(201).json({
+            id: category._id,
+            value: category.value,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+
+          res.status(500).json({
+            error: err,
+          });
+        });
+    })
+    .catch();
+});
+
 router.post('/add', (req, res, next) => {
   Category.find({
-    key: req.body.key,
+    value: req.body.value,
   })
     .exec()
     .then((cat) => {
@@ -37,7 +90,6 @@ router.post('/add', (req, res, next) => {
           _id: new mongoose.Types.ObjectId(),
           creator: req.body.userID,
           value: req.body.value,
-          key: req.body.key,
         });
 
         category
@@ -48,7 +100,6 @@ router.post('/add', (req, res, next) => {
               message: 'Category added.',
               id: category._id,
               value: category.value,
-              key: category.key,
             });
           })
           .catch((err) => {

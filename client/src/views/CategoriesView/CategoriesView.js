@@ -1,13 +1,15 @@
 import React from 'react';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import PageTitle from 'components/PageTitle/PageTitle';
-import Checkbox from 'components/Checkbox/Checkbox';
+import AddNewItem from 'components/AddNewItem/AddNewItem';
+import Categories from 'components/Categories/Categories';
 
 const CategoriesView = () => {
   return (
     <MainTemplate>
       <PageTitle center>Categories</PageTitle>
-      <Checkbox label="I agree that this is only test app" id="Agree" name="agree" />
+      <AddNewItem />
+      <Categories />
     </MainTemplate>
   );
 };

@@ -1,0 +1,6 @@
+@import '../../theme/colors';
+@import '../../theme/mixins';
+
+.categories {
+  @include listReset;
+}
