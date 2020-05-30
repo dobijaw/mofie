@@ -121,25 +121,27 @@ const AddNewItem = ({ lightTheme, categoryId, getData, initialValue }) => {
 
   return (
     <div className={styles.addNewItem}>
-      <Input
-        type="text"
-        id="newCategory"
-        name="newCategory"
-        placeholder="Type custom category"
-        onChange={handleChange}
-        lightTheme={lightTheme}
-        value={category}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-      />
-      {error && <FormError error={error} />}
+      <div className={styles.addNewItem_input}>
+        <Input
+          type="text"
+          id="newCategory"
+          name="newCategory"
+          placeholder="Type custom category"
+          onChange={handleChange}
+          lightTheme={lightTheme}
+          value={category}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
+        />
+        {error && <FormError error={error} className={styles.addNewItem_error} />}
+      </div>
       <Button
         className={styles.selectButton}
         lightTheme={lightTheme}
         handleClick={handleClick}
         disabled={isButtonDisabled}
       >
-        {categoryId ? 'Update category' : 'Add new category'}
+        {categoryId ? 'Update' : 'Add'}
       </Button>
     </div>
   );

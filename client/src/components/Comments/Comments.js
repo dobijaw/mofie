@@ -75,6 +75,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                     placeholder="Choose a category"
                     addNewItem
                     className={styles.comments_formItem}
+                    listLightTheme
                   />
                   <Select
                     id="rate"

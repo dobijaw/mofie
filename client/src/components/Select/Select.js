@@ -20,6 +20,7 @@ const Select = ({
   placeholder,
   className,
   addNewItem,
+  listLightTheme,
 }) => {
   const [isListVisible, toggleListVisibility] = useState(false);
   const [isPlaceholder, setPlaceholder] = useState(!value?.value);
@@ -61,7 +62,12 @@ const Select = ({
         handleItemClick={handleListOptionChange}
         isVisible={isListVisible}
       >
-        {addNewItem && <AddNewItem getData={(c) => handleNewItemAdding(name, c)} />}
+        {addNewItem && (
+          <AddNewItem
+            getData={(c) => handleNewItemAdding(name, c)}
+            lightTheme={lightTheme || listLightTheme}
+          />
+        )}
       </SelectList>
       {error && <FormError error={error} className={styles.selectError} />}
     </div>

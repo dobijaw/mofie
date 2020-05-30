@@ -13,11 +13,19 @@ const CategoriesItem = ({ value, id, handleDeleteClick }) => {
   return (
     <li className={styles.categoriesItem}>
       <div className={styles.categoriesItem_buttons}>
-        <button type="button" onClick={() => toggleEditVisibility(!editVisible)}>
-          edit
-        </button>
-        <button type="button" onClick={handleDeleteClick}>
+        <button
+          type="button"
+          onClick={handleDeleteClick}
+          className={styles.categoriesItem_button}
+        >
           delete
+        </button>
+        <button
+          type="button"
+          onClick={() => toggleEditVisibility(!editVisible)}
+          className={styles.categoriesItem_button}
+        >
+          edit
         </button>
       </div>
       {!editVisible ? (

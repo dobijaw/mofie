@@ -26,7 +26,7 @@
   }
 
   &:focus {
-    outline-color: $focus;
+    outline: 0;
   }
 
   &[disabled] {

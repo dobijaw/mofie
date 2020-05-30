@@ -1,0 +1,21 @@
+.addNewItem {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 0;
+
+  > button {
+    margin-top: 0;
+    margin-left: 20px;
+  }
+
+  &_input {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  &_error {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+  }
+}
