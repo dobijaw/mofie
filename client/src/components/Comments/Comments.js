@@ -22,7 +22,10 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
           {visible ? (
             <Form
               initialValues={{
-                category: categories.find((item) => item.id === category),
+                category: categories.find((item) => item.id === category) || {
+                  id: 'nocategory',
+                  value: '',
+                },
                 rate,
                 comment,
               }}
@@ -105,7 +108,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
             <>
               <CommentsItem title="rate">{rate.value}</CommentsItem>
               <CommentsItem title="category">
-                {categories.find((item) => item.id === category)?.value}
+                {categories.find((item) => item.id === category)?.value || 'NO CATEGORY'}
               </CommentsItem>
               <CommentsItem title="comment">{comment}</CommentsItem>
             </>

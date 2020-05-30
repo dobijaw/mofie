@@ -54,13 +54,22 @@ const typeOptions = [
 
 const CollectionView = () => {
   const { collection, categories, user } = useContext(AppContext);
+  const [isNoCategoryExist, setNoCategoryExist] = useState(false);
+
   const categoryOptions = [
     {
       id: 'all',
-      value: 'All',
+      value: 'ALL',
     },
     ...categories,
   ];
+
+  useEffect(() => {
+    collection.forEach((production) => {
+      const data = categories.some((i) => i.id === production.customData.categoryId);
+      if (!data) setNoCategoryExist(true);
+    });
+  }, [collection, categories, setNoCategoryExist]);
 
   const [sortValue, setSortValue] = useState(sortOptions[0]);
   const [categoryValue, setCategoryValue] = useState(categoryOptions[0]);
@@ -121,6 +130,7 @@ const CollectionView = () => {
 
       <MainTemplate>
         <PageTitle center>My collection</PageTitle>
+        {console.log(isNoCategoryExist)}
         <Sort
           setValues={handleSubmit}
           sortOptions={sortOptions}
@@ -146,7 +156,8 @@ const CollectionView = () => {
                 rate={c.data.rate}
                 customRate={c.customData?.rate?.value}
                 customCategory={
-                  categories.find((item) => item.id === c.customData?.categoryId)?.value
+                  categories.find((item) => item.id === c.customData?.categoryId)?.value ||
+                  'NO CATEGORY'
                 }
                 noModal
               />
