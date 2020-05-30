@@ -1,13 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddNewItem from 'components/AddNewItem/AddNewItem';
-import { AppContext } from 'context';
 import styles from './CategoriesItem.module.scss';
 
 const CategoriesItem = ({ value, id, handleDeleteClick }) => {
-  const { categories } = useContext(AppContext);
   const [editVisible, toggleEditVisibility] = useState('');
+  const [data, setData] = useState({});
 
-  useEffect(() => toggleEditVisibility(false), [categories]);
+  useEffect(() => {
+    toggleEditVisibility(false);
+  }, [data]);
 
   return (
     <li className={styles.categoriesItem}>
@@ -24,7 +25,7 @@ const CategoriesItem = ({ value, id, handleDeleteClick }) => {
           <span className={styles.categoriesItem_category}>{value}</span>
         </div>
       ) : (
-        <AddNewItem categoryID={id} />
+        <AddNewItem categoryID={id} getData={(d) => setData(d)} />
       )}
     </li>
   );

@@ -10,7 +10,7 @@ const collectionReducer = (state, action) => {
     case ADD_TO_COLLECTION:
       return [action.payload, ...state];
     case GET_COLLECTION:
-      return [...action.payload];
+      return [...action.payload.reverse()];
     case UPDATE_IN_COLLECTION:
       return state.map((item) =>
         item._id === action.payload._id ? action.payload.data : item,

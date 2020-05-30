@@ -15,7 +15,6 @@ import Field from 'components/Field/Field';
 import Close from 'components/Close/Close';
 import styles from './Modal.module.scss';
 import Button from '../Button/Button';
-// import AddNewItem from 'components/AddNewItem/AddNewItem';
 
 const Modal = ({ selected }) => {
   const { user, categories, collection, collectionDispatch } = useContext(AppContext);
@@ -83,18 +82,13 @@ const Modal = ({ selected }) => {
         },
         rate: {
           value: values.rate.value,
-          key: values.rate.key,
           id: values.rate.id,
         },
         comment: values.comment,
       },
     };
 
-    console.log(values);
-    console.log(requestData);
-
     addToCllection(collectionDispatch, requestData);
-
     handleCloseModal();
   };
 
@@ -165,6 +159,7 @@ const Modal = ({ selected }) => {
                             options={categories}
                             placeholder="Choose a category"
                             lightTheme
+                            addNewItem
                           />
                           <Select
                             id="rate"

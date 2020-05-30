@@ -3,6 +3,7 @@ import Label from 'components/Label/Label';
 import Input from 'components/Input/Input';
 import FormError from 'components/FormError/FormError';
 import { useOutsideClosing } from 'hooks';
+import AddNewItem from 'components/AddNewItem/AddNewItem';
 import styles from './Select.module.scss';
 import SelectList from './SelectList/SelectList';
 
@@ -15,10 +16,10 @@ const Select = ({
   label,
   error,
   options,
-  children,
   lightTheme,
   placeholder,
   className,
+  addNewItem,
 }) => {
   const [isListVisible, toggleListVisibility] = useState(false);
   const [isPlaceholder, setPlaceholder] = useState(!value?.value);
@@ -28,6 +29,10 @@ const Select = ({
     setPlaceholder(false);
     onChange(selectInputName, optionValueObj);
     toggleListVisibility(false);
+  };
+
+  const handleNewItemAdding = (inputName, category) => {
+    handleListOptionChange(inputName, category);
   };
 
   const handleSelectInputClick = () => {
@@ -56,7 +61,7 @@ const Select = ({
         handleItemClick={handleListOptionChange}
         isVisible={isListVisible}
       >
-        {children}
+        {addNewItem && <AddNewItem getData={(c) => handleNewItemAdding(name, c)} />}
       </SelectList>
       {error && <FormError error={error} className={styles.selectError} />}
     </div>

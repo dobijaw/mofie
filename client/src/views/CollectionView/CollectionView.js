@@ -56,8 +56,8 @@ const CollectionView = () => {
   const { collection, categories, user } = useContext(AppContext);
   const categoryOptions = [
     {
-      value: 'All',
       id: 'all',
+      value: 'All',
     },
     ...categories,
   ];

@@ -7,8 +7,9 @@ import { AppContext } from 'context';
 import { addCategory, updateCategory } from 'actions/categories';
 import styles from './AddNewItem.module.scss';
 
-const AddNewItem = ({ lightTheme, categoryID }) => {
+const AddNewItem = ({ lightTheme, categoryID, getData }) => {
   const { user, categories, categoriesDispatch } = useContext(AppContext);
+  const [isButtonDisabled, toggleButtonDisabling] = useState(false);
   const [category, setCategory] = useState('');
   const [focus, setFocus] = useState(false);
   const [error, setError] = useState('');
@@ -60,7 +61,13 @@ const AddNewItem = ({ lightTheme, categoryID }) => {
     return isNoErrors;
   };
 
-  const validationCallback = useCallback(validation, []);
+  const validationCallback = useCallback(validation, [
+    isEmpty,
+    isToLong,
+    isToShort,
+    isFreeOfPunction,
+    isTheSameCategory,
+  ]);
 
   const handleChange = (_, value) => {
     const upperCaseValue = value.toUpperCase();
@@ -70,7 +77,7 @@ const AddNewItem = ({ lightTheme, categoryID }) => {
 
   const handleSubmitItem = useCallback(() => {
     if (!validationCallback(category)) return;
-    console.log('what');
+    toggleButtonDisabling(true);
 
     const categoryFormat = category
       .split(' ')
@@ -78,19 +85,30 @@ const AddNewItem = ({ lightTheme, categoryID }) => {
       .join(' ');
 
     if (categoryID) {
-      updateCategory(categoriesDispatch, {
-        id: categoryID,
-        value: categoryFormat,
-      });
-    } else {
-      addCategory(categoriesDispatch, {
-        id: user.id,
-        value: categoryFormat,
-      });
-    }
+      (async () => {
+        const cat = await updateCategory(categoriesDispatch, {
+          id: categoryID,
+          value: categoryFormat,
+        });
 
-    setCategory('');
-  }, [categoriesDispatch, category, categoryID, user, validationCallback]);
+        toggleButtonDisabling(false);
+        getData(cat);
+        setCategory('');
+      })();
+    } else {
+      (async () => {
+        const cat = await addCategory(categoriesDispatch, {
+          id: user.id,
+          value: categoryFormat,
+        });
+
+        toggleButtonDisabling(false);
+        console.log(cat);
+        if (getData) getData(cat);
+        setCategory('');
+      })();
+    }
+  }, [categoriesDispatch, category, categoryID, user, validationCallback, getData]);
 
   const handleClick = () => handleSubmitItem();
   const handleKeyUp = ({ keyCode }) => focus && keyCode === 13 && handleSubmitItem();
@@ -119,6 +137,7 @@ const AddNewItem = ({ lightTheme, categoryID }) => {
         className={styles.selectButton}
         lightTheme={lightTheme}
         handleClick={handleClick}
+        disabled={isButtonDisabled}
       >
         {categoryID ? 'Update category' : 'Add new category'}
       </Button>
