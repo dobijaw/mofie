@@ -24,12 +24,14 @@ ProductionList.propTypes = {
   className: PropTypes.string,
   withMain: PropTypes.bool,
   asBasic: PropTypes.bool,
+  asSmall: PropTypes.bool,
 };
 
 ProductionList.defaultProps = {
   className: '',
   withMain: false,
   asBasic: false,
+  asSmall: false,
 };
 
 export default ProductionList;
