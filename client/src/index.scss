@@ -8,10 +8,15 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-y: scroll;
+  width: 100%;
+  background: $black;
+}
+
 body {
   background: $black;
   font-family: 'Montserrat', sans-serif;
-  overflow-y: scroll;
 }
 
 /* width */

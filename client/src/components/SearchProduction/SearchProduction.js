@@ -32,7 +32,6 @@ const SearchProduction = ({ title, fetchType }) => {
     fetchType === FETCH_TYPE.MOVIE
       ? context?.movieGenres?.genres
       : context?.showGenres?.genres,
-    fetchType === FETCH_TYPE.MOVIE ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV,
     selectProductionData,
   );
 

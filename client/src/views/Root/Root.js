@@ -1,63 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ProductionView from 'views/ProductionView/ProductionView';
+import { RootContext } from 'context';
+import { useFetch } from 'hooks';
+import { API_KEY } from 'config';
+import { routes } from 'routes';
 
+import Store from 'store';
 import Modal from 'components/Modal/Modal';
 import ShowView from 'views/ShowView/ShowView';
-import PopularView from 'views/PopularView/PopularView';
-import MovieView from 'views/MovieView/MovieView';
-import CollectionView from 'views/CollectionView/CollectionView';
-import Page404View from 'views/Page404View/Page404View';
-import { useFetch } from 'hooks';
-import { routes } from 'routes';
-import Store from 'store';
-import { RootContext } from 'context';
-import { API_KEY } from 'config';
-import ActorView from 'views/ActorView/ActorView';
 import LoginView from 'views/LoginView/LoginView';
+import ActorView from 'views/ActorView/ActorView';
+import MovieView from 'views/MovieView/MovieView';
 import SignUpView from 'views/SignUpView/SignUpView';
+import Page404View from 'views/Page404View/Page404View';
+import PopularView from 'views/PopularView/PopularView';
 import CategoriesView from 'views/CategoriesView/CategoriesView';
+import ProductionView from 'views/ProductionView/ProductionView';
+import CollectionView from 'views/CollectionView/CollectionView';
 
 const Root = () => {
-  const [isModalVisible, setModalVisibility] = useState(false);
+  const [isModalVisible, toggleModalVisibility] = useState(false);
   const [selectedProduction, setSelectedProduction] = useState({});
 
   const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
   const showGenresURL = `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=en-US`;
 
-  const [movieGenres, movieGenresErrors] = useFetch(movieGenresURL);
-  const [showGenres, showGenresErrors] = useFetch(showGenresURL);
+  const [movieGenres, movieGenresErrors, movieGenresLoading] = useFetch(movieGenresURL);
+  const [showGenres, showGenresErrors, showGenresLoading] = useFetch(showGenresURL);
 
-  const ratingScale = Array(10)
+  const ratingScale = Array(11)
     .fill({})
     .map((_, index) => ({
-      value: `${index + 1}`,
-      key: `RATE_${index + 1}`,
-      id: `${index + 1}`,
+      value: `${index}`,
+      id: `${index}`,
     }));
 
+  useEffect(() => {
+    if (!isModalVisible) {
+      const fromTop = parseInt(document.documentElement.style.top, 10);
+
+      document.documentElement.style.position = 'static';
+      document.documentElement.scrollTop = -fromTop;
+
+      return;
+    }
+
+    const fromTop = document.documentElement.scrollTop;
+
+    document.documentElement.style.position = 'fixed';
+    document.documentElement.style.top = `-${fromTop}px`;
+  }, [isModalVisible]);
+
   const handleOpenModal = (productionType, id) => {
-    setModalVisibility(true);
+    toggleModalVisibility(true);
     setSelectedProduction({
       productionType,
       id,
     });
   };
 
-  useEffect(() => {
-    document.body.style.overflowY = 'scroll';
-    if (isModalVisible) document.body.style.overflowY = 'hidden';
-  }, [isModalVisible]);
-
-  const handleCloseModal = () => {
-    setModalVisibility(false);
-  };
+  const handleCloseModal = () => toggleModalVisibility(false);
 
   const contextElements = {
     handleOpenModal,
     handleCloseModal,
     isModalVisible,
     movieGenres,
+    movieGenresLoading,
+    showGenresLoading,
     showGenres,
     movieGenresErrors,
     showGenresErrors,

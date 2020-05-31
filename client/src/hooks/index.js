@@ -39,17 +39,17 @@ export const useFetch = (url, options) => {
   return [response, error, loading];
 };
 
-export const useDataProduction = (allLoaded, response, genres, type, callback) => {
+export const useDataProduction = (allLoaded, response, genres, callback) => {
   const [output, setOutput] = useState([]);
   const [dataLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (allLoaded) {
-      const filteredResponse = callback(response, genres, type);
+      const filteredResponse = callback(response, genres);
       setOutput(filteredResponse);
       setLoaded(true);
     }
-  }, [allLoaded, callback, response, genres, type]);
+  }, [allLoaded, callback, response, genres]);
 
   return [output, dataLoaded];
 };
