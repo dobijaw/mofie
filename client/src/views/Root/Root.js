@@ -31,8 +31,8 @@ const Root = () => {
   const ratingScale = Array(11)
     .fill({})
     .map((_, index) => ({
-      value: `${index}`,
-      id: `${index}`,
+      value: index === 0 ? '-' : `${index}`,
+      id: index === 0 ? 'norate' : `${index}`,
     }));
 
   useEffect(() => {

@@ -52,13 +52,14 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
 
     if (total <= 7) {
       return getMinimalThemeCallback(initialArray);
-    } if (page < 4) {
+    }
+    if (page < 4) {
       return getFirstThemeCallback(total, initialArray);
-    } if (page > total - 3) {
+    }
+    if (page > total - 3) {
       return getMiddleThemeCallback(total, initialArray, initial);
-    } 
-      return getLastThemeCallback(page, total, initialArray, initial);
-    
+    }
+    return getLastThemeCallback(page, total, initialArray, initial);
   };
 
   const createPagesCallback = useCallback(createPages, [
@@ -86,7 +87,7 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
       <ul className={styles.pagination_list}>
         {paginationItems.map((p, idx, { length }) => (
           <PaginationItem
-            key={p || idx * length}
+            key={p || idx * length * Math.random()}
             handleClick={() => handlePageChange(p)}
             isActive={currentPage === p}
             value={p}

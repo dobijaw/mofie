@@ -1,6 +1,6 @@
 import { FETCH_TYPE } from 'types';
 
-export const selectProductionData = (data, genresData) => {
+export const selectProductionData = (data, movieGenres, showGenres) => {
   const output = data.map((p) => ({
     id: p.id,
     image: p.backdrop_path
@@ -10,7 +10,9 @@ export const selectProductionData = (data, genresData) => {
       : '',
     releaseDate: p.release_date || p.first_air_date,
     title: p.title || p.name,
-    genres: genresData.filter((i) => p.genre_ids.includes(i.id)).map((i) => i.name),
+    genres: p.title
+      ? movieGenres.filter((i) => p.genre_ids.includes(i.id)).map((i) => i.name)
+      : showGenres.filter((i) => p.genre_ids.includes(i.id)).map((i) => i.name),
     productionType: p.title ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV,
     rate: p.vote_average || 0,
   }));

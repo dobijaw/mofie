@@ -27,12 +27,14 @@ const PopularView = () => {
     !moviesLoading && !movieGenresLoading,
     moviesRes?.results,
     movieGenres?.genres,
+    showGenres?.genres,
     selectProductionData,
   );
 
   const [shows, areShowsLoaded] = useDataProduction(
     !showsLoading && !showGenresLoading,
     showsRes?.results,
+    movieGenres?.genres,
     showGenres?.genres,
     selectProductionData,
   );

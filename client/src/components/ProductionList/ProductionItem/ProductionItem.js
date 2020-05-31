@@ -55,7 +55,7 @@ const ProductionItem = ({
                 ' ',
               )}
             >
-              {customRate && <CustomRating custom>{customRate}</CustomRating>}
+              {customRate && <CustomRating isRate>{customRate}</CustomRating>}
               {customCategory && <CustomRating>{customCategory}</CustomRating>}
             </div>
           </div>

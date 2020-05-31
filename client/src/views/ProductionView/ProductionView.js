@@ -1,82 +1,68 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useFetch } from 'hooks';
-import { withRouter, Redirect } from 'react-router';
-import Comments from 'components/Comments/Comments';
-import { API_KEY } from 'config';
-import { AppContext, RootContext } from 'context';
-import { FETCH_TYPE, ROUTE_TYPE } from 'types';
-import { routes } from 'routes';
-import Loading from 'components/Loading/Loading';
-import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import PropTypes from 'prop-types';
+
 import { removeFromCollection } from 'actions/collection';
-import Production from 'components/Production/Production';
+import { withRouter, Redirect } from 'react-router';
+import { useFetch, useDataProduction } from 'hooks';
+import { AppContext, RootContext } from 'context';
+import { selectProductionData } from 'universal';
+import { FETCH_TYPE, ROUTE_TYPE } from 'types';
+import { API_KEY } from 'config';
+import { routes } from 'routes';
+
 import AllCast from 'components/AllCast/AllCast';
 import AllCrew from 'components/AllCrew/AllCrew';
+import Loading from 'components/Loading/Loading';
+import Comments from 'components/Comments/Comments';
+import PageTitle from 'components/PageTitle/PageTitle';
+import Production from 'components/Production/Production';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import SimillarProductions from 'components/SimillarProductions/SimillarProductions';
-import PageTitle from '../../components/PageTitle/PageTitle';
 
 const ProductionView = ({ location, match }) => {
   const { user, collection, collectionDispatch } = useContext(AppContext);
-  const rootContext = useContext(RootContext);
-  const { pathname } = location;
-  const { id } = match.params;
-  const prodType = pathname.includes(ROUTE_TYPE.MOVIES) ? FETCH_TYPE.MOVIE : FETCH_TYPE.TV;
+  const {
+    movieGenres,
+    showGenres,
+    movieGenresLoading,
+    showGenresLoading,
+    handleOpenModal,
+  } = useContext(RootContext);
 
-  const detailsURL = `https://api.themoviedb.org/3/${prodType}/${id}?api_key=${API_KEY}&language=en-US`;
-  const keywordsURL = `https://api.themoviedb.org/3/${prodType}/${id}/keywords?api_key=${API_KEY}&language=en-US`;
-  const creditsURL = `https://api.themoviedb.org/3/${prodType}/${id}/credits?api_key=${API_KEY}&language=en-US`;
-  const simillarURL = `https://api.themoviedb.org/3/${prodType}/${id}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+  const { id } = match.params;
+  const { pathname } = location;
+  const productionType = pathname.includes(ROUTE_TYPE.MOVIES)
+    ? FETCH_TYPE.MOVIE
+    : FETCH_TYPE.TV;
+
+  const detailsURL = `https://api.themoviedb.org/3/${productionType}/${id}?api_key=${API_KEY}&language=en-US`;
+  const creditsURL = `https://api.themoviedb.org/3/${productionType}/${id}/credits?api_key=${API_KEY}&language=en-US`;
+  const simillarURL = `https://api.themoviedb.org/3/${productionType}/${id}/similar?api_key=${API_KEY}&language=en-US`;
+  const keywordsURL = `https://api.themoviedb.org/3/${productionType}/${id}/keywords?api_key=${API_KEY}&language=en-US`;
 
   const [detailsData, detailsError, detailsLoading] = useFetch(detailsURL);
-  const [keywordsData, keywordsError, keywordsLoading] = useFetch(keywordsURL);
   const [creditsData, creditsError, creditsLoading] = useFetch(creditsURL);
+  const [keywordsData, keywordsError, keywordsLoading] = useFetch(keywordsURL);
   const [simillarData, simillarError, simillarLoading] = useFetch(simillarURL);
 
-  const [simillarProductions, setSimillarProductions] = useState([]);
-  const [isAllDataLoaded, setDataLoding] = useState(false);
+  const [isRenderedDataLoaded, setRenderedDataLoaded] = useState(false);
+  const [isAllDataLoaded, setDataLoading] = useState(false);
+  const [isInCollection, setInCollection] = useState(null);
   const [renderedData, setRenderedData] = useState({});
 
-  const [isInCollection, setInCollection] = useState(null);
-
   useEffect(() => {
-    setSimillarProductions([]);
-    setDataLoding(false);
     setRenderedData({});
+    setDataLoading(false);
+    setRenderedDataLoaded(false);
   }, [id]);
 
-  useEffect(() => {
-    if (
-      !simillarLoading &&
-      !simillarError &&
-      rootContext &&
-      rootContext?.movieGenres !== null &&
-      rootContext?.showGenres !== null
-    ) {
-      const data = simillarData.results.map((p) => ({
-        id: p.id,
-        image: p.backdrop_path
-          ? `http://image.tmdb.org/t/p/w500${p.backdrop_path}`
-          : p.poster_path
-          ? `http://image.tmdb.org/t/p/w500${p.poster_path}`
-          : '',
-        releaseDate: p.release_date || p.first_air_date,
-        title: p.title || p.name || '',
-        genres: p.title
-          ? rootContext?.movieGenres.genres
-              .filter((i) => p.genre_ids.includes(i.id))
-              .map((i) => i.name)
-          : rootContext?.showGenres.genres
-              .filter((i) => p.genre_ids.includes(i.id))
-              .map((i) => i.name),
-        productionType: p.title ? 'movie' : 'tv',
-        rate: p.vote_average || 0,
-      }));
-
-      console.log(simillarData);
-
-      setSimillarProductions(data);
-    }
-  }, [simillarData, simillarLoading, rootContext, simillarError]);
+  const [simillarProductions, simillarProductionsLoaded] = useDataProduction(
+    !simillarLoading && !simillarError && !movieGenresLoading && !showGenresLoading,
+    simillarData?.results,
+    movieGenres?.genres,
+    showGenres?.genres,
+    selectProductionData,
+  );
 
   useEffect(() => {
     if (
@@ -91,16 +77,13 @@ const ProductionView = ({ location, match }) => {
         image: detailsData.poster_path
           ? `http://image.tmdb.org/t/p/w500/${detailsData.poster_path}`
           : '',
-        releaseDate:
-          prodType === FETCH_TYPE.MOVIE
-            ? detailsData.release_date
-            : detailsData.first_air_date,
-        title: prodType === FETCH_TYPE.MOVIE ? detailsData.title : detailsData.name,
+        releaseDate: detailsData.release_date || detailsData.first_air_date,
+        title: detailsData.title || detailsData.name,
         tagline: detailsData.tagline || '',
         genres: detailsData.genres.map((i) => i.name),
         overview: detailsData.overview,
-        keywords:
-          prodType === FETCH_TYPE.MOVIE ? keywordsData?.keywords : keywordsData?.results,
+        keywords: keywordsData?.keywords || keywordsData?.results,
+        episodes: detailsData.name ? detailsData.number_of_episodes : '',
         crew: creditsData?.crew.map(({ job, name, credit_id }) => ({
           id: credit_id,
           job,
@@ -130,7 +113,7 @@ const ProductionView = ({ location, match }) => {
       };
 
       setRenderedData(output);
-      setTimeout(() => setDataLoding(true), 500);
+      setRenderedDataLoaded(true);
     }
   }, [
     creditsData,
@@ -141,8 +124,17 @@ const ProductionView = ({ location, match }) => {
     creditsLoading,
     keywordsError,
     detailsError,
-    prodType,
   ]);
+
+  useEffect(() => {
+    let timeout;
+
+    if (isRenderedDataLoaded && simillarProductionsLoaded) {
+      timeout = setTimeout(() => setDataLoading(true), 500);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [isRenderedDataLoaded, simillarProductionsLoaded]);
 
   useEffect(() => {
     if (collection) {
@@ -153,8 +145,7 @@ const ProductionView = ({ location, match }) => {
 
   return (
     <MainTemplate>
-      {console.log('isInCollection')}
-      {console.log(isInCollection)}
+      {console.log(detailsData)}
       <PageTitle isHidden>Actor details</PageTitle>
       {(detailsError !== null || detailsData?.status_code) && <Redirect to={routes.page404} />}
       <Loading
@@ -166,7 +157,7 @@ const ProductionView = ({ location, match }) => {
               handleRemoveFromCollection={() =>
                 removeFromCollection(collectionDispatch, isInCollection._id)
               }
-              handleModalOpen={() => rootContext.handleOpenModal(prodType, id)}
+              handleModalOpen={() => handleOpenModal(productionType, id)}
               isInCollection={isInCollection}
               releaseDate={renderedData.releaseDate}
               overview={renderedData.overview}
@@ -186,7 +177,10 @@ const ProductionView = ({ location, match }) => {
                 collectionItemID={isInCollection._id}
               />
             )}
-            {simillarProductions.length >= 1 && (
+            <div style={{ color: 'white' }}>
+              <span>{renderedData.episodes}</span>
+            </div>
+            {simillarProductions.length > 0 && (
               <SimillarProductions productions={simillarProductions} />
             )}
 
@@ -202,4 +196,10 @@ const ProductionView = ({ location, match }) => {
     </MainTemplate>
   );
 };
+
+ProductionView.propTypes = {
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+};
+
 export default withRouter(ProductionView);

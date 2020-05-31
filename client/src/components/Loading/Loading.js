@@ -9,7 +9,13 @@ const Loading = ({ loaded, render, url, className }) => {
   }, [url]);
 
   useEffect(() => {
-    if (loaded) setTimeout(() => setRenderData(true), 500);
+    let timeout;
+
+    if (loaded) {
+      timeout = setTimeout(() => setRenderData(true), 500);
+    }
+
+    return () => clearTimeout(timeout);
   }, [loaded]);
 
   return (
