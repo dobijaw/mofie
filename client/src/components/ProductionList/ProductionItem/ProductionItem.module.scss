@@ -20,9 +20,11 @@
   padding: 0;
   margin: 0 0 60px;
   animation: itemIn 0.35s;
+  transition: all 0.35s ease-in-out;
 
   @media (hover: hover) {
     &:hover {
+      transform: translateY(-4px);
       .productionButtonContainer {
         transform: scale(1);
       }

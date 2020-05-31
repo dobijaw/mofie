@@ -4,6 +4,7 @@
 .cast {
   @include listReset;
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   color: $white;

@@ -11,14 +11,16 @@ const AllCast = ({ cast }) => {
     <section className={styles.allCast}>
       <SubHeadline>Cast</SubHeadline>
       <Cast cast={isClose ? cast.slice(0, 6) : cast} />
-      <Button
-        type="button"
-        className={styles.allCast_button}
-        handleClick={() => setClose(!isClose)}
-        isCenter
-      >
-        {isClose ? 'more' : 'less'}
-      </Button>
+      {cast.length > 6 && (
+        <Button
+          type="button"
+          className={styles.allCast_button}
+          handleClick={() => setClose(!isClose)}
+          isCenter
+        >
+          {isClose ? 'more' : 'less'}
+        </Button>
+      )}
     </section>
   );
 };

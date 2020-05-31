@@ -34,10 +34,16 @@
   &___main {
     @media (min-width: 960px) {
       display: flex;
+      align-items: baseline;
 
       > li {
+        min-height: 500px;
+        align-self: baseline;
+        align-content: flex-start;
+
         &:first-child {
           width: 100%;
+          min-height: 300px;
         }
 
         &:not(:first-child) {
