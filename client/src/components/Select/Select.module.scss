@@ -6,74 +6,24 @@
   margin: 40px 0;
   width: 100%;
 
-  &Error {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    z-index: 9;
-  }
-
-  &ListItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &Input {
+  &_input {
     position: relative;
     z-index: 1;
   }
 
-  &Button {
-    position: relative;
-    margin: 0 0 0 30px;
-    letter-spacing: 0;
-    padding: 22px;
-
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      display: block;
-      width: 14px;
-      height: 2px;
-      background: $black;
-      transform: translate(-50%, -50%);
-      transition: all 0.35s ease-in-out;
-    }
-
-    &:hover {
-      &::after,
-      &::before {
-        background: $white;
-      }
-    }
-
-    &::before {
-      width: 2px;
-      height: 14px;
-    }
-
-    &::after {
-      width: 14px;
-      height: 2px;
-    }
-  }
-
-  &ErrorFlying {
-    position: absolute;
-    bottom: 24px;
-    left: 20px;
-  }
-
-  &Placeholder {
+  &_placeholder {
     position: absolute;
     top: 50%;
     left: 0;
     z-index: -1;
     transform: translateY(calc(-50% - 4px));
     @include fontStyle($light-gray, 18px, 300, 1.5, 0.02em);
+  }
+
+  &_error {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 9;
   }
 }

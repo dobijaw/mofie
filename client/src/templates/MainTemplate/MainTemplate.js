@@ -6,8 +6,10 @@ import styles from './MainTemplate.module.scss';
 
 const MainTemplate = ({ children }) => (
   <div className={styles.mainTemplate}>
-    <Navigation />
-    <main className={styles.mainTemplate_body}>{children}</main>
+    <div className={styles.mainTemplate_wrapper}>
+      <Navigation />
+      <main className={styles.mainTemplate_body}>{children}</main>
+    </div>
     <Footer />
   </div>
 );

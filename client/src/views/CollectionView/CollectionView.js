@@ -1,14 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { AppContext } from 'context';
-import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
-import Sort from 'components/Sort/Sort';
-import { FETCH_TYPE } from 'types';
-import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import { Redirect } from 'react-router';
+import { AppContext } from 'context';
+import { FETCH_TYPE } from 'types';
 import { routes } from 'routes';
+
+import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import NoData from 'components/NoData/NoData';
-import styles from './CollectionView.module.scss';
+import Sort from 'components/Sort/Sort';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import styles from './CollectionView.module.scss';
 
 const sortOptions = [
   {

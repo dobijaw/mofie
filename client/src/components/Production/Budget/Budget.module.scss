@@ -1,0 +1,26 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.budget {
+  margin: 30px 0 50px;
+  @include fontStyle($light-gray, 12px, 300, 1.5, 0.04em);
+
+  &_item {
+    margin: 5px 0;
+  }
+
+  &_title,
+  &_value {
+    display: inline-block;
+  }
+
+  &_title {
+    text-transform: uppercase;
+  }
+
+  &_value {
+    margin-left: 10px;
+    color: $white;
+    font-size: 14px;
+  }
+}

@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import Input from 'components/Input/Input';
-import Button from 'components/Button/Button';
-import FormError from 'components/FormError/FormError';
+
 import { AppContext } from 'context';
 import { addCategory, updateCategory } from 'actions/categories';
+import FormError from 'components/FormError/FormError';
+import Button from 'components/Button/Button';
+import Input from 'components/Input/Input';
 import styles from './AddNewItem.module.scss';
 
 const AddNewItem = ({ lightTheme, categoryId, getData, initialValue }) => {
   const { user, categories, categoriesDispatch } = useContext(AppContext);
   const [isButtonDisabled, toggleButtonDisabling] = useState(false);
-  const [category, setCategory] = useState(initialValue || '');
+  const [category, setCategory] = useState(initialValue);
   const [focus, setFocus] = useState(false);
   const [error, setError] = useState('');
 
@@ -78,6 +79,7 @@ const AddNewItem = ({ lightTheme, categoryId, getData, initialValue }) => {
   const handleSubmitItem = useCallback(() => {
     if (!validationCallback(category)) return;
     toggleButtonDisabling(true);
+    setError('');
 
     const categoryFormat = category
       .split(' ')
@@ -150,11 +152,15 @@ const AddNewItem = ({ lightTheme, categoryId, getData, initialValue }) => {
 AddNewItem.propTypes = {
   lightTheme: PropTypes.bool,
   categoryId: PropTypes.string,
+  initialValue: PropTypes.string,
+  getData: PropTypes.func,
 };
 
 AddNewItem.defaultProps = {
   lightTheme: false,
+  initialValue: '',
   categoryId: '',
+  getData: null,
 };
 
 export default AddNewItem;

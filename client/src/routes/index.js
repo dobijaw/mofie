@@ -7,8 +7,8 @@ export const routes = {
   actor: '/actor',
   singleActor: '/actor/:id',
   collection: '/collection',
-  page404: '/404',
+  categories: '/categories',
   signup: '/signup',
   login: '/login',
-  categories: '/categories',
+  page404: '/404',
 };

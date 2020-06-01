@@ -99,7 +99,7 @@ const SearchProduction = ({ title, fetchType }) => {
       />
       <Loading
         className={styles.loading}
-        url={queryURL}
+        reactOnChange={queryURL}
         loaded={!loading && !error}
         render={() => (
           <>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Tip.module.scss';
 
 const Tip = ({ message, isVisible }) => (
@@ -11,5 +12,14 @@ const Tip = ({ message, isVisible }) => (
     </div>
   </div>
 );
+
+Tip.propTypes = {
+  message: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool,
+};
+
+Tip.defaultProps = {
+  isVisible: false,
+};
 
 export default Tip;

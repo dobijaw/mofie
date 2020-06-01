@@ -56,9 +56,12 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onClick: PropTypes.func,
   onChange: PropTypes.func,
   lightTheme: PropTypes.bool,
   disabled: PropTypes.bool,
+  inputRef: PropTypes.object,
 };
 
 Input.defaultProps = {
@@ -66,9 +69,12 @@ Input.defaultProps = {
   placeholder: 'Type here...',
   value: '',
   onBlur: null,
+  onFocus: null,
+  onClick: null,
   onChange: null,
   lightTheme: false,
   disabled: false,
+  inputRef: null,
 };
 
 export default Input;

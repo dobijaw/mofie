@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ProductionList.module.scss';
 import ProductionItem from './ProductionItem/ProductionItem';
+import styles from './ProductionList.module.scss';
 
 const ProductionList = ({ productionData, className, withMain, asBasic, asSmall }) => (
   <ul

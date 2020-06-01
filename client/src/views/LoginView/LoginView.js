@@ -1,23 +1,26 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
-import Form from 'components/Form/Form';
-import Field from 'components/Field/Field';
-import Button from 'components/Button/Button';
-import { routes } from 'routes';
-import { AppContext } from 'context';
 import { Redirect } from 'react-router';
+import { AppContext } from 'context';
+import { routes } from 'routes';
 import { authenticate } from 'actions/user';
+import UserAuthentication from 'components/UserAuthentication/UserAuthentication';
 import Checkbox from 'components/Checkbox/Checkbox';
+import Button from 'components/Button/Button';
+import Field from 'components/Field/Field';
+import Form from 'components/Form/Form';
 
 const LoginView = () => {
   const { user, userDispatch } = useContext(AppContext);
   const emailRef = useRef(null);
 
-  useEffect(() => emailRef.current.focus(), [user]);
+  useEffect(() => {
+    emailRef.current.focus();
+  }, [user]);
 
   return (
     <div>
       {user.isAuth && <Redirect to={routes.home} />}
+
       <UserAuthentication
         title="Login"
         description="Please enter your data to log in."

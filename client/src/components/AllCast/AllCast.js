@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import SubHeadline from 'components/SubHeadline/SubHeadline';
 import Cast from 'components/Production/Cast/Cast';
 import Button from 'components/Button/Button';
@@ -23,6 +25,10 @@ const AllCast = ({ cast }) => {
       )}
     </section>
   );
+};
+
+AllCast.propTypes = {
+  cast: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default AllCast;

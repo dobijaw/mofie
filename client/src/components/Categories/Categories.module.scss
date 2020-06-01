@@ -2,5 +2,10 @@
 @import '../../theme/mixins';
 
 .categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
   @include listReset;
+  margin-top: 60px;
+  margin-bottom: 100px;
 }

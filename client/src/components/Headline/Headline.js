@@ -6,9 +6,9 @@ const Headline = ({ tag: Tag, children, className, lightTheme, asTitle }) => (
   <Tag
     className={[
       styles.headline,
-      className,
       lightTheme && styles.headline___dark,
       asTitle && styles.headline___title,
+      className,
     ].join(' ')}
   >
     {children}

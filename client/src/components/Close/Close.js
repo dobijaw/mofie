@@ -13,6 +13,11 @@ const Close = ({ handleClose, asWhite }) => (
 
 Close.propTypes = {
   handleClose: PropTypes.func.isRequired,
+  asWhite: PropTypes.bool,
+};
+
+Close.defaultProps = {
+  asWhite: false,
 };
 
 export default Close;

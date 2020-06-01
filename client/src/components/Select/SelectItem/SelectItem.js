@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './SelectItem.module.scss';
 
-const SelectItem = ({ value, handleClick, children, className }) => (
-  <li className={className}>
+const SelectItem = ({ value, handleClick, children, className, asAddItem }) => (
+  <li
+    className={[styles.selectItem, asAddItem && styles.selectItem___add, className].join(' ')}
+  >
     {children ? (
       <>{children}</>
     ) : (
-      <button type="button" onClick={handleClick} className={styles.selectItemButton}>
+      <button type="button" onClick={handleClick} className={styles.selectItem_button}>
         {value}
       </button>
     )}
@@ -19,6 +21,7 @@ SelectItem.propTypes = {
   handleClick: PropTypes.func,
   children: PropTypes.element,
   className: PropTypes.string,
+  asAddItem: PropTypes.bool,
 };
 
 SelectItem.defaultProps = {
@@ -26,6 +29,7 @@ SelectItem.defaultProps = {
   handleClick: null,
   children: null,
   className: '',
+  asAddItem: false,
 };
 
 export default SelectItem;

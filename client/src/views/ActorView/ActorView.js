@@ -7,16 +7,12 @@ import { API_KEY } from 'config';
 import { useFetch } from 'hooks';
 import { routes } from 'routes';
 
-import Bio from 'components/Actor/Bio/Bio';
+import Actor from 'components/Actor/Actor';
 import Loading from 'components/Loading/Loading';
-import Avatar from 'components/Actor/Avatar/Avatar';
-import Period from 'components/Actor/Period/Period';
-import PageTitle from 'components/PageTitle/PageTitle';
 import Pagination from 'components/Pagination/Pagination';
 import SubHedline from 'components/SubHeadline/SubHeadline';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 import ProductionList from 'components/ProductionList/ProductionList';
-import styles from './ActorView.module.scss';
 
 const ActorView = ({ match }) => {
   const { movieGenres, showGenres, movieGenresLoading, showGenresLoading } = useContext(
@@ -33,7 +29,9 @@ const ActorView = ({ match }) => {
   const [production, setProduction] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => setLoaded(false), [id]);
+  useEffect(() => {
+    setLoaded(false);
+  }, [id]);
 
   const sliceProduction = (prod, cur) => prod.slice(cur === 1 ? 0 : (cur - 1) * 10, cur * 10);
 
@@ -94,27 +92,21 @@ const ActorView = ({ match }) => {
         loaded={loaded}
         render={() => (
           <>
-            <div className={styles.actor}>
-              <div className={styles.actor_avatar}>
-                <Avatar
-                  image={
-                    details.profile_path
-                      ? `http://image.tmdb.org/t/p/w500${details.profile_path}`
-                      : ''
-                  }
-                />
-              </div>
-              <div className={styles.actor_data}>
-                <PageTitle small>{details.name}</PageTitle>
-                <Period birthday={details.birthday || ''} deathday={details.deathday || ''} />
-                <Bio>{details.biography}</Bio>
-              </div>
-            </div>
+            <Actor
+              name={details.name}
+              bio={details.biography}
+              birthday={details.birthday || ''}
+              deathday={details.deathday || ''}
+              image={
+                details.profile_path
+                  ? `http://image.tmdb.org/t/p/w500${details.profile_path}`
+                  : ''
+              }
+            />
             <section>
               <SubHedline>Productions</SubHedline>
               <ProductionList
                 asBasic
-                className={styles.actorProductionList}
                 productionData={sliceProduction(production, currentPage)}
               />
               <Pagination

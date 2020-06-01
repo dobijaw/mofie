@@ -42,12 +42,7 @@ const Comments = ({ category, rate, comment, collectionItemID }) => {
                     errorMessage: 'Rate required!',
                   },
                 ],
-                comment: [
-                  {
-                    correct: values.comment.length,
-                    errorMessage: 'Comment required!',
-                  },
-                ],
+                comment: [],
               })}
               onSubmit={(values) => {
                 const customData = {

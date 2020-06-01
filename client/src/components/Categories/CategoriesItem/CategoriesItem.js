@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import AddNewItem from 'components/AddNewItem/AddNewItem';
 import styles from './CategoriesItem.module.scss';
 
@@ -37,6 +38,12 @@ const CategoriesItem = ({ value, id, handleDeleteClick }) => {
       )}
     </li>
   );
+};
+
+CategoriesItem.propTypes = {
+  value: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
 };
 
 export default CategoriesItem;

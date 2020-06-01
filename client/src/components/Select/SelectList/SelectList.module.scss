@@ -16,38 +16,7 @@
   overflow-y: scroll;
   box-shadow: 0px 5px 15px -8px rgba($black, 0.4);
 
-  &Visible {
+  &___visible {
     display: block;
-  }
-
-  &Item {
-    display: block;
-    width: 100%;
-    padding: 0;
-    border-bottom: 1px solid $dark-white;
-
-    &Add {
-      padding: 18px 20px 14px;
-      background: $dark-white;
-    }
-  }
-
-  &Button {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 10px 0;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: all 0.35s ease-in-out;
-
-    &:hover {
-      background: $dark-white;
-    }
-
-    &:focus {
-      outline: 0;
-    }
   }
 }

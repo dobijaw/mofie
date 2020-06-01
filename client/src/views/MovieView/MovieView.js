@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchProduction from 'components/SearchProduction/SearchProduction';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import SearchProduction from 'components/SearchProduction/SearchProduction';
 
 const MovieView = () => (
   <MainTemplate>

@@ -1,0 +1,17 @@
+@import '../../../theme/colors';
+@import '../../../theme/mixins';
+
+.showsDetails {
+  text-align: center;
+  padding: 0 30px;
+
+  &_headline {
+    @include fontStyle($gray, 10px, 300, 1.4, 0.05em);
+    text-transform: uppercase;
+  }
+
+  &_value {
+    display: block;
+    @include fontStyle($white, 16px, 300, 1.4, 0.05em);
+  }
+}

@@ -10,6 +10,7 @@ import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { API_KEY } from 'config';
 import { routes } from 'routes';
 
+import Shows from 'components/Shows/Shows';
 import AllCast from 'components/AllCast/AllCast';
 import AllCrew from 'components/AllCrew/AllCrew';
 import Loading from 'components/Loading/Loading';
@@ -82,8 +83,17 @@ const ProductionView = ({ location, match }) => {
         tagline: detailsData.tagline || '',
         genres: detailsData.genres.map((i) => i.name),
         overview: detailsData.overview,
+        budget: detailsData.budget || null,
+        revenue: detailsData.revenue || null,
+        episodes: detailsData.number_of_episodes || '',
+        seasones: detailsData.number_of_seasons || null,
+        episodeRunTime: detailsData.name ? detailsData.episode_run_time[0] : null,
+        creators: detailsData.name ? detailsData.created_by.map((c) => c.name) : null,
+        inProduction: detailsData.in_production || false,
+        lastEpisode: detailsData.last_air_date || '',
+        nextEpisode: detailsData.next_episode_to_air?.air_date || '',
+        rate: detailsData.vote_average || null,
         keywords: keywordsData?.keywords || keywordsData?.results,
-        episodes: detailsData.name ? detailsData.number_of_episodes : '',
         crew: creditsData?.crew.map(({ job, name, credit_id }) => ({
           id: credit_id,
           job,
@@ -150,7 +160,7 @@ const ProductionView = ({ location, match }) => {
       {(detailsError !== null || detailsData?.status_code) && <Redirect to={routes.page404} />}
       <Loading
         loaded={isAllDataLoaded}
-        url={id}
+        reactOnChange={id}
         render={() => (
           <>
             <Production
@@ -168,7 +178,23 @@ const ProductionView = ({ location, match }) => {
               image={renderedData.image}
               title={renderedData.title}
               crew={renderedData.mainCrew}
+              rate={renderedData.rate}
+              budget={renderedData.budget}
+              inProduction={renderedData.inProduction}
+              type={productionType}
+              lastEpisode={!renderedData.inProduction ? renderedData.lastEpisode : ''}
+              showsCreators={renderedData.creators}
+              revenue={renderedData.revenue}
             />
+            {productionType === FETCH_TYPE.TV && (
+              <Shows
+                episodes={renderedData.episodes}
+                seasones={renderedData.seasones}
+                lastEpisode={renderedData.lastEpisode}
+                nextEpisode={renderedData.nextEpisode}
+                runTime={renderedData.episodeRunTime}
+              />
+            )}
             {isInCollection && user.isAuth && (
               <Comments
                 rate={isInCollection.customData.rate}
@@ -177,9 +203,6 @@ const ProductionView = ({ location, match }) => {
                 collectionItemID={isInCollection._id}
               />
             )}
-            <div style={{ color: 'white' }}>
-              <span>{renderedData.episodes}</span>
-            </div>
             {simillarProductions.length > 0 && (
               <SimillarProductions productions={simillarProductions} />
             )}

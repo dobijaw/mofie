@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FETCH_TYPE } from 'types';
 import Button from 'components/Button/Button';
 import DateFormat from 'components/DateFormat/DateFormat';
 import Headline from 'components/Headline/Headline';
@@ -10,20 +11,29 @@ import Overview from './Overview/Overview';
 import Crew from './Crew/Crew';
 import Keywords from './Keywords/Keywords';
 import Tagline from './Tagline/Tagline';
+import Budget from './Budget/Budget';
+import Rate from './Rate/Rate';
+import Creators from './Creators/Creators';
 
 const Production = ({
   handleRemoveFromCollection,
   handleModalOpen,
   isInCollection,
+  showsCreators,
+  lastEpisode,
   releaseDate,
   overview,
   keywords,
+  revenue,
   tagline,
   genres,
   isAuth,
+  budget,
   image,
   title,
   crew,
+  rate,
+  type,
 }) => (
   <section className={styles.production}>
     <div className={[styles.production_column, styles.production_column___poster].join(' ')}>
@@ -50,14 +60,26 @@ const Production = ({
         )}
       </div>
       <div className={styles.production_data}>
-        <DateFormat isSmall>{releaseDate}</DateFormat>
+        <div className={styles.production_top}>
+          <Rate>{rate}</Rate>
+          {type === FETCH_TYPE.MOVIE ? (
+            <DateFormat isSmall>{releaseDate}</DateFormat>
+          ) : (
+            <DateFormat isSmall>{`${releaseDate} to ${lastEpisode}`}</DateFormat>
+          )}
+        </div>
         <Headline tag="h2" asTitle>
           {title}
         </Headline>
         {tagline && <Tagline>{tagline}</Tagline>}
         <Genres genres={genres} />
         <Overview>{overview}</Overview>
-        {crew && <Crew crew={crew} isMain />}
+        {type === FETCH_TYPE.MOVIE && crew ? (
+          <Crew crew={crew} isMain />
+        ) : (
+          <Creators creators={showsCreators} />
+        )}
+        {budget && <Budget budget={budget} revenue={revenue} />}
         {keywords && <Keywords keywords={keywords} />}
       </div>
     </div>
@@ -77,6 +99,20 @@ Production.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   crew: PropTypes.arrayOf(PropTypes.object).isRequired,
+  budget: PropTypes.number,
+  rate: PropTypes.number,
+  type: PropTypes.string.isRequired,
+  lastEpisode: PropTypes.string,
+  showsCreators: PropTypes.arrayOf(PropTypes.string),
+  revenue: PropTypes.number,
+};
+
+Production.defaultProps = {
+  budget: null,
+  rate: null,
+  lastEpisode: '',
+  showsCreators: null,
+  revenue: null,
 };
 
 export default Production;

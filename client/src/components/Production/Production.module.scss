@@ -40,4 +40,9 @@
   &_singleButton {
     margin: 0;
   }
+
+  &_top {
+    display: flex;
+    align-items: baseline;
+  }
 }

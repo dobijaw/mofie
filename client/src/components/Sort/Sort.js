@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Form from 'components/Form/Form';
 import Select from 'components/Select/Select';
 import styles from './Sort.module.scss';
@@ -66,5 +67,39 @@ const Sort = ({
     )}
   />
 );
+
+Sort.propTypes = {
+  setValues: PropTypes.func.isRequired,
+  categoryOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  sortOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  typeOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  initialValue: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
+  initalTypeValue: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
+  initialCategory: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Sort;

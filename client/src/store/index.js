@@ -15,7 +15,9 @@ const Store = ({ children }) => {
   const [categories, categoriesDispatch] = useReducer(categoriesReducer, []);
   const [collection, collectionDispatch] = useReducer(collectionReducer, []);
 
-  useEffect(() => localAuthenticate(userDispatch), []);
+  useEffect(() => {
+    localAuthenticate(userDispatch);
+  }, []);
 
   useEffect(() => {
     if (user.id) getCategories(categoriesDispatch, user.id);

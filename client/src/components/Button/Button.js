@@ -25,10 +25,10 @@ const Button = ({
         to={to}
         className={[
           styles.button,
-          className,
           lightTheme && styles.button___light,
           isCenter && styles.button___center,
           noMargin && styles.button___nomargin,
+          className,
         ].join(' ')}
       >
         {children}
@@ -64,9 +64,11 @@ Button.propTypes = {
   to: PropTypes.string,
   id: PropTypes.number,
   asAdd: PropTypes.bool,
+  inForm: PropTypes.bool,
   asDelete: PropTypes.bool,
   disabled: PropTypes.bool,
-  inForm: PropTypes.bool,
+  noMargin: PropTypes.bool,
+  isCenter: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -81,6 +83,8 @@ Button.defaultProps = {
   children: '',
   disabled: false,
   inForm: false,
+  noMargin: false,
+  isCenter: false,
 };
 
 export default Button;
