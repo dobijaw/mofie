@@ -13,12 +13,12 @@ const SelectList = ({ children, options, name, handleItemClick, isVisible }) => 
         handleClick={() => handleItemClick(name, o)}
       />
     ))}
-    {children && <SelectItem asAddItem>{children}</SelectItem>}
+    <>{children && <SelectItem asAddItem>{children}</SelectItem>}</>
   </ul>
 );
 
 SelectList.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.bool, PropTypes.elementType]),
   options: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -31,7 +31,7 @@ SelectList.propTypes = {
 };
 
 SelectList.defaultProps = {
-  children: null,
+  children: false,
   isVisible: false,
 };
 

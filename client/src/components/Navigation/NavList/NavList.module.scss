@@ -24,7 +24,7 @@
     transform: translateX(0);
   }
 
-  &Item {
+  &_item {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -35,12 +35,12 @@
     }
   }
 
-  &Button {
+  &_button {
     margin: 0;
     min-width: 170px;
   }
 
-  &Settings {
+  &_settings {
     position: relative;
     z-index: 40;
     margin-top: 40px;
@@ -51,16 +51,14 @@
     }
   }
 
-  &SettingsList {
+  &_settingsList {
     position: absolute;
     top: 100%;
     right: 0;
     z-index: 38;
   }
 
-  &Active {
-    @extend .navList;
-
+  &___active {
     transform: translateX(0);
   }
 }

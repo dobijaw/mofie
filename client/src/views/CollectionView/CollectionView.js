@@ -1,71 +1,54 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { AppContext } from 'context';
-import { FETCH_TYPE } from 'types';
 import { routes } from 'routes';
+import { sortOptions, typeOptions } from 'data';
 
-import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
-import MainTemplate from 'templates/MainTemplate/MainTemplate';
-import NoData from 'components/NoData/NoData';
 import Sort from 'components/Sort/Sort';
-import PageTitle from '../../components/PageTitle/PageTitle';
+import NoData from 'components/NoData/NoData';
+import PageTitle from 'components/PageTitle/PageTitle';
+import MainTemplate from 'templates/MainTemplate/MainTemplate';
+import ProductionItem from 'components/ProductionList/ProductionItem/ProductionItem';
 import styles from './CollectionView.module.scss';
-
-const sortOptions = [
-  {
-    value: 'Added recently',
-    id: 'addedrecently',
-  },
-  {
-    value: 'Added first',
-    id: 'addedfirst',
-  },
-  {
-    value: 'Top rated',
-    id: 'toprated',
-  },
-  {
-    value: 'Lowest rated',
-    id: 'lowestrated',
-  },
-  {
-    value: 'A - Z',
-    id: 'aztype',
-  },
-  {
-    value: 'Z - A',
-    id: 'zatype',
-  },
-];
-
-const typeOptions = [
-  {
-    value: 'All',
-    id: 'alltype',
-  },
-  {
-    value: 'Movies',
-    id: FETCH_TYPE.MOVIE,
-  },
-  {
-    value: 'Shows',
-    id: FETCH_TYPE.TV,
-  },
-];
 
 const CollectionView = () => {
   const { collection, categories, user } = useContext(AppContext);
   const [isNoCategoryExist, setNoCategoryExist] = useState(false);
-
-  const categoryOptions = [
+  const [categoryOptions, setCategoriesOptions] = useState([
     {
       id: 'all',
       value: 'ALL',
     },
     ...categories,
-  ];
+  ]);
 
   useEffect(() => {
+    if (isNoCategoryExist) {
+      setCategoriesOptions([
+        {
+          id: 'all',
+          value: 'ALL',
+        },
+        ...categories,
+        {
+          id: 'nocategory',
+          value: 'NO CATEGORY',
+        },
+      ]);
+    } else {
+      setCategoriesOptions([
+        {
+          id: 'all',
+          value: 'ALL',
+        },
+        ...categories,
+      ]);
+    }
+  }, [categories, isNoCategoryExist]);
+
+  useEffect(() => {
+    setNoCategoryExist(false);
+
     collection.forEach((production) => {
       const data = categories.some((i) => i.id === production.customData.categoryId);
       if (!data) setNoCategoryExist(true);
@@ -93,9 +76,15 @@ const CollectionView = () => {
       typeValue.id === 'alltype' ? c : c.productionType === typeValue.id,
     );
 
-    const sortByCategories = sortByType.filter((c) =>
-      categoryValue.id === 'all' ? c : categoryValue.id === c.customData?.categoryId,
-    );
+    const sortByCategories = sortByType.filter((c) => {
+      if (categoryValue.id === 'all') {
+        return c;
+      } if (categoryValue.id === 'nocategory') {
+        return !categories.map((item) => item.id).includes(c.customData?.categoryId);
+      } 
+        return categoryValue.id === c.customData?.categoryId;
+      
+    });
 
     switch (sortValue.id) {
       case 'addedfirst':
@@ -117,7 +106,7 @@ const CollectionView = () => {
         setSortData(sortByCategories);
         break;
     }
-  }, [sortValue, typeValue, collection, categoryValue]);
+  }, [sortValue, typeValue, collection, categoryValue, categories]);
 
   const handleSubmit = (values) => {
     setSortValue(values.sort);
@@ -131,7 +120,6 @@ const CollectionView = () => {
 
       <MainTemplate>
         <PageTitle center>My collection</PageTitle>
-        {console.log(isNoCategoryExist)}
         <Sort
           setValues={handleSubmit}
           sortOptions={sortOptions}

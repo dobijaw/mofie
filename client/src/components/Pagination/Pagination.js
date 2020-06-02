@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
 import Button from 'components/Button/Button';
-import styles from './Pagination.module.scss';
 import PaginationItem from './PaginationItem/PaginationItem';
+import styles from './Pagination.module.scss';
 
 const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringReset }) => {
   const [paginationItems, setPaginationItems] = useState([]);
@@ -13,7 +14,9 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
     getCurrentPage(page);
   };
 
-  useEffect(() => setCurrentPage(initialPage), [valueRequiringReset, initialPage]);
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [valueRequiringReset, initialPage]);
 
   const getMinimalTheme = (array) => array.map((_, index) => index + 1);
 
@@ -69,10 +72,9 @@ const Pagination = ({ initialPage, totalPages, getCurrentPage, valueRequiringRes
     getLastThemeCallback,
   ]);
 
-  useEffect(
-    () => setPaginationItems(createPagesCallback(currentPage, totalPages, initialPage)),
-    [createPagesCallback, initialPage, currentPage, totalPages],
-  );
+  useEffect(() => {
+    setPaginationItems(createPagesCallback(currentPage, totalPages, initialPage));
+  }, [createPagesCallback, initialPage, currentPage, totalPages]);
 
   return (
     <div className={styles.pagination}>

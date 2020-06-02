@@ -4,7 +4,7 @@
 .logo {
   width: 86px;
 
-  &Middle {
+  &___middle {
     padding: 10px 0;
     margin: -10px 0 0 -10px;
     width: 85px;
@@ -16,13 +16,13 @@
     }
 
     .logo {
-      &Link {
+      &_link {
         padding: 10px;
       }
     }
   }
 
-  &Link {
+  &_link {
     display: block;
     padding: 5px 10px 5px 0;
 
@@ -31,7 +31,7 @@
     }
   }
 
-  &Img {
+  &_img {
     display: block;
     width: 100%;
   }

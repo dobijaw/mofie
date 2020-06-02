@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { AppContext } from 'context';
 import { logout } from 'actions/user';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes';
-import styles from './Settings.module.scss';
+import styles from './NavSettings.module.scss';
 
 const Settings = ({ className }) => {
   const { userDispatch } = useContext(AppContext);
@@ -26,6 +27,14 @@ const Settings = ({ className }) => {
       </li>
     </ul>
   );
+};
+
+Settings.propTypes = {
+  className: PropTypes.string,
+};
+
+Settings.defaultProps = {
+  className: '',
 };
 
 export default Settings;
