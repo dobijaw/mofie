@@ -101,7 +101,6 @@ export const authenticate = (dispatch, data) => {
     .then((res) => res.json())
     .then((res) => {
       if (!signal.aborted) {
-        console.log(res);
         if (res.warning) {
           dispatch({
             type: AUTH_FAILURE,
@@ -117,9 +116,10 @@ export const authenticate = (dispatch, data) => {
               token: res.token,
             },
           });
-
-          localStorage.setItem('token', res.token);
-          localStorage.setItem('userID', res.userID);
+          if (data.stayLogIn) {
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('userID', res.userID);
+          }
         }
       }
     })

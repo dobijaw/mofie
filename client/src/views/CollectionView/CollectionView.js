@@ -14,37 +14,36 @@ import styles from './CollectionView.module.scss';
 const CollectionView = () => {
   const { collection, categories, user } = useContext(AppContext);
   const [isNoCategoryExist, setNoCategoryExist] = useState(false);
-  const [categoryOptions, setCategoriesOptions] = useState([
-    {
-      id: 'all',
-      value: 'ALL',
-    },
-    ...categories,
-  ]);
+  const [initial] = useState({
+    categories: [
+      {
+        id: 'all',
+        value: 'ALL',
+      },
+      ...categories,
+    ],
+    nocategories: [
+      {
+        id: 'all',
+        value: 'ALL',
+      },
+      ...categories,
+      {
+        id: 'nocategory',
+        value: 'NO CATEGORY',
+      },
+    ],
+  });
+
+  const [categoryOptions, setCategoriesOptions] = useState(initial.categories);
 
   useEffect(() => {
     if (isNoCategoryExist) {
-      setCategoriesOptions([
-        {
-          id: 'all',
-          value: 'ALL',
-        },
-        ...categories,
-        {
-          id: 'nocategory',
-          value: 'NO CATEGORY',
-        },
-      ]);
+      setCategoriesOptions(initial.nocategories);
     } else {
-      setCategoriesOptions([
-        {
-          id: 'all',
-          value: 'ALL',
-        },
-        ...categories,
-      ]);
+      setCategoriesOptions(initial.categories);
     }
-  }, [categories, isNoCategoryExist]);
+  }, [categories, isNoCategoryExist, initial]);
 
   useEffect(() => {
     setNoCategoryExist(false);
@@ -79,11 +78,11 @@ const CollectionView = () => {
     const sortByCategories = sortByType.filter((c) => {
       if (categoryValue.id === 'all') {
         return c;
-      } if (categoryValue.id === 'nocategory') {
+      }
+      if (categoryValue.id === 'nocategory') {
         return !categories.map((item) => item.id).includes(c.customData?.categoryId);
-      } 
-        return categoryValue.id === c.customData?.categoryId;
-      
+      }
+      return categoryValue.id === c.customData?.categoryId;
     });
 
     switch (sortValue.id) {

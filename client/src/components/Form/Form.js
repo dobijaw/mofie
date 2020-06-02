@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 const Form = ({
   render,
-  initialValues,
-  className,
   onSubmit,
   validate,
-  submitOnChange,
+  className,
   checkChanges,
+  initialValues,
+  submitOnChange,
   inputRequiringCleaning,
 }) => {
-  const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [curName, setCurName] = useState('');
+  const [values, setValues] = useState(initialValues);
   const [currentError, setCurrentError] = useState('');
   const [disabledSubmit, toggleSubmitDisabled] = useState(false);
 
-  useEffect(() => setCurrentError(errors[curName] || ''), [errors, curName]);
+  useEffect(() => {
+    setCurrentError(errors[curName] || '');
+  }, [errors, curName]);
 
   const getAllErrors = useCallback((validateRules) => {
     const validateErrors = {};
@@ -54,7 +57,6 @@ const Form = ({
     const clearedInputs = Object.entries(values).map((item) =>
       inputs.includes(item[0]) ? [item[0], initialValues[item[0]]] : item,
     );
-    console.log(clearedInputs);
     const newObjectValues = Object.fromEntries(clearedInputs);
 
     setValues(newObjectValues);
@@ -97,6 +99,24 @@ const Form = ({
       {render(values, errors, handleChange, handleBlur, disabledSubmit)}
     </form>
   );
+};
+
+Form.propTypes = {
+  render: PropTypes.func.isRequired,
+  initialValues: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+  validate: PropTypes.func.isRequired,
+  submitOnChange: PropTypes.bool,
+  checkChanges: PropTypes.bool,
+  inputRequiringCleaning: PropTypes.bool,
+};
+
+Form.defaultProps = {
+  className: '',
+  checkChanges: false,
+  submitOnChange: false,
+  inputRequiringCleaning: false,
 };
 
 export default Form;

@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import PageTitle from 'components/PageTitle/PageTitle';
-import Button from 'components/Button/Button';
-import Pagination from 'components/Pagination/Pagination';
+import PropTypes from 'prop-types';
 import { useFetch, useDataProduction } from 'hooks';
+import { selectProductionData } from 'universal';
+import { RootContext } from 'context';
+import { API_KEY } from 'config';
+
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
-import { API_KEY } from 'config';
-import ProductionList from 'components/ProductionList/ProductionList';
-import { RootContext } from 'context';
-import { selectProductionData } from 'universal';
-import Loading from 'components/Loading/Loading';
 import NoData from 'components/NoData/NoData';
+import Button from 'components/Button/Button';
+import Loading from 'components/Loading/Loading';
+import PageTitle from 'components/PageTitle/PageTitle';
+import Pagination from 'components/Pagination/Pagination';
+import ProductionList from 'components/ProductionList/ProductionList';
 import styles from './SearchProduction.module.scss';
 
 const SearchProduction = ({ title, fetchType }) => {
@@ -33,20 +35,20 @@ const SearchProduction = ({ title, fetchType }) => {
     selectProductionData,
   );
 
-  const generateLink = useCallback(
-    (page, query) => {
-      if (query)
-        return `https://api.themoviedb.org/3/search/${fetchType}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}`;
-
+  const generateLink = (page, query) => {
+    if (query) {
+      return `https://api.themoviedb.org/3/search/${fetchType}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}`;
+    } 
       return `https://api.themoviedb.org/3/${fetchType}/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`;
-    },
-    [fetchType],
-  );
+    
+  };
+
+  const generateLinkCallback = useCallback(generateLink, [fetchType]);
 
   useEffect(() => {
-    const link = generateLink(currentPage, saveQuery);
+    const link = generateLinkCallback(currentPage, saveQuery);
     setQueryURL(link);
-  }, [currentPage, saveQuery, generateLink]);
+  }, [currentPage, saveQuery, generateLinkCallback]);
 
   useEffect(() => {
     if (!loading) setTotalPages(response?.total_pages);
@@ -71,7 +73,7 @@ const SearchProduction = ({ title, fetchType }) => {
         })}
         onSubmit={(values) => {
           const query = encodeURIComponent(values.search);
-          const URL = generateLink(1, query);
+          const URL = generateLinkCallback(1, query);
 
           if (query === saveQuery) return;
 
@@ -99,8 +101,8 @@ const SearchProduction = ({ title, fetchType }) => {
       />
       <Loading
         className={styles.loading}
-        reactOnChange={queryURL}
         loaded={!loading && !error}
+        reactOnChange={queryURL}
         render={() => (
           <>
             {production.length ? (
@@ -111,7 +113,6 @@ const SearchProduction = ({ title, fetchType }) => {
           </>
         )}
       />
-
       <Pagination
         initialPage={initialPage}
         totalPages={totalPages}
@@ -121,4 +122,10 @@ const SearchProduction = ({ title, fetchType }) => {
     </div>
   );
 };
+
+SearchProduction.propTypes = {
+  title: PropTypes.string.isRequired,
+  fetchType: PropTypes.string.isRequired,
+};
+
 export default SearchProduction;

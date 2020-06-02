@@ -129,7 +129,7 @@ const SignUpView = () => {
                 name="accept"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                label="I understand that this is just a demo of the application."
+                label="I understand that this is only a demo of an application created as part of learning."
                 error={errors.accept}
               />
               <Button type="submit" inForm disabled={disabledSubmit}>

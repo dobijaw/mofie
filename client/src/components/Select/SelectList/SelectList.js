@@ -18,7 +18,7 @@ const SelectList = ({ children, options, name, handleItemClick, isVisible }) => 
 );
 
 SelectList.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.bool, PropTypes.elementType]),
+  children: PropTypes.element,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
@@ -31,7 +31,7 @@ SelectList.propTypes = {
 };
 
 SelectList.defaultProps = {
-  children: false,
+  children: null,
   isVisible: false,
 };
 

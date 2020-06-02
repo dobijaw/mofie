@@ -1,4 +1,5 @@
-@import '../../theme//colors';
+@import '../../theme/colors';
+@import '../../theme/mixins';
 
 @keyframes load {
   0% {
@@ -10,7 +11,7 @@
   }
 }
 
-.modalBack {
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,37 +19,42 @@
   height: 100vh;
   z-index: 800;
   background: rgba(0, 0, 0, 0.8);
-}
 
-.modal {
-  position: fixed;
-  z-index: 800;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 90%;
-  max-width: 768px;
-  min-height: 70vh;
-  max-height: 70vh;
-  padding: 30px;
-  background: $white;
-  overflow-y: scroll;
-  animation: load 0.35s ease-in-out forwards;
-  transition: all 0.35s;
+  &_body {
+    position: fixed;
+    z-index: 800;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 90%;
+    max-width: 768px;
+    min-height: 70vh;
+    max-height: 70vh;
+    padding: 30px;
+    background: $white;
+    overflow-y: scroll;
+    animation: load 0.35s ease-in-out forwards;
+    transition: all 0.35s;
 
-  &ButtonContainer {
-    display: flex;
-    justify-content: flex-end;
+    @media (min-width: 768px) {
+      padding: 80px;
+    }
+
+    &___loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 400px;
+    }
   }
 
-  @media (min-width: 768px) {
-    padding: 80px;
+  &_info {
+    margin-top: 40px;
+    @include fontStyle($light-gray, 14px, 300, 1.5, 0.02em);
   }
 
-  &Loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 400px;
+  &_button {
+    color: $primary;
+    text-decoration: none;
   }
 }

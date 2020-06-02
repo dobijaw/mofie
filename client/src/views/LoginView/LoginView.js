@@ -35,7 +35,7 @@ const LoginView = () => {
           initialValues={{
             email: '',
             password: '',
-            stayLogIn: '',
+            stayLogIn: false,
           }}
           validate={(values) => ({
             email: [

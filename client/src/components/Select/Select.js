@@ -64,12 +64,12 @@ const Select = ({
         handleItemClick={handleListOptionChange}
         isVisible={isListVisible}
       >
-        {addNewItem && (
+        {addNewItem ? (
           <AddNewItem
             getData={(item) => handleNewItemAdding(name, item)}
             lightTheme={lightTheme || listLightTheme}
           />
-        )}
+        ) : null}
       </SelectList>
       {error && <FormError error={error} className={styles.select_error} />}
     </div>

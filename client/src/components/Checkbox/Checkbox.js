@@ -28,10 +28,16 @@ Checkbox.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['checkbox', 'radio']),
+  name: PropTypes.string.isRequired,
+  value: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
 
 Checkbox.defaultProps = {
   type: 'checkbox',
+  error: '',
 };
 
 export default Checkbox;
