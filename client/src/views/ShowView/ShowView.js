@@ -3,7 +3,7 @@ import SearchProduction from 'components/SearchProduction/SearchProduction';
 import MainTemplate from 'templates/MainTemplate/MainTemplate';
 
 const ShowView = () => (
-  <MainTemplate>
+  <MainTemplate footerSpace>
     <SearchProduction title="Search shows" fetchType="tv" />
   </MainTemplate>
 );

@@ -6,6 +6,9 @@ import styles from './NavItem.module.scss';
 const NavItem = ({ name, link, asPrimary }) => (
   <li className={styles.navItem}>
     <NavLink
+      onClick={() => {
+        document.body.removeAttribute('style');
+      }}
       activeClassName={styles.navItem_link___active}
       className={[styles.navItem_link, asPrimary && styles.navItem_link___primary].join(' ')}
       to={link}

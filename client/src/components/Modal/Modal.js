@@ -145,7 +145,7 @@ const Modal = ({ selected }) => {
 Modal.propTypes = {
   selected: PropTypes.shape({
     productionType: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 

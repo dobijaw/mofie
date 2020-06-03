@@ -12,8 +12,8 @@ const Navigation = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Logo />
-        <Burger openMenuFn={() => changeOpen(!isOpen)} />
-        <NavList isOpen={isOpen} />
+        <Burger openMenuFn={() => changeOpen(!isOpen)} isOpen={isOpen} />
+        <NavList isOpen={isOpen} closeMenu={() => changeOpen(false)} />
       </nav>
     </header>
   );

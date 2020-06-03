@@ -108,15 +108,15 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
   submitOnChange: PropTypes.bool,
-  checkChanges: PropTypes.bool,
-  inputRequiringCleaning: PropTypes.bool,
+  checkChanges: PropTypes.object,
+  inputRequiringCleaning: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
 
 Form.defaultProps = {
   className: '',
-  checkChanges: false,
   submitOnChange: false,
-  inputRequiringCleaning: false,
+  inputRequiringCleaning: [],
+  checkChanges: null,
 };
 
 export default Form;

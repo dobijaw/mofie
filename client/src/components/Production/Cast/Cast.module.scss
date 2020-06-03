@@ -1,6 +1,22 @@
 @import '../../../theme/colors';
 @import '../../../theme/mixins';
 
+@keyframes actorIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .cast {
   @include listReset;
   display: flex;
@@ -16,11 +32,17 @@
 
   &_link {
     text-decoration: none;
+    transition: transform 0.5s ease-in-out;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
   }
 
   &_item {
     width: 50%;
     padding: 20px 10px;
+    animation: actorIn 0.35s ease-in-out;
 
     @media (min-width: 960px) {
       width: 16.6%;

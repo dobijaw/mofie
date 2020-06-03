@@ -15,24 +15,21 @@
 
   &_columns {
     display: flex;
-    overflow-x: scroll;
-    // overflow-x: scroll;
-    // justify-content: flex-start;
-    // overflow-y: hidden;
-    // white-space: nowrap;
-    // background: blue;
+    flex-direction: column;
     width: 100%;
 
-    &::-webkit-scrollbar {
-      display: none;
+    @media (min-width: 960px) {
+      flex-direction: row;
     }
-
-    -ms-overflow-style: none;
   }
 
   &_section {
     flex-shrink: 0;
     width: 100%;
+
+    &:last-child {
+      margin-top: 60px;
+    }
 
     @media (min-width: 960px) {
       flex-shrink: 1;
@@ -44,6 +41,7 @@
 
       &:last-child {
         margin-left: 20px;
+        margin-top: 0;
       }
     }
   }

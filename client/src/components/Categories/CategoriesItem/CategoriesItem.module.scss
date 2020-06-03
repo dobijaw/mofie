@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 200px;
+  min-height: 200px;
   padding: 30px;
   border: 1px solid $dark-graphite;
   margin: 0;
@@ -14,19 +14,25 @@
   &_buttons {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 60px;
   }
 
   &_button {
-    padding: 4px 14px;
-    border: none;
-    background: $primary;
-    @include fontStyle($white, 16px, 300, 1.6, 0);
+    padding: 2px 14px;
+    border: 1px solid $white;
+    background: none;
+    @include fontStyle($white, 14px, 300, 1.6, 0.2em);
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.35s ease-in-out;
 
     &:hover {
-      background: $primary-light;
+      background: $white;
+      color: $black;
+    }
+
+    &:focus {
+      outline: 0;
     }
   }
 

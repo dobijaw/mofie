@@ -1,4 +1,6 @@
 .shows {
-  display: flex;
-  justify-content: space-between;
+  @media (min-width: 960px) {
+    display: flex;
+    justify-content: space-between;
+  }
 }

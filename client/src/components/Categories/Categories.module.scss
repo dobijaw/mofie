@@ -3,9 +3,13 @@
 
 .categories {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 30px;
   @include listReset;
   margin-top: 60px;
   margin-bottom: 100px;
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

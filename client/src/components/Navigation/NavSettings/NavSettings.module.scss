@@ -9,6 +9,20 @@
   @include listReset;
   background: $light-black;
 
+  &___noHidden {
+    background: none;
+
+    .settings_link,
+    .settings_button {
+      @include fontStyle($white, 17px, 300, 1.5, 0.2em);
+      padding: 10px 0;
+    }
+
+    .settings_item {
+      padding: 5px 0;
+    }
+  }
+
   &_link,
   &_button {
     display: block;

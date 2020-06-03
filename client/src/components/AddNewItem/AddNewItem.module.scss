@@ -1,11 +1,17 @@
 .addNewItem {
-  display: flex;
-  align-items: flex-end;
-  padding: 10px 0;
+  @media (min-width: 800px) {
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 0;
+  }
 
   > button {
-    margin-top: 0;
-    margin-left: 20px;
+    margin-top: 24px;
+
+    @media (min-width: 800px) {
+      margin-top: 0;
+      margin-left: 20px;
+    }
   }
 
   &_input {

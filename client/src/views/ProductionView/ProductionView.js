@@ -154,8 +154,7 @@ const ProductionView = ({ location, match }) => {
   }, [collection, id]);
 
   return (
-    <MainTemplate>
-      {console.log(detailsData)}
+    <MainTemplate footerSpace>
       <PageTitle isHidden>Actor details</PageTitle>
       {(detailsError !== null || detailsData?.status_code) && <Redirect to={routes.page404} />}
       <Loading

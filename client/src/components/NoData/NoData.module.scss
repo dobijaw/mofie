@@ -6,5 +6,5 @@
   margin: 120px 0 0;
   text-align: center;
   text-transform: uppercase;
-  @include fontStyle($dark-gray, 16px, 400, 1, 0.4em);
+  @include fontStyle($dark-gray, 16px, 400, 1.4, 0.4em);
 }

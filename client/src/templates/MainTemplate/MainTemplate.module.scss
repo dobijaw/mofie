@@ -7,12 +7,20 @@
   padding: 20px 30px;
   margin: 0 auto;
 
-  &__wrapper {
-    flex-grow: w;
+  &_wrapper {
+    flex-grow: 1;
+
+    &___footerSpace {
+      margin-bottom: 20px;
+
+      @media (min-width: 960px) {
+        margin-bottom: 40px;
+      }
+    }
   }
 
   &_body {
-    margin: 40px 0;
+    margin: 40px 0 0;
 
     @media (min-width: 768px) {
       margin: 80px 0 20px;

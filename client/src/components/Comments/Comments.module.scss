@@ -1,19 +1,32 @@
 .comments {
   position: relative;
+  margin-bottom: 40px;
+
+  @media (min-width: 960px) {
+    margin-bottom: 0;
+  }
 
   &_data {
-    display: flex;
-    justify-content: flex-start;
-    width: 60%;
+    @media (min-width: 960px) {
+      width: 60%;
+      display: flex;
+      justify-content: flex-start;
+    }
   }
 
   &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    @media (min-width: 960px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
   }
 
   &_button {
-    margin-top: 30px;
+    margin-top: 15px;
+
+    @media (min-width: 960px) {
+      margin-top: 30px;
+    }
   }
 }

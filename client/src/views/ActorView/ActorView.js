@@ -85,9 +85,8 @@ const ActorView = ({ match }) => {
   ]);
 
   return (
-    <MainTemplate>
+    <MainTemplate footerSpace>
       {detailsErr && <Redirect to={routes.page404} />}
-
       <Loading
         loaded={loaded}
         render={() => (

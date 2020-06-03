@@ -18,9 +18,13 @@
   justify-content: space-between;
   width: 100%;
   padding: 0;
-  margin: 0 0 60px;
+  margin: 0 0 48px;
   animation: itemIn 0.35s;
   transition: all 0.35s ease-in-out;
+
+  @media (min-width: 960px) {
+    margin-bottom: 60px;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -37,7 +41,11 @@
   }
 
   &_data {
-    margin-top: 20px;
+    margin-top: 8px;
+
+    @media (min-width: 960px) {
+      margin-top: 20px;
+    }
   }
 
   &_details {

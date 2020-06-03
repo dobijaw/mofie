@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useFetch, useDataProduction } from 'hooks';
 
 import { API_KEY } from 'config';
@@ -16,6 +16,8 @@ const PopularView = () => {
   const { movieGenres, movieGenresLoading, showGenres, showGenresLoading } = useContext(
     RootContext,
   );
+
+  const [isDesktop, toggleDesktopView] = useState(false);
 
   const popularMoviesURL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US`;
   const popularShowsURL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US`;
@@ -39,6 +41,24 @@ const PopularView = () => {
     selectProductionData,
   );
 
+  const handleResize = () => {
+    if (window.innerWidth >= 960) {
+      toggleDesktopView(true);
+    } else {
+      toggleDesktopView(false);
+    }
+  };
+
+  useEffect(() => {
+    handleResize();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <MainTemplate>
       <>
@@ -55,11 +75,17 @@ const PopularView = () => {
                 <div className={styles.popularView_columns}>
                   <section className={styles.popularView_section}>
                     <Headline tag="h2">Popular movies</Headline>
-                    <ProductionList productionData={movies.slice(0, 15)} withMain />
+                    <ProductionList
+                      productionData={isDesktop ? movies.slice(0, 15) : movies.slice(0, 8)}
+                      withMain
+                    />
                   </section>
                   <section className={styles.popularView_section}>
                     <Headline tag="h2">Popular TV shows</Headline>
-                    <ProductionList productionData={shows.slice(0, 15)} withMain />
+                    <ProductionList
+                      productionData={isDesktop ? shows.slice(0, 15) : shows.slice(0, 8)}
+                      withMain
+                    />
                   </section>
                 </div>
               </div>

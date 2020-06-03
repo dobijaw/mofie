@@ -8,21 +8,31 @@
 
   &___all {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 960px) {
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
     > .crew_item {
       display: block;
-      padding: 0 0 0 10px;
+      padding: 0 0 5px 0;
       text-transform: uppercase;
       opacity: 0.5;
 
-      &:not(:first-child)::before {
-        content: '|';
-        display: inline-block;
-        margin-right: 10px;
-        @include fontStyle($white, 9px, 300, 1.5, 0.04em);
-        opacity: 0.3;
+      @media (min-width: 600px) {
+        padding: 0 0 0 10px;
+
+        &:not(:first-child)::before {
+          content: '|';
+          display: inline-block;
+          margin-right: 10px;
+          @include fontStyle($white, 9px, 300, 1.5, 0.04em);
+          opacity: 0.3;
+        }
       }
     }
   }

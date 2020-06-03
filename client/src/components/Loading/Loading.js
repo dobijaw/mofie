@@ -5,7 +5,9 @@ import styles from './Loading.module.scss';
 const Loading = ({ loaded, render, reactOnChange, className }) => {
   const [renderData, setRenderData] = useState(false);
 
-  useEffect(() => setRenderData(false), [reactOnChange]);
+  useEffect(() => {
+    setRenderData(false);
+  }, [reactOnChange]);
 
   useEffect(() => {
     let timeout;
