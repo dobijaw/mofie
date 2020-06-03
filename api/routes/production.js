@@ -5,9 +5,6 @@ const mongoose = require('mongoose');
 const Production = require('../models/production');
 
 router.post('/add', (req, res, next) => {
-  console.log('to co przychodzi w request');
-  console.log(req.body);
-
   Production.find({
     creator: req.body.creator,
     productionId: req.body.productionId,
@@ -52,15 +49,22 @@ router.post('/add', (req, res, next) => {
               production,
             });
           })
-          .catch();
+          .catch((err) => {
+            console.log(err);
+
+            return res.status(500).json({
+              error: err,
+            });
+          });
       }
     })
-    .catch();
+    .catch((err) => {
+      console.log(err);
 
-  // res.json({
-  //   message: 'Work fine I have request',
-  //   data: req.body,
-  // });
+      return res.status(500).json({
+        error: err,
+      });
+    });
 });
 
 router.get('/:userID', (req, res, next) => {
@@ -69,14 +73,17 @@ router.get('/:userID', (req, res, next) => {
   })
     .exec()
     .then((prod) => {
-      // console.log(prod);
-
       return res.status(200).json({
-        message: 'Great',
         collection: prod,
       });
     })
-    .catch();
+    .catch((err) => {
+      console.log(err);
+
+      return res.status(500).json({
+        error: err,
+      });
+    });
 });
 
 router.delete('/:id', (req, res, next) => {
@@ -86,12 +93,14 @@ router.delete('/:id', (req, res, next) => {
     .then((result) => {
       console.log(result);
 
-      res.status(200).json({
+      return res.status(200).json({
         message: 'Production removed from collection',
       });
     })
     .catch((err) => {
-      res.status(500).json({
+      console.log(err);
+
+      return res.status(500).json({
         error: err,
       });
     });
@@ -117,7 +126,11 @@ router.put('/:id', (req, res, next) => {
         .catch();
     })
     .catch((err) => {
-      res.json('err');
+      console.log(err);
+
+      return res.status(500).json({
+        error: err,
+      });
     });
 });
 
