@@ -43,7 +43,7 @@ Settings.propTypes = {
 Settings.defaultProps = {
   className: '',
   noHidden: false,
-  closeMenu: null,
+  closeMenu: () => {},
 };
 
 export default Settings;

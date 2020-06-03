@@ -37,7 +37,7 @@ router.post('/signup', (req, res, next) => {
                     email: user.email,
                     userId: user._id.toString(),
                   },
-                  config.JWT_KEY,
+                  process.env.JWT_KEY,
                   {
                     expiresIn: '1h',
                   }
@@ -106,7 +106,7 @@ router.post('/login', (req, res, next) => {
               email: user[0].email,
               userId: user[0]._id.toString(),
             },
-            config.JWT_KEY,
+            process.env.JWT_KEY,
             {
               expiresIn: '1h',
             }

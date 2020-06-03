@@ -31,9 +31,8 @@ export const addCategory = async (dispatch, { userId, value }) => {
         id: res._id,
         value: res.value,
       };
-    } 
-      console.log(res.warning);
-    
+    }
+    console.log(res.warning);
   } catch (err) {
     console.log(err);
   }
@@ -85,9 +84,8 @@ export const updateCategory = async (dispatch, { categoryId, value }) => {
         id: res._id,
         value: res.value,
       };
-    } 
-      console.log(res.warning);
-    
+    }
+    console.log(res.warning);
   } catch (e) {
     console.log(e);
   }
