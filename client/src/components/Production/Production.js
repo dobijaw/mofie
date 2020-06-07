@@ -120,6 +120,11 @@ Production.propTypes = {
   lastEpisode: PropTypes.string,
   showsCreators: PropTypes.arrayOf(PropTypes.string),
   revenue: PropTypes.number,
+  lastEpisodeDate: PropTypes.string,
+  nextEpisodeDate: PropTypes.string,
+  runTime: PropTypes.number,
+  episodes: PropTypes.number,
+  seasones: PropTypes.number,
 };
 
 Production.defaultProps = {
@@ -128,6 +133,11 @@ Production.defaultProps = {
   lastEpisode: '',
   showsCreators: null,
   revenue: null,
+  lastEpisodeDate: '',
+  nextEpisodeDate: '',
+  runTime: null,
+  episodes: null,
+  seasones: null,
 };
 
 export default Production;

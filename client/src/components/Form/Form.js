@@ -51,10 +51,10 @@ const Form = ({
     setErrors({ ...errors, [name]: validateErrors[name] || '' });
   };
 
-  const clearInputs = (inputs) => {
+  const clearInputs = (inputs, val) => {
     if (!inputs) return;
 
-    const clearedInputs = Object.entries(values).map((item) =>
+    const clearedInputs = Object.entries(val).map((item) =>
       inputs.includes(item[0]) ? [item[0], initialValues[item[0]]] : item,
     );
     const newObjectValues = Object.fromEntries(clearedInputs);
@@ -81,10 +81,13 @@ const Form = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (checkChanges) toggleSubmitDisabled(false);
-      if (inputRequiringCleaning) clearInputsCallback(inputRequiringCleaning);
+
+      if (inputRequiringCleaning) clearInputsCallback(inputRequiringCleaning, values);
     }, 250);
 
     return () => clearTimeout(timeout);
+
+    // eslint-disable-next-line
   }, [checkChanges, inputRequiringCleaning, clearInputsCallback]);
 
   return (

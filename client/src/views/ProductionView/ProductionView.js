@@ -84,7 +84,7 @@ const ProductionView = ({ location, match }) => {
         overview: detailsData.overview,
         budget: detailsData.budget || null,
         revenue: detailsData.revenue || null,
-        episodes: detailsData.number_of_episodes || '',
+        episodes: detailsData.number_of_episodes || null,
         seasones: detailsData.number_of_seasons || null,
         episodeRunTime: detailsData.name ? detailsData.episode_run_time[0] : null,
         creators: detailsData.name ? detailsData.created_by.map((c) => c.name) : null,
