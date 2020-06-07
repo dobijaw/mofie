@@ -11,7 +11,7 @@ export const registration = (dispatch, data) => {
   const controller = new window.AbortController();
   const { signal } = controller;
 
-  fetch('http://localhost:9000/user/signup', {
+  fetch('https://mofie-api.herokuapp.com/user/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const localAuthenticate = (dispatch) => {
 
   if (!token || !userId) return;
 
-  fetch(`http://localhost:9000/user/authenticate/${userId}`)
+  fetch(`https://mofie-api.herokuapp.com/user/authenticate/${userId}`)
     .then((res) => res.json())
     .then((res) => {
       if (!res.warning) {
@@ -88,7 +88,7 @@ export const authenticate = (dispatch, data) => {
   const controller = new window.AbortController();
   const { signal } = controller;
 
-  fetch('http://localhost:9000/user/login', {
+  fetch('https://mofie-api.herokuapp.com/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ export const REMOVE_FROM_COLLECTION = 'REMOVE_FROM_COLLECTION';
 export const UPDATE_IN_COLLECTION = 'UPDATE_IN_COLLECTION';
 
 export const addToCllection = (dispatch, data) => {
-  fetch('http://localhost:9000/production/add', {
+  fetch('https://mofie-api.herokuapp.com/production/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const addToCllection = (dispatch, data) => {
 };
 
 export const getCollection = (dispatch, userID) => {
-  fetch(`http://localhost:9000/production/${userID}`)
+  fetch(`https://mofie-api.herokuapp.com/production/${userID}`)
     .then((res) => res.json())
     .then((res) => {
       console.log(res);
@@ -38,7 +38,7 @@ export const getCollection = (dispatch, userID) => {
 };
 
 export const updateInCollection = (dispatch, _id, data) => {
-  fetch(`http://localhost:9000/production/${_id}`, {
+  fetch(`https://mofie-api.herokuapp.com/production/${_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const updateInCollection = (dispatch, _id, data) => {
 };
 
 export const removeFromCollection = (dispatch, _id) => {
-  fetch(`http://localhost:9000/production/${_id}`, {
+  fetch(`https://mofie-api.herokuapp.com/production/${_id}`, {
     method: 'DELETE',
   })
     .then((res) => res.json())

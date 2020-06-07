@@ -4,7 +4,7 @@ export const UPDATE_CATEGORY_SUCCESS = 'UPDATE_CATEGORY_SUCCESS';
 export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS';
 
 export const addCategory = async (dispatch, { userId, value }) => {
-  const response = await fetch('http://localhost:9000/category/add', {
+  const response = await fetch('https://mofie-api.herokuapp.com/category/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const addCategory = async (dispatch, { userId, value }) => {
 };
 
 export const getCategories = (dispatch, userId) => {
-  fetch(`http://localhost:9000/category/${userId}`)
+  fetch(`https://mofie-api.herokuapp.com/category/${userId}`)
     .then((res) => res.json())
     .then((res) => {
       dispatch({
@@ -58,7 +58,7 @@ export const getCategories = (dispatch, userId) => {
 };
 
 export const updateCategory = async (dispatch, { categoryId, value }) => {
-  const response = await fetch(`http://localhost:9000/category/${categoryId}`, {
+  const response = await fetch(`https://mofie-api.herokuapp.com/category/${categoryId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export const updateCategory = async (dispatch, { categoryId, value }) => {
 };
 
 export const deleteCategory = (dispatch, categoryId) => {
-  fetch(`http://localhost:9000/category/${categoryId}`, {
+  fetch(`https://mofie-api.herokuapp.com/category/${categoryId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
