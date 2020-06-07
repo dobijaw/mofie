@@ -2,16 +2,24 @@
 @import '../../../theme/mixins';
 
 .showsDetails {
-  text-align: center;
-  padding: 0 30px;
+  &:not(:last-of-type) {
+    &::after {
+      content: '|';
+      margin: 0 10px;
+      display: inline-block;
+      @include fontStyle($gray, 10px, 300, 1.4, 0.05em);
+    }
+  }
 
   &_headline {
+    display: inline-block;
     @include fontStyle($gray, 10px, 300, 1.4, 0.05em);
     text-transform: uppercase;
   }
 
   &_value {
-    display: block;
+    display: inline-block;
+    padding-left: 10px;
     @include fontStyle($white, 16px, 300, 1.4, 0.05em);
   }
 }

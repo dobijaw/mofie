@@ -1,6 +1,8 @@
 .shows {
+  margin-bottom: 50px;
+
   @media (min-width: 960px) {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
   }
 }

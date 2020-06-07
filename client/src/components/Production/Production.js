@@ -4,6 +4,7 @@ import { FETCH_TYPE } from 'types';
 import Button from 'components/Button/Button';
 import DateFormat from 'components/DateFormat/DateFormat';
 import Headline from 'components/Headline/Headline';
+import Shows from 'components/Shows/Shows';
 import styles from './Production.module.scss';
 import Poster from './Poster/Poster';
 import Genres from './Genres/Genres';
@@ -21,10 +22,15 @@ const Production = ({
   isInCollection,
   showsCreators,
   lastEpisode,
+  lastEpisodeDate,
+  nextEpisodeDate,
   releaseDate,
   overview,
+  episodes,
+  seasones,
   keywords,
   revenue,
+  runTime,
   tagline,
   genres,
   isAuth,
@@ -80,6 +86,15 @@ const Production = ({
           <Creators creators={showsCreators} />
         )}
         {budget && <Budget budget={budget} revenue={revenue} />}
+        {type === FETCH_TYPE.TV && (
+          <Shows
+            episodes={episodes}
+            seasones={seasones}
+            lastEpisode={lastEpisodeDate}
+            nextEpisode={nextEpisodeDate}
+            runTime={runTime}
+          />
+        )}
         {keywords && <Keywords keywords={keywords} />}
       </div>
     </div>

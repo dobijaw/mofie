@@ -10,7 +10,6 @@ import { FETCH_TYPE, ROUTE_TYPE } from 'types';
 import { API_KEY } from 'config';
 import { routes } from 'routes';
 
-import Shows from 'components/Shows/Shows';
 import AllCast from 'components/AllCast/AllCast';
 import AllCrew from 'components/AllCrew/AllCrew';
 import Loading from 'components/Loading/Loading';
@@ -184,16 +183,12 @@ const ProductionView = ({ location, match }) => {
               lastEpisode={!renderedData.inProduction ? renderedData.lastEpisode : ''}
               showsCreators={renderedData.creators}
               revenue={renderedData.revenue}
+              episodes={renderedData.episodes}
+              seasones={renderedData.seasones}
+              lastEpisodeDate={renderedData.lastEpisode}
+              nextEpisodeDate={renderedData.nextEpisode}
+              runTime={renderedData.episodeRunTime}
             />
-            {productionType === FETCH_TYPE.TV && (
-              <Shows
-                episodes={renderedData.episodes}
-                seasones={renderedData.seasones}
-                lastEpisode={renderedData.lastEpisode}
-                nextEpisode={renderedData.nextEpisode}
-                runTime={renderedData.episodeRunTime}
-              />
-            )}
             {isInCollection && user.isAuth && (
               <Comments
                 rate={isInCollection.customData.rate}
