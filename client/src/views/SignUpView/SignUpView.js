@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import Form from 'components/Form/Form';
 import Field from 'components/Field/Field';
 import Button from 'components/Button/Button';
@@ -8,9 +8,11 @@ import { registration } from 'actions/user';
 import { AppContext } from 'context';
 import { Redirect } from 'react-router';
 import Checkbox from 'components/Checkbox/Checkbox';
+import Bar from 'components/Bar/Bar';
 
 const SignUpView = () => {
   const { user, userDispatch } = useContext(AppContext);
+  const [isMessageVisible, toggleMessage] = useState(false);
   const emailRef = useRef(null);
 
   useEffect(() => emailRef.current.focus(), [user]);
@@ -23,6 +25,12 @@ const SignUpView = () => {
   return (
     <>
       {user.isAuth && <Redirect to={routes.home} />}
+      {isMessageVisible && (
+        <Bar
+          message="Incorrect data. Make sure you enter the correct details."
+          handleClose={() => toggleMessage(false)}
+        />
+      )}
 
       <UserAuthentication
         title="Sign up"
@@ -84,6 +92,9 @@ const SignUpView = () => {
               email: values.email,
               password: values.password,
             });
+          }}
+          onSubmitCancel={() => {
+            toggleMessage(true);
           }}
           render={(values, errors, handleChange, handleBlur, disabledSubmit) => (
             <>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const Form = ({
   render,
   onSubmit,
+  onSubmitCancel,
   validate,
   className,
   checkChanges,
@@ -75,7 +76,7 @@ const Form = ({
     if (!submitPossible) {
       onSubmit(values);
       if (checkChanges) toggleSubmitDisabled(true);
-    }
+    } else if (onSubmitCancel) onSubmitCancel();
   };
 
   useEffect(() => {

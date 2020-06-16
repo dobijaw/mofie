@@ -18,15 +18,17 @@
     width: auto;
   }
 
-  &:hover {
-    &:not([disabled]) {
-      background: $white;
-      color: $black;
+  @media (hover: hover) {
+    &:hover {
+      &:not([disabled]) {
+        background: $white;
+        color: $black;
+      }
     }
   }
 
   &:focus {
-    outline: 0;
+    outline-color: $focus;
   }
 
   &[disabled] {
@@ -37,16 +39,20 @@
     border-color: $black;
     color: $black;
 
-    &:hover {
-      background: $black;
-      color: $white;
+    @media (hover: hover) {
+      &:hover {
+        background: $black;
+        color: $white;
+      }
     }
 
     &.button___add {
       background: none;
 
-      &:hover {
-        background: $black;
+      @media (hover: hover) {
+        &:hover {
+          background: $black;
+        }
       }
     }
   }
@@ -58,12 +64,14 @@
     padding: 0;
     background: $white;
 
-    &:hover {
-      background: none;
+    @media (hover: hover) {
+      &:hover {
+        background: none;
 
-      &::after,
-      &::before {
-        background: $white;
+        &::after,
+        &::before {
+          background: $white;
+        }
       }
     }
 

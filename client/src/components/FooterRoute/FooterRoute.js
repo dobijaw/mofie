@@ -8,7 +8,7 @@ const FooterRoute = ({ copy, route, routeName }) => (
   <footer className={styles.footerRoute}>
     <Copy isSmall>
       <>
-        <span className={styles.footerRoute___copy}>{copy} </span>
+        <span className={styles.footerRoute_copy}>{copy} </span>
         <Link to={route} className={styles.footerRoute_link}>
           {routeName}
         </Link>

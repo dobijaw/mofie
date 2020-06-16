@@ -30,6 +30,10 @@
     &:focus {
       + .checkbox_mark {
         background: $gray;
+
+        &::after {
+          border: 2px solid $focus;
+        }
       }
     }
 

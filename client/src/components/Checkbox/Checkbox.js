@@ -7,7 +7,6 @@ const Checkbox = ({ label, type, id, name, value, error, onChange, onBlur }) => 
   <div>
     <label htmlFor={id} className={styles.checkbox}>
       {label}
-      {console.log(value)}
       <input
         type={type}
         className={styles.checkbox_input}

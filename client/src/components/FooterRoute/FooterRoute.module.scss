@@ -19,7 +19,7 @@
     right: 20px;
   }
 
-  &___copy {
+  &_copy {
     display: none;
 
     @media (min-width: 960px) {
@@ -39,6 +39,10 @@
 
     &:hover {
       color: $focus;
+    }
+
+    &:focus {
+      outline-color: $focus;
     }
 
     @media (min-width: 960px) {
