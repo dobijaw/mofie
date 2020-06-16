@@ -2,5 +2,5 @@
 @import '../../theme/mixins';
 
 .formError {
-  @include fontStyle($primary, 12px, 300, 1, 0.02em);
+  @include fontStyle($focus, 12px, 300, 1, 0.02em);
 }
