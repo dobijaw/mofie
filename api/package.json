@@ -9,14 +9,14 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
-    "cookie-parser": "~1.4.4",
+    "cookie-parser": "~1.4.5",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "debug": "~4.1.1",
+    "express": "~4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.14",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.9.19",
+    "morgan": "~1.10.0"
   }
 }
